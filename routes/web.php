@@ -254,6 +254,10 @@ Route::get('/stimulatingphase/edit/{id?}','StimulatingPhaseController@edit')->na
 Route::post('/stimulatingphase/update','StimulatingPhaseController@update')->name('StimulatingPhaseUpdate');
 Route::get('/stimulatingphase/view/{PatientID?}','StimulatingPhaseController@show')->name('StimulatingPhaseShow');
 
+/*Stimulating Medecine*/
+Route::get('/stimulatingmedicine/{PatientID?}/{StiPhaseId?}','StimulatingMedecineController@StimulatingMedicine')->name('StimulatingMedicine');
+Route::post('/stimulatingmedicine/store','StimulatingMedecineController@store')->name('StimulatingMedicineStore');
+
 /*HistoryAssessesment*/
 Route::get('/historyasse','HistoryAssessmentController@index')->name('HistoryAssessmentIndex');
 Route::get('/historyasse/{PatientID?}','HistoryAssessmentController@PatientHistory')->name('PatientHistory');

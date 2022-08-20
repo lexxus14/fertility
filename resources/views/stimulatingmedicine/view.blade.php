@@ -148,72 +148,72 @@
     </section>
     <!-- /.content -->
 
-		<section class="content"> 
-    	<div class="container-fluid">
-    		<div class="row">
-	    		<div class="col-12">
-	          <!-- Lead Assessment Table -->
-	          <div class="col-md-12">
-	            <div class="card">
-	              <div class="card-header">
-	                <h3 class="card-title"><b>Stimulating Phase</b></h3>
-	                <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
-	                  <i class="fas fa-pencil-alt"></i> New
-	                </button>
-	              </div>
-	              <!-- /.card-header -->
-	              <div class="card-body">
-	                <table id="example1" class="table table-bordered table-striped">
-	                  <thead>                  
-	                  <tr>
-	                    <th>No</th>
-	                    <th>Date</th>
-	                    <th>Description</th>
-	                    <th>Notes</th>
-	                    <th>Action</th>
-	                  </tr>                  
-	                  </thead>
-	                  <tbody>
-	                    <?php
-		                      $intctr = 0;
-		                    ?>
-		                  @foreach($docresult as $result)<!-- lab foreach -->
-		                  <?php 
-		                    $intctr++;
-		                  ?>
-		                  <tr>
-		                    <td>{{$intctr}}</td>
-		                    <td>{{$result->docdate}}</td>
+    <section class="content"> 
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!-- Lead Assessment Table -->
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><b>Stimulating Phase</b></h3>
+                  <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
+                    <i class="fas fa-pencil-alt"></i> New
+                  </button>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>                  
+                    <tr>
+                      <th>No</th>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Notes</th>
+                      <th>Action</th>
+                    </tr>                  
+                    </thead>
+                    <tbody>
+                      <?php
+                          $intctr = 0;
+                        ?>
+                      @foreach($docresult as $result)<!-- lab foreach -->
+                      <?php 
+                        $intctr++;
+                      ?>
+                      <tr>
+                        <td>{{$intctr}}</td>
+                        <td>{{$result->docdate}}</td>
                         <td>{{$result->Description}}</td>
-		                    <td>{{$result->Notes}}</td>
-		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicine')}}/{{$intPatientId}}/{{$result->id}}">
-		                        <i class="fas fa-folder"></i>
-		                              View
-		                      </a>
+                        <td>{{$result->Notes}}</td>
+                        <td>
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('ConsultationView')}}/{{$result->id}}">
+                            <i class="fas fa-folder"></i>
+                                  View
+                          </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingPhaseEdit')}}/{{$result->id}}">
-		                        <i class="fas fa-pencil-alt"></i> Edit
-		                      </a>                       
+                          <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingPhaseEdit')}}/{{$result->id}}">
+                            <i class="fas fa-pencil-alt"></i> Edit
+                          </a>                       
 
-	                        <button type="button" class="btn btn-danger btn-sm open-modal-delete float-right" data-toggle="modal" data-target="#modal-delete" value="{{$result->id}}"> <i class="fas fa-trash">
-	                              </i>Delete
-	                        </button>
-	                      </td>
-		                  </tr> 
-	                     @endforeach      
-	                  </tbody>                  
-	                </table>
-	              </div>
-	              <!-- /.card-body -->
-	            </div>
-	            <!-- /.card -->
-	            
-	          </div>
-	          <!-- /.col -->
-	    		</div>
-    		</div>
-    	</div>
+                          <button type="button" class="btn btn-danger btn-sm open-modal-delete float-right" data-toggle="modal" data-target="#modal-delete" value="{{$result->id}}"> <i class="fas fa-trash">
+                                </i>Delete
+                          </button>
+                        </td>
+                      </tr> 
+                       @endforeach      
+                    </tbody>                  
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+              
+            </div>
+            <!-- /.col -->
+          </div>
+        </div>
+      </div>
     </section>
 </div>
 
@@ -245,10 +245,10 @@
                     </div>
                 </div>
                 <div class="col-12">
-                		<div class="form-group">
-                			<label>Description</label>
-                			<input type="text" class="form-control" name="txtdescription" placeholder="Enter Description">
-                		</div>
+                    <div class="form-group">
+                      <label>Description</label>
+                      <input type="text" class="form-control" name="txtdescription" placeholder="Enter Description">
+                    </div>
                     <div class="form-group">
                         <label>Note</label>
                         <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4"></textarea>               
@@ -326,7 +326,7 @@
 
   <script >
   $(document).ready(function(){
-  	/* Lead Reminder */
+    /* Lead Reminder */
     $('#doc-date').datetimepicker({
         format: 'L'
     });

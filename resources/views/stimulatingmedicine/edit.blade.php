@@ -148,113 +148,65 @@
     </section>
     <!-- /.content -->
 
-		<section class="content"> 
-    	<div class="container-fluid">
-    		<div class="row">
-	    		<div class="col-12">
-	          <!-- Lead Assessment Table -->
-	          <div class="col-md-12">
-	            <div class="card">
-	              <div class="card-header">
-	                <h3 class="card-title"><b>Stimulating Phase</b></h3>
-	                <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
-	                  <i class="fas fa-pencil-alt"></i> New
-	                </button>
-	              </div>
-	              <!-- /.card-header -->
-	              <div class="card-body">
-	                <table id="example1" class="table table-bordered table-striped">
-	                  <thead>                  
-	                  <tr>
-	                    <th>No</th>
-	                    <th>Date</th>
-	                    <th>Description</th>
-	                    <th>Notes</th>
-	                    <th>Action</th>
-	                  </tr>                  
-	                  </thead>
-	                  <tbody>
-	                    <?php
-		                      $intctr = 0;
-		                    ?>
-		                  @foreach($docresult as $result)<!-- lab foreach -->
-		                  <?php 
-		                    $intctr++;
-		                  ?>
-		                  <tr>
-		                    <td>{{$intctr}}</td>
-		                    <td>{{$result->docdate}}</td>
-                        <td>{{$result->Description}}</td>
-		                    <td>{{$result->Notes}}</td>
-		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicine')}}/{{$intPatientId}}/{{$result->id}}">
-		                        <i class="fas fa-folder"></i>
-		                              View
-		                      </a>
+  <section class="content">
+   <form id="quickForm" action="{{route('StimulatingPhaseUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
+    @foreach($docresults as $result)
+        {{ csrf_field() }}
+      <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
+      <input type="hidden" name="txtDocId" value="{{$result->id}}">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="card-header">
+              <h3 class="card-title">Edit Patient Consultation</h3>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingPhaseEdit')}}/{{$result->id}}">
-		                        <i class="fas fa-pencil-alt"></i> Edit
-		                      </a>                       
-
-	                        <button type="button" class="btn btn-danger btn-sm open-modal-delete float-right" data-toggle="modal" data-target="#modal-delete" value="{{$result->id}}"> <i class="fas fa-trash">
-	                              </i>Delete
-	                        </button>
-	                      </td>
-		                  </tr> 
-	                     @endforeach      
-	                  </tbody>                  
-	                </table>
-	              </div>
-	              <!-- /.card-body -->
-	            </div>
-	            <!-- /.card -->
-	            
-	          </div>
-	          <!-- /.col -->
-	    		</div>
-    		</div>
-    	</div>
-    </section>
-</div>
-
-    <!-- Modal Lead Assessment -->
-      <div class="modal fade" id="modal-show">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Stimulating Phase</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
             </div>
-
-            <form id="quickForm" action="{{route('StimulatingPhaseStore')}}" method="POST" enctype="multipart/form-data">
-              {{ csrf_field() }}
-            <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-            <div class="modal-body">
+            
+            <div class="card-body">
               <div class="row">
-                <div class="col-4">
+                <div class="col-2">
                     <div class="form-group">
                       <label>Date</label>
                       <div class="input-group date" id="doc-date" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" name="txtDocDate" data-target="#doc-date"/>
+                          <input type="text" id="doc-date-input" class="form-control datetimepicker-input" name="txtDocDate" data-target="#doc-date"/>
                           <div class="input-group-append" data-target="#doc-date" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
                       </div>
+
+                      <script>
+                        const d = new Date("{{$result->docdate}}");
+                        let text = d.toLocaleString();
+                        document.getElementById("doc-date-input").value = text;
+                      </script>
                     </div>
                 </div>
                 <div class="col-12">
-                		<div class="form-group">
-                			<label>Description</label>
-                			<input type="text" class="form-control" name="txtdescription" placeholder="Enter Description">
-                		</div>
+                    <div class="form-group">
+                      <label>Description</label>
+                      <input type="text" class="form-control" name="txtdescription" value="{{$result->Description}}" placeholder="Enter Description">
+                    </div>
                     <div class="form-group">
                         <label>Note</label>
-                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4"></textarea>               
+                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4">{{$result->Notes}}</textarea>
+                    
                     </div>
                 </div>
-              </div>  
+              </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
@@ -263,52 +215,34 @@
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      
+                      </div>                      
                     </div>
+                    <br>
+                      <p>FILE: <a href="{{url('/')}}/{{$result->filelink}}" target="_blank">{{$result->filelink}} </a></p>
                   </div>
                 </div>
-              </div>      
-            </div>            
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
               </div>
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
 
-      <div class="modal fade" id="modal-delete">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Are you sure you to delete?</p>
-            </div>
-            <form method="POST" action="{{route('ConsultationDelete')}}">
-              {{ csrf_field() }}
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Delete</button>
+              <div class="row">
+                <div class="col-12">
+                  <a href="{{route('StimulatingPhase')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <input type="submit" value="Save" class="btn btn-success float-right">
+                </div>
               </div>
-              <input type="hidden" id="del_id" name="del_id" value="0">
-              <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-            </form>
-          </div>
-          <!-- /.modal-content -->
+            <!-- /.card-body -->
+            </div>
+          <!-- /.card -->
         </div>
-        <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal -->
+      
+
+    </form>
+    @endforeach
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -326,14 +260,9 @@
 
   <script >
   $(document).ready(function(){
-  	/* Lead Reminder */
+    /* Lead Reminder */
     $('#doc-date').datetimepicker({
         format: 'L'
-    });
-
-    $('.open-modal-delete').click(function(data){
-      var id = $(this).val();
-      $('#del_id').val(id);
     });
 
     $('#quickForm').validate({
@@ -363,39 +292,6 @@
   });
   });
   </script>
-
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, 
-      "lengthChange": false, 
-      "searching": true,
-      "autoWidth": false,
-      "ordering": false,
-      "paging": true,
-      "info": false,
-      "buttons": ["excel", "pdf", "print"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $("#example2").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-    $("#example3").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-    $('#example4').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-
 
 <script>
 $(function () {

@@ -19,6 +19,7 @@ class CreateStimulatingMedicationTable extends Migration
             $table->bigInteger('StimulatingPhasesId');
             $table->date('docdate');
             $table->string('Notes')->nullable();
+            $table->string('CycleNo')->nullable();
             $table->string('filelink')->nullable();
             $table->integer('createdbyid')->nullable();
             $table->bigInteger('MedIdAM')->nullable();
