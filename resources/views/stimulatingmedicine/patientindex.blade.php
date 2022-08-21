@@ -214,12 +214,12 @@
 
                         <td>{{$result->Notes}}</td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('ConsultationView')}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$StiPhaseId}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingPhaseEdit')}}/{{$result->id}}">
+		                      <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingMedicineEdit')}}/{{$StiPhaseId}}/{{$result->id}}">
 		                        <i class="fas fa-pencil-alt"></i> Edit
 		                      </a>                       
 
@@ -402,8 +402,8 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal -->
-
+    <!-- /.modal -->
+    <!-- Modal delete -->
       <div class="modal fade" id="modal-delete">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -416,23 +416,23 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('ConsultationDelete')}}">
+            <form method="POST" action="{{route('StimulatingMedicineDelete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Delete</button>
               </div>
               <input type="hidden" id="del_id" name="del_id" value="0">
-              <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
+              <input type="hidden" name="txtDocId" value="{{$StiPhaseId}}">
             </form>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal -->
+    <!-- /.modal -->
 
-      <!-- Add Med Modal-->
+    <!-- Add Med Modal-->
       <div class="modal fade" id="modal-add-med">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -475,9 +475,9 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.Add Med Modal -->
+    <!-- /.Add Med Modal -->
 
-      <!-- Add AM Med Modal-->
+    <!-- Add AM Med Modal-->
       <div class="modal fade" id="modal-add-am-med">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -517,9 +517,9 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.Add AM Med Modal -->
+    <!-- /.Add AM Med Modal -->
 
-      <!-- Add PM Med Modal-->
+    <!-- Add PM Med Modal-->
       <div class="modal fade" id="modal-add-pm-med">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -562,7 +562,7 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.Add PM Med Modal -->
+    <!-- /.Add PM Med Modal -->
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>

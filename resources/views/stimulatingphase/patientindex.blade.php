@@ -187,7 +187,7 @@
                         <td>{{$result->Description}}</td>
 		                    <td>{{$result->Notes}}</td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicine')}}/{{$intPatientId}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicine')}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
@@ -294,7 +294,7 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('ConsultationDelete')}}">
+            <form method="POST" action="{{route('StimulatingPhaseDelete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

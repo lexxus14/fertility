@@ -148,101 +148,317 @@
     </section>
     <!-- /.content -->
 
-  <section class="content">
-   <form id="quickForm" action="{{route('StimulatingPhaseUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
-    @foreach($docresults as $result)
-        {{ csrf_field() }}
-      <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="txtDocId" value="{{$result->id}}">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-primary">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Stimulating Medicine</h3>
+          </div>
+          <div class="card-body">
+            @foreach($docresults as $docresult)
+            <form id="quickForm" action="{{route('StimulatingMedicineUpdate')}}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+              <input type="hidden" name="txtDocId" value="{{$docId}}">
+              <input type="hidden" name="txtStiPhaseId" value="{{$StiPhaseId}}">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">                  
+                      <label>Start Date</label>                      
+                        <input type="date" class="form-control" name="txtDocDate" value="{{$docresult->docdate}}">
+                    </div>
+                  </div>                
                 </div>
-            @endif
-            <div class="card-header">
-              <h3 class="card-title">Edit Patient Consultation</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            
-            <div class="card-body">
-              <div class="row">
-                <div class="col-2">
+                <div class="row">
+                  <div class="col-4">
                     <div class="form-group">
-                      <label>Date</label>
-                      <div class="input-group date" id="doc-date" data-target-input="nearest">
-                          <input type="text" id="doc-date-input" class="form-control datetimepicker-input" name="txtDocDate" data-target="#doc-date"/>
-                          <div class="input-group-append" data-target="#doc-date" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                      </div>
-
-                      <script>
-                        const d = new Date("{{$result->docdate}}");
-                        let text = d.toLocaleString();
-                        document.getElementById("doc-date-input").value = text;
-                      </script>
+                      <label>Cycle Day</label>                 
+                      <input type="number" name="CycleNo" placeholder="Number" class="form-control" value="{{$docresult->CycleNo}}">
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                      <label>Description</label>
-                      <input type="text" class="form-control" name="txtdescription" value="{{$result->Description}}" placeholder="Enter Description">
-                    </div>
-                    <div class="form-group">
-                        <label>Note</label>
-                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4">{{$result->Notes}}</textarea>
-                    
-                    </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>                      
-                    </div>
-                    <br>
-                      <p>FILE: <a href="{{url('/')}}/{{$result->filelink}}" target="_blank">{{$result->filelink}} </a></p>
                   </div>
                 </div>
+                <div class="row">                
+                  <div class="col-2">
+                    <div class="form-group">
+                      <label>AM</label>
+                      <input type="number" name="MedDoseAM" class="form-control" value="{{$docresult->MedDoseAM}}">
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <label>Unit</label>
+                    <select name="UnitIdAM" class="form-control">
+                      @foreach($medicinesunits as $medunit)
+                        @if($medunit->id==$docresult->UnitIdAM)
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @else
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @endif
+                      @endforeach
+                    </select>                  
+                  </div>
+                  <div class="col-8">
+                    <label>Medicine</label>
+                    <div class="input-group">
+                      <input class="form-control" type="text" id="txtAmMedicine" value="{{$docresult->MedAm}}">
+                      <input type="hidden" name="MedIdAM" id="MedIdAM" value="{{$docresult->MedIdAM}}">
+                      <div class="input-group-append">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#modal-add-am-med" type="button">
+                          <i class="fas fa-search"> Search </i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="row">                
+                  <div class="col-2">
+                    <div class="form-group">
+                      <label>PM</label>
+                      <input type="number" name="MedDosePM" class="form-control" value="{{$docresult->MedDosePM}}">
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <label>Unit</label>
+                    <select name="UnitIdPM" class="form-control">
+                      @foreach($medicinesunits as $medunit)
+                        @if($medunit->id==$docresult->UnitIdPM)
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @else
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @endif
+                      @endforeach
+                    </select>                  
+                  </div>
+                  <div class="col-8">
+                    <label>Medicine</label>
+                    <div class="input-group">
+                      <input class="form-control" type="text" id="txtPmMedicine" value="{{$docresult->MedPm}}">
+                      <input type="hidden" name="MedIdPM" id="txtPmMedicineId" value="{{$docresult->MedIdPM}}">
+                      <div class="input-group-append">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#modal-add-pm-med" type="button">
+                          <i class="fas fa-search"> Search </i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Breakfast</label>
+                    </div>
+                    <textarea name="Breakfast" class="form-control">{{$docresult->Breakfast}}</textarea>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Lunch</label>
+                    </div>
+                    <textarea name="Lunch" class="form-control">{{$docresult->Lunch}}</textarea>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Dinner</label>
+                    </div>
+                    <textarea name="Dinner" class="form-control">{{$docresult->Dinner}}</textarea>
+                  </div>
+                </div> 
+                <hr>
+                <div class="row">                
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Other Medicine</label>
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add-med">Add Med</button>
+                      <table class="table table-bordered">
+                      <thead>
+                        <tr>                        
+                          <th>Medicine</th>
+                          <th>Dosage</th>
+                          <th>Unit</th>
+                          <th style="width: 10px">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody">
+                        <?php $intctr=1; ?>
+                        @foreach($subdocresults as $subdocresult)
+                        <?php $intctr++; ?>
+                        <tr id="R{{$intctr}}">                    
+                          <td>{{$subdocresult->Medicine}}<input type="hidden" class="medid" name="MedId[]" value="{{$subdocresult->MedId}}"></td>
+                          <td>
+                            <input type="number" name="dose[]" class="form-control" value="{{$subdocresult->dose}}">
+                          </td>
+                          <td>
+                            <select name="UnitId[]" class="form-control">
+                              @foreach($medicinesunits as $medunit)
+                                @if($medunit->id==$subdocresult->UnitId)
+                                  <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                                @else
+                                  <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                                @endif
+                              @endforeach
+                            </select> 
+                          </td>
+                          <td><button class="btn btn-danger btn-sm remove-other-medicine float-right">Remove</button></td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+                </div>    
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label>Notes</label>
+                      <textarea name="Notes" class="form-control">{{$docresult->Notes}}</textarea>
+                    </div>
+                  </div>
+                </div> 
+              </div>            
+              <div class="modal-footer justify-content-between">
+                <a href="{{route('StimulatingMedicine')}}/{{$StiPhaseId}}" class="btn btn-default">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save</button>
               </div>
-
-              <div class="row">
-                <div class="col-12">
-                  <a href="{{route('StimulatingPhase')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
-                  <input type="submit" value="Save" class="btn btn-success float-right">
-                </div>
-              </div>
-            <!-- /.card-body -->
-            </div>
-          <!-- /.card -->
+            </form>
+            @endforeach
+          </div>
         </div>
       </div>
-      
-
-    </form>
-    @endforeach
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 </div>
+
+<!-- Add Med Modal-->
+      <div class="modal fade" id="modal-add-med">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Search Medicine</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card-body">
+                  <table id="example2" class="table table-bordered table-striped">
+                    <thead>                  
+                    <tr>                      
+                      <th>Medicine</th>
+                      <th>Action</th>
+                    </tr>                  
+                    </thead>
+                    <tbody>
+                      @foreach($medicines as $medicine)
+                      <tr>
+                        <td>{{$medicine->description}}</td>
+                        <td>
+                          <button class="btn btn-success btn-sm float-right add-other-medicine" value="{{$medicine->id}}">
+                            <i class="fas fa-plus"></i>
+                                  Add
+                          </button>                          
+                        </td>
+                      </tr>
+                      @endforeach      
+                    </tbody>                  
+                  </table>
+                </div>
+            </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    <!-- /.Add Med Modal -->
+
+    <!-- Add AM Med Modal-->
+      <div class="modal fade" id="modal-add-am-med">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Search Medicine</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card-body">
+                  <table id="example3" class="table table-bordered table-striped">
+                    <thead>                  
+                    <tr>                      
+                      <th>Medicine</th>
+                      <th>Action</th>
+                    </tr>                  
+                    </thead>
+                    <tbody>
+                      @foreach($medicines as $medicine)
+                      <tr>
+                        <td>{{$medicine->description}}</td>
+                        <td>
+                          <button type="button" class="btn btn-success btn-sm float-right add-medicine-am" value="{{$medicine->id}}"><i class="fas fa-plus"></i>Add</button>                         
+                        </td>
+                      </tr>
+                      @endforeach      
+                    </tbody>                  
+                  </table>
+                </div>
+            </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    <!-- /.Add AM Med Modal -->
+
+    <!-- Add PM Med Modal-->
+      <div class="modal fade" id="modal-add-pm-med">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Search Medicine</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card-body">
+                  <table id="example4" class="table table-bordered table-striped">
+                    <thead>                  
+                    <tr>                      
+                      <th>Medicine</th>
+                      <th>Action</th>
+                    </tr>                  
+                    </thead>
+                    <tbody>
+                      @foreach($medicines as $medicine)
+                      <tr>
+                        <td>{{$medicine->description}}</td>
+                        <td>
+                          <button class="btn btn-success btn-sm float-right add-medicine-pm" value="{{$medicine->id}}">
+                            <i class="fas fa-plus"></i>
+                                  Add
+                          </button>                          
+                        </td>
+                      </tr>
+                      @endforeach      
+                    </tbody>                  
+                  </table>
+                </div>
+            </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    <!-- /.Add PM Med Modal -->
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -260,6 +476,92 @@
 
   <script >
   $(document).ready(function(){
+
+
+    $('.add-medicine-am').click(function(){
+      var med_id = $(this).val();
+      url = '{{route('GetMedInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);   
+        $('#txtAmMedicine').val(data.description);
+        $('#MedIdAM').val(data.id);
+      });
+    });
+
+    $('.add-medicine-pm').click(function(){
+      var med_id = $(this).val();
+      url = '{{route('GetMedInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);   
+        $('#txtPmMedicine').val(data.description);
+        $('#txtPmMedicineId').val(data.id);
+      });
+    });
+
+    var rowIdx = 0;
+
+  $('.add-other-medicine').click(function(){
+
+      var med_id = $(this).val();
+      url = '{{route('GetMedInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);
+            $('#tbody').append(`<tr id="R${++rowIdx}">                    
+                <td>${data.description}<input type="hidden" class="medid" name="MedId[]" value="${data.id}"></td>
+                <td>
+                  <input type="number" name="dose[]" class="form-control">
+                </td>
+                <td>
+                  <select name="UnitId[]" class="form-control">
+                    @foreach($medicinesunits as $medunit)
+                    <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                    @endforeach
+                  </select> 
+                </td>
+                <td><button class="btn btn-danger btn-sm remove-other-medicine float-right">Remove</button></td>
+              </tr>`);
+      });
+
+    });
+
+  // jQuery button click event to remove a row.
+    $('#tbody').on('click', '.remove-other-medicine', function () {
+
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // Iterating across all the rows
+      // obtained to change the index
+      child.each(function () {
+
+                  // Getting <tr> id.
+                  var id = $(this).attr('id');
+
+                  // Getting the <p> inside the .row-index class.
+                  var idx = $(this).children('.row-index').children('p');
+
+                  // Gets the row number from <tr> id.
+                  var dig = parseInt(id.substring(1));
+
+                  // Modifying row index.
+                  idx.html(`${dig - 1}`);
+
+                  // Modifying row id.
+                  $(this).attr('id', `R${dig - 1}`);
+      });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      rowIdx--;
+    });
+
+
     /* Lead Reminder */
     $('#doc-date').datetimepicker({
         format: 'L'
@@ -292,6 +594,47 @@
   });
   });
   </script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "info": false,
+      "buttons": ["excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $("#example2").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "info": false
+    });
+    $("#example3").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "info": false
+    });
+    $("#example4").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "info": false
+    });
+  });
+</script>
 
 <script>
 $(function () {

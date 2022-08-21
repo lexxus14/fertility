@@ -148,167 +148,173 @@
     </section>
     <!-- /.content -->
 
-    <section class="content"> 
+    <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <!-- Lead Assessment Table -->
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title"><b>Stimulating Phase</b></h3>
-                  <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
-                    <i class="fas fa-pencil-alt"></i> New
-                  </button>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>                  
-                    <tr>
-                      <th>No</th>
-                      <th>Date</th>
-                      <th>Description</th>
-                      <th>Notes</th>
-                      <th>Action</th>
-                    </tr>                  
-                    </thead>
-                    <tbody>
-                      <?php
-                          $intctr = 0;
-                        ?>
-                      @foreach($docresult as $result)<!-- lab foreach -->
-                      <?php 
-                        $intctr++;
-                      ?>
-                      <tr>
-                        <td>{{$intctr}}</td>
-                        <td>{{$result->docdate}}</td>
-                        <td>{{$result->Description}}</td>
-                        <td>{{$result->Notes}}</td>
-                        <td>
-                          <a class="btn btn-primary btn-sm float-right" href="{{route('ConsultationView')}}/{{$result->id}}">
-                            <i class="fas fa-folder"></i>
-                                  View
-                          </a>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Stimulating Medicine</h3>
+          </div>
+          <div class="card-body">
+            @foreach($docresults as $docresult)
 
-                          <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingPhaseEdit')}}/{{$result->id}}">
-                            <i class="fas fa-pencil-alt"></i> Edit
-                          </a>                       
-
-                          <button type="button" class="btn btn-danger btn-sm open-modal-delete float-right" data-toggle="modal" data-target="#modal-delete" value="{{$result->id}}"> <i class="fas fa-trash">
-                                </i>Delete
-                          </button>
-                        </td>
-                      </tr> 
-                       @endforeach      
-                    </tbody>                  
-                  </table>
+              <input type="hidden" name="txtDocId" value="{{$docId}}">
+              <input type="hidden" name="txtStiPhaseId" value="{{$StiPhaseId}}">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">                  
+                      <label>Start Date</label>                      
+                        <input type="date" class="form-control" name="txtDocDate" value="{{$docresult->docdate}}">
+                    </div>
+                  </div>                
                 </div>
-                <!-- /.card-body -->
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>Cycle Day</label>                 
+                      <input type="number" name="CycleNo" placeholder="Number" class="form-control" value="{{$docresult->CycleNo}}">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">                
+                  <div class="col-2">
+                    <div class="form-group">
+                      <label>AM</label>
+                      <input type="number" name="MedDoseAM" class="form-control" value="{{$docresult->MedDoseAM}}">
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <label>Unit</label>
+                    <select name="UnitIdAM" class="form-control">
+                      @foreach($medicinesunits as $medunit)
+                        @if($medunit->id==$docresult->UnitIdAM)
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @else
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @endif
+                      @endforeach
+                    </select>                  
+                  </div>
+                  <div class="col-8">
+                    <label>Medicine</label>
+                    <div class="input-group">
+                      <input class="form-control" type="text" id="txtAmMedicine" value="{{$docresult->MedAm}}">
+                      <input type="hidden" name="MedIdAM" id="MedIdAM" value="{{$docresult->MedIdAM}}">                      
+                    </div>
+                  </div>
+                </div> 
+                <div class="row">                
+                  <div class="col-2">
+                    <div class="form-group">
+                      <label>PM</label>
+                      <input type="number" name="MedDosePM" class="form-control" value="{{$docresult->MedDosePM}}">
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <label>Unit</label>
+                    <select name="UnitIdPM" class="form-control">
+                      @foreach($medicinesunits as $medunit)
+                        @if($medunit->id==$docresult->UnitIdPM)
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @else
+                          <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                        @endif
+                      @endforeach
+                    </select>                  
+                  </div>
+                  <div class="col-8">
+                    <label>Medicine</label>
+                    <div class="input-group">
+                      <input class="form-control" type="text" id="txtPmMedicine" value="{{$docresult->MedPm}}">
+                      <input type="hidden" name="MedIdPM" id="txtPmMedicineId" value="{{$docresult->MedIdPM}}">
+                      
+                    </div>
+                  </div>
+                </div>  
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Breakfast</label>
+                    </div>
+                    <textarea name="Breakfast" class="form-control">{{$docresult->Breakfast}}</textarea>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Lunch</label>
+                    </div>
+                    <textarea name="Lunch" class="form-control">{{$docresult->Lunch}}</textarea>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Dinner</label>
+                    </div>
+                    <textarea name="Dinner" class="form-control">{{$docresult->Dinner}}</textarea>
+                  </div>
+                </div> 
+                <hr>
+                <div class="row">                
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Other Medicine</label>
+                      
+                      <table class="table table-bordered">
+                      <thead>
+                        <tr>                        
+                          <th>Medicine</th>
+                          <th>Dosage</th>
+                          <th>Unit</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody">
+                        <?php $intctr=1; ?>
+                        @foreach($subdocresults as $subdocresult)
+                        <?php $intctr++; ?>
+                        <tr id="R{{$intctr}}">                    
+                          <td>{{$subdocresult->Medicine}}<input type="hidden" class="medid" name="MedId[]" value="{{$subdocresult->MedId}}"></td>
+                          <td>
+                            <input type="number" name="dose[]" class="form-control" value="{{$subdocresult->dose}}">
+                          </td>
+                          <td>
+                            <select name="UnitId[]" class="form-control">
+                              @foreach($medicinesunits as $medunit)
+                                @if($medunit->id==$subdocresult->UnitId)
+                                  <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                                @else
+                                  <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
+                                @endif
+                              @endforeach
+                            </select> 
+                          </td>
+                          
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+                </div>    
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label>Notes</label>
+                      <textarea name="Notes" class="form-control">{{$docresult->Notes}}</textarea>
+                    </div>
+                  </div>
+                </div> 
+              </div>            
+              <div class="modal-footer justify-content-between">
+                <a href="{{route('StimulatingMedicine')}}/{{$StiPhaseId}}" class="btn btn-default">Cancel</a>
               </div>
-              <!-- /.card -->
-              
-            </div>
-            <!-- /.col -->
+    
+            @endforeach
           </div>
         </div>
       </div>
     </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 </div>
-
-    <!-- Modal Lead Assessment -->
-      <div class="modal fade" id="modal-show">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Stimulating Phase</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <form id="quickForm" action="{{route('StimulatingPhaseStore')}}" method="POST" enctype="multipart/form-data">
-              {{ csrf_field() }}
-            <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-4">
-                    <div class="form-group">
-                      <label>Date</label>
-                      <div class="input-group date" id="doc-date" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" name="txtDocDate" data-target="#doc-date"/>
-                          <div class="input-group-append" data-target="#doc-date" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                      </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                      <label>Description</label>
-                      <input type="text" class="form-control" name="txtdescription" placeholder="Enter Description">
-                    </div>
-                    <div class="form-group">
-                        <label>Note</label>
-                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4"></textarea>               
-                    </div>
-                </div>
-              </div>  
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>      
-            </div>            
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-              </div>
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-
-      <div class="modal fade" id="modal-delete">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Are you sure you to delete?</p>
-            </div>
-            <form method="POST" action="{{route('ConsultationDelete')}}">
-              {{ csrf_field() }}
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Delete</button>
-              </div>
-              <input type="hidden" id="del_id" name="del_id" value="0">
-              <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -326,14 +332,11 @@
 
   <script >
   $(document).ready(function(){
+
+
     /* Lead Reminder */
     $('#doc-date').datetimepicker({
         format: 'L'
-    });
-
-    $('.open-modal-delete').click(function(data){
-      var id = $(this).val();
-      $('#del_id').val(id);
     });
 
     $('#quickForm').validate({
@@ -363,7 +366,6 @@
   });
   });
   </script>
-
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -377,25 +379,34 @@
       "buttons": ["excel", "pdf", "print"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $("#example2").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-    $("#example3").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-    $('#example4').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": true,
       "autoWidth": false,
-      "responsive": true,
+      "ordering": false,
+      "paging": true,
+      "info": false
+    });
+    $("#example3").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "info": false
+    });
+    $("#example4").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "info": false
     });
   });
 </script>
-
 
 <script>
 $(function () {

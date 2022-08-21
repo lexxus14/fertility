@@ -201,8 +201,23 @@ class StimulatingPhaseController extends Controller
      * @param  \App\StimulatingMedOthMedSub  $stimulatingMedOthMedSub
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StimulatingMedOthMedSub $stimulatingMedOthMedSub)
+    public function destroy(Request $request)
     {
-        //
+        $intId =0;
+        $docfiles = StimulatingPhase::destroy($request->del_id);
+
+        $strsql = "select id from StiMeds where StimulatingPhasesId =".$request->del_id;
+
+        $docresults = DB::select($strsql);
+
+        foreach($docresults as $docresult){
+            $intId = $docresult->id;
+            $sub = DB::table('StiMedOthMedSubs')->where('StimulatingMedicationsid', $intId )->delete();
+        }
+
+        $sub = DB::table('StiMeds')->where('StimulatingPhasesId', $request->del_id)->delete();
+        
+
+        return redirect()->to('/stimulatingphase/'.$request->txtpatientId); 
     }
 }

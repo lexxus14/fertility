@@ -35,13 +35,14 @@ class StimulatingMedecineController extends Controller
         //
     }
 
-    public function StimulatingMedicine($PatientId,$StiPhaseId)
+    public function StimulatingMedicine($StiPhaseId)
     {
         $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
                     INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
                     INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
                     inner join nationalities as hn on hn.id = p.HusbandNationalityId
-                    WHERE p.id =".$PatientId;
+                    inner join stimulatingphases as st on st.patientid = p.id
+                    WHERE st.id =".$StiPhaseId;
         $patients = DB::select($strsql);
 
         $strsql ="select StiMeds.*,mu.ShortSymbol as 'MuAMSymbol',mupm.ShortSymbol as 'MuPMSymbol', 
@@ -51,7 +52,7 @@ class StimulatingMedecineController extends Controller
                     INNER JOIN MedicineUnits mupm on mupm.id = StiMeds.UnitIdPM
                     LEFT JOIN medicines m_am on m_am.id = StiMeds.MedIdAM
                     LEFT JOIN medicines m_pm on m_pm.id = StiMeds.MedIdPM
-                  where patientid =".$PatientId." and StimulatingPhasesId =".$StiPhaseId;
+                  where  StimulatingPhasesId =".$StiPhaseId;
         $docresult = DB::select($strsql);
 
         $medicines = Medicine::all(); 
@@ -150,7 +151,7 @@ class StimulatingMedecineController extends Controller
 
        
         
-        return redirect()->to('/patientvitalsign/'.$request->txtpatientId);
+        return redirect()->to('/stimulatingmedicine/'.$request->StimulatingMedicationsid);
     }
 
     /**
@@ -159,20 +160,74 @@ class StimulatingMedecineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($StiPhaseId,$docId)
     {
-        //
+       $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join StiMeds as st on st.patientid = p.id
+                    WHERE st.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select StiMeds.*,mu.ShortSymbol as 'MuAMSymbol',mupm.ShortSymbol as 'MuPMSymbol', 
+                    m_am.description as 'MedAm',m_pm.description as 'MedPm'
+                    from StiMeds 
+                    INNER JOIN MedicineUnits mu on mu.id = StiMeds.UnitIdAM
+                    INNER JOIN MedicineUnits mupm on mupm.id = StiMeds.UnitIdPM
+                    LEFT JOIN medicines m_am on m_am.id = StiMeds.MedIdAM
+                    LEFT JOIN medicines m_pm on m_pm.id = StiMeds.MedIdPM
+                  where  StiMeds.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT smomsub.dose,mu.ShortSymbol,m.description as Medicine,m.id as MedId,mu.id as UnitId FROM stimedothmedsubs as smomsub
+                    INNER JOIN stimeds as s on s.id = smomsub.StimulatingMedicationsid
+                    INNER JOIN medicineunits as mu on mu.id = smomsub.UnitId
+                    INNER JOIN medicines as m on m.id = smomsub.MedId
+                    WHERE StimulatingMedicationsid=".$docId;
+        $subdocresults = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        return view('stimulatingmedicine.view',compact('StiPhaseId','docId','docresults','patients','medicines','medicinesunits','subdocresults'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\StimulatingMedOthMedSub  $stimulatingMedOthMedSub
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($StiPhaseId,$docId)
     {
-        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join StiMeds as st on st.patientid = p.id
+                    WHERE st.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select StiMeds.*,mu.ShortSymbol as 'MuAMSymbol',mupm.ShortSymbol as 'MuPMSymbol', 
+                    m_am.description as 'MedAm',m_pm.description as 'MedPm'
+                    from StiMeds 
+                    INNER JOIN MedicineUnits mu on mu.id = StiMeds.UnitIdAM
+                    INNER JOIN MedicineUnits mupm on mupm.id = StiMeds.UnitIdPM
+                    LEFT JOIN medicines m_am on m_am.id = StiMeds.MedIdAM
+                    LEFT JOIN medicines m_pm on m_pm.id = StiMeds.MedIdPM
+                  where  StiMeds.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT smomsub.dose,mu.ShortSymbol,m.description as Medicine,m.id as MedId,mu.id as UnitId FROM stimedothmedsubs as smomsub
+                    INNER JOIN stimeds as s on s.id = smomsub.StimulatingMedicationsid
+                    INNER JOIN medicineunits as mu on mu.id = smomsub.UnitId
+                    INNER JOIN medicines as m on m.id = smomsub.MedId
+                    WHERE StimulatingMedicationsid=".$docId;
+        $subdocresults = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        return view('stimulatingmedicine.edit',compact('StiPhaseId','docId','docresults','patients','medicines','medicinesunits','subdocresults'));
     }
 
     /**
@@ -182,9 +237,61 @@ class StimulatingMedecineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        
+        $docfiles =  StimulatingMedication::find($request->txtDocId);
+        $date = date_create($request->txtDocDate);
+        $Newdate = date_format($date,"Y-m-d");
+        $docfiles->docdate= $Newdate;
+
+
+        $docfiles->CycleNo = $request->CycleNo;
+
+        $docfiles->Notes = $request->Notes;
+
+        $docfiles->MedIdAM = $request->MedIdAM;
+        $docfiles->UnitIdAM = $request->UnitIdAM;
+        $docfiles->MedIdPM = $request->MedIdPM;
+        $docfiles->UnitIdPM = $request->UnitIdPM;
+        $docfiles->MedDoseAM = $request->MedDoseAM;
+        $docfiles->MedDosePM = $request->MedDosePM;
+        $docfiles->StimulatingDate = $request->StimulatingDate;
+        $docfiles->Breakfast = $request->Breakfast;
+        $docfiles->Lunch = $request->Lunch;
+        $docfiles->Dinner = $request->Dinner;
+
+        $docfiles->createdbyid=Auth::user()->id;
+        $docfiles->save();
+
+        $sub = DB::table('StiMedOthMedSubs')->where('StimulatingMedicationsid', $request->txtDocId)->delete();
+
+
+        $doclab_id = $docfiles->id;
+
+        
+        $MedId=$request->MedId;
+        $dose=$request->dose;
+        $UnitId=$request->UnitId;
+
+        $N = count($MedId);
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new StimulatingMedicationOthersMedSub;
+            $pricelistsub->StimulatingMedicationsid = $doclab_id; 
+            $pricelistsub->MedId = $MedId[$i];
+            $pricelistsub->UnitId = $UnitId[$i];
+            $pricelistsub->dose = $dose[$i];
+            $pricelistsub->save();
+            
+        }
+
+        $translinks = new SystemFunctionController;
+
+        $translinks->StoreTransLink($doclab_id,$this->DocTransName);
+  
+        return redirect()->to('/stimulatingmedicine/'.$request->txtStiPhaseId);
     }
 
     /**
@@ -193,8 +300,18 @@ class StimulatingMedecineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Request $request)
+    {       
+        $strsql = "select id from StiMeds where id =".$request->del_id; 
+        $docresults = DB::select($strsql);
+
+        foreach($docresults as $docresult){
+            $intId = $docresult->id;
+            $sub = DB::table('StiMedOthMedSubs')->where('StimulatingMedicationsid', $intId )->delete();
+        }
+
+        $leadassessment = StimulatingMedication::destroy($request->del_id);       
+
+        return redirect()->to('/stimulatingmedicine/'.$request->txtDocId);        
     }
 }

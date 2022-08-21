@@ -253,10 +253,16 @@ Route::post('/stimulatingphase/add','StimulatingPhaseController@store')->name('S
 Route::get('/stimulatingphase/edit/{id?}','StimulatingPhaseController@edit')->name('StimulatingPhaseEdit');
 Route::post('/stimulatingphase/update','StimulatingPhaseController@update')->name('StimulatingPhaseUpdate');
 Route::get('/stimulatingphase/view/{PatientID?}','StimulatingPhaseController@show')->name('StimulatingPhaseShow');
+Route::post('/stimulatingphase/delete','StimulatingPhaseController@destroy')->name('StimulatingPhaseDelete');
 
 /*Stimulating Medecine*/
 Route::get('/stimulatingmedicine/{PatientID?}/{StiPhaseId?}','StimulatingMedecineController@StimulatingMedicine')->name('StimulatingMedicine');
 Route::post('/stimulatingmedicine/store','StimulatingMedecineController@store')->name('StimulatingMedicineStore');
+Route::get('/stimulatingmedicine/edit/{StiPhaseId?}/{id?}','StimulatingMedecineController@edit')->name('StimulatingMedicineEdit');
+Route::post('/stimulatingmedicine/update','StimulatingMedecineController@update')->name('StimulatingMedicineUpdate');
+Route::get('/stimulatingmedicine/view/{StiPhaseId?}/{id?}','StimulatingMedecineController@show')->name('StimulatingMedicineShow');
+Route::post('/stimulatingmedicine/delete','StimulatingMedecineController@destroy')->name('StimulatingMedicineDelete');
+
 
 /*HistoryAssessesment*/
 Route::get('/historyasse','HistoryAssessmentController@index')->name('HistoryAssessmentIndex');
