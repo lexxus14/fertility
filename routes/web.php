@@ -248,21 +248,44 @@ Route::get('/doctorconsultation/view/male/{PatientID?}','DoctorConsultationContr
 Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->name('PatientCalendarIndex');
 
 /*Patient Stimulating Phase*/
-Route::get('/stimulatingphase/{PatientID?}','StimulatingPhaseController@StimulatingPhase')->name('StimulatingPhase');
-Route::post('/stimulatingphase/add','StimulatingPhaseController@store')->name('StimulatingPhaseStore');
-Route::get('/stimulatingphase/edit/{id?}','StimulatingPhaseController@edit')->name('StimulatingPhaseEdit');
-Route::post('/stimulatingphase/update','StimulatingPhaseController@update')->name('StimulatingPhaseUpdate');
-Route::get('/stimulatingphase/view/{PatientID?}','StimulatingPhaseController@show')->name('StimulatingPhaseShow');
-Route::post('/stimulatingphase/delete','StimulatingPhaseController@destroy')->name('StimulatingPhaseDelete');
+    Route::get('/stimulatingphase/{PatientID?}','StimulatingPhaseController@StimulatingPhase')->name('StimulatingPhase');
+    Route::post('/stimulatingphase/add','StimulatingPhaseController@store')->name('StimulatingPhaseStore');
+    Route::get('/stimulatingphase/edit/{id?}','StimulatingPhaseController@edit')->name('StimulatingPhaseEdit');
+    Route::post('/stimulatingphase/update','StimulatingPhaseController@update')->name('StimulatingPhaseUpdate');
+    Route::get('/stimulatingphase/view/{PatientID?}','StimulatingPhaseController@show')->name('StimulatingPhaseShow');
+    Route::post('/stimulatingphase/delete','StimulatingPhaseController@destroy')->name('StimulatingPhaseDelete');
+/*Patient Stimulating Phase*/
+
+/*FET Phase*/
+    Route::get('/fetphase/{PatientID?}','FETPhaseController@FETPhase')->name('FETPhase');
+    Route::post('/fetphase/add','FETPhaseController@store')->name('FETPhaseStore');
+    Route::get('/fetphase/edit/{id?}','FETPhaseController@edit')->name('FETPhaseEdit');
+    Route::post('/fetphase/update','FETPhaseController@update')->name('FETPhaseUpdate');
+    Route::get('/fetphase/view/{PatientID?}','FETPhaseController@show')->name('FETPhaseShow');
+    Route::post('/fetphase/delete','FETPhaseController@destroy')->name('FETPhaseDelete');
+/*FET*/
+
+
 
 /*Stimulating Medecine*/
-Route::get('/stimulatingmedicine/{PatientID?}/{StiPhaseId?}','StimulatingMedecineController@StimulatingMedicine')->name('StimulatingMedicine');
-Route::post('/stimulatingmedicine/store','StimulatingMedecineController@store')->name('StimulatingMedicineStore');
-Route::get('/stimulatingmedicine/edit/{StiPhaseId?}/{id?}','StimulatingMedecineController@edit')->name('StimulatingMedicineEdit');
-Route::post('/stimulatingmedicine/update','StimulatingMedecineController@update')->name('StimulatingMedicineUpdate');
-Route::get('/stimulatingmedicine/view/{StiPhaseId?}/{id?}','StimulatingMedecineController@show')->name('StimulatingMedicineShow');
-Route::post('/stimulatingmedicine/delete','StimulatingMedecineController@destroy')->name('StimulatingMedicineDelete');
+    Route::get('/stimulatingmedicine/{StiPhaseId?}','StimulatingMedecineController@StimulatingMedicine')->name('StimulatingMedicine');
+    Route::post('/stimulatingmedicine/store','StimulatingMedecineController@store')->name('StimulatingMedicineStore');
+    Route::get('/stimulatingmedicine/edit/{StiPhaseId?}/{id?}','StimulatingMedecineController@edit')->name('StimulatingMedicineEdit');
+    Route::post('/stimulatingmedicine/update','StimulatingMedecineController@update')->name('StimulatingMedicineUpdate');
+    Route::get('/stimulatingmedicine/view/{StiPhaseId?}/{id?}','StimulatingMedecineController@show')->name('StimulatingMedicineShow');
+    Route::post('/stimulatingmedicine/delete','StimulatingMedecineController@destroy')->name('StimulatingMedicineDelete');
+/*Stimulating Medecine*/
 
+/*FET*/
+    Route::get('/fet/{StiPhaseId?}','FETController@fet')->name('FET');
+    Route::post('/fet/store','FETController@store')->name('FetStore');
+    Route::post('/fet/otherstore','FETController@store_other')->name('FetOtherStore');
+    Route::post('/fet/expectedstore','FETController@store_expected')->name('FetExpectedStore');
+    Route::get('/fet/edit/{StiPhaseId?}/{id?}','FETController@edit')->name('FetEdit');
+    Route::post('/fet/update','FETController@update')->name('FetUpdate');
+    Route::get('/fet/view/{StiPhaseId?}/{id?}','FETController@show')->name('FetShow');
+    Route::post('/fet/delete','FETController@destroy')->name('FetDelete');
+/*FET*/
 
 /*HistoryAssessesment*/
 Route::get('/historyasse','HistoryAssessmentController@index')->name('HistoryAssessmentIndex');

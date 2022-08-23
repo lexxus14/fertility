@@ -59,6 +59,21 @@
                     {{$intTotalPatientResult}}</span>
                   <i class="fas fa-file"></i> Stimulating Medication
                 </a>
+
+                <a href="{{route('FETPhase')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    @foreach($TotalStimulatingPhases as $TotalRec)
+                    <?php
+                      $intTotalPatientResult =$TotalRec->TotalPatientResult;
+                    ?>
+                    @endforeach
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-file"></i> FET Form
+                </a>
+
               </div>
               <!-- /.card-body -->
             </div>
