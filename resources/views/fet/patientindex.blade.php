@@ -179,6 +179,95 @@
                     <textarea class="form-control">{{$docresultheader->Notes}}</textarea></b>
                   </br>
                   @endforeach
+                  <h3>BCP</h3>
+                  <table id="bcptable" class="table table-bordered table-striped">
+                    <thead>                  
+                    <tr>
+                      <th>Cycle Day</th>
+                      <th>Date</th>
+                      <th>Day</th>
+                      <th>Notes</th>
+                      <th>Action</th>
+                    </tr>                  
+                    </thead>
+                    <tbody>
+                      <?php
+                          $intctr = 0;
+                        ?>
+                      @foreach($docresultBCPS as $result)<!-- lab foreach -->
+                      <?php 
+                        $intctr++;
+                      ?>
+                      <tr>
+                        <td>{{$result->CycleNo}}</td>                       
+                        <td>{{$result->CycleDate}}</td>
+                        <td>{{date('l', strtotime($result->CycleDate))}}</td>                        
+
+                        <td><textarea class="form-control">{{$result->Notes}}</textarea></td>
+                        <td>
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$DocId}}/{{$result->id}}">
+                            <i class="fas fa-folder"></i>
+                                  View
+                          </a>
+
+                          <a class="btn btn-info btn-sm float-right" href="{{route('FetEditBCP')}}/{{$DocId}}/{{$result->id}}">
+                            <i class="fas fa-pencil-alt"></i> Edit
+                          </a>                       
+
+                          <button type="button" class="btn btn-danger btn-sm open-modal-delete-bcp float-right" data-toggle="modal" data-target="#modal-delete-bcp" value="{{$result->id}}"> <i class="fas fa-trash">
+                                </i>Delete
+                          </button>
+                        </td>
+                      </tr> 
+                       @endforeach      
+                    </tbody>                  
+                  </table>
+                  <hr>
+                  <h3>Expected Date</h3>
+                  <table id="ExpDatetable" class="table table-bordered table-striped">
+                    <thead>                  
+                    <tr>
+                      <th>Cycle Day</th>
+                      <th>Date</th>
+                      <th>Day</th>
+                      <th>Notes</th>
+                      <th>Action</th>
+                    </tr>                  
+                    </thead>
+                    <tbody>
+                      <?php
+                          $intctr = 0;
+                        ?>
+                      @foreach($docresultExpDate as $result)<!-- lab foreach -->
+                      <?php 
+                        $intctr++;
+                      ?>
+                      <tr>
+                        <td>{{$result->CycleNo}}</td>                       
+                        <td>{{$result->CycleDate}}</td>
+                        <td>{{date('l', strtotime($result->CycleDate))}}</td>                        
+
+                        <td><textarea class="form-control">{{$result->Notes}}</textarea></td>
+                        <td>
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$DocId}}/{{$result->id}}">
+                            <i class="fas fa-folder"></i>
+                                  View
+                          </a>
+
+                          <a class="btn btn-info btn-sm float-right" href="{{route('EditExpectedDate')}}/{{$DocId}}/{{$result->id}}">
+                            <i class="fas fa-pencil-alt"></i> Edit
+                          </a>                       
+
+                          <button type="button" class="btn btn-danger btn-sm open-modal-delete-expdate float-right" data-toggle="modal" data-target="#modal-delete-expected-date" value="{{$result->id}}"> <i class="fas fa-trash">
+                                </i>Delete
+                          </button>
+                        </td>
+                      </tr> 
+                       @endforeach      
+                    </tbody>                  
+                  </table>
+                  <hr>
+                  <h3>Main</h3>
 	                <table id="example1" class="table table-bordered table-striped">
 	                  <thead>                  
 	                  <tr>
@@ -227,7 +316,7 @@
 		                              View
 		                      </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingMedicineEdit')}}/{{$DocId}}/{{$result->id}}">
+		                      <a class="btn btn-info btn-sm float-right" href="{{route('FetEdit')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-pencil-alt"></i> Edit
 		                      </a>                       
 
@@ -239,12 +328,14 @@
 	                     @endforeach      
 	                  </tbody>                  
 	                </table>
-                  <table id="bcptable" class="table table-bordered table-striped">
+                  <hr>
+                  <h3>Others</h3>
+                  <table id="othertable" class="table table-bordered table-striped">
                     <thead>                  
                     <tr>
-                      <th>Cycle Day</th>
                       <th>Date</th>
                       <th>Day</th>
+                      <th>Medicine</th>
                       <th>Notes</th>
                       <th>Action</th>
                     </tr>                  
@@ -253,27 +344,43 @@
                       <?php
                           $intctr = 0;
                         ?>
-                      @foreach($docresultBCPS as $result)<!-- lab foreach -->
+                      @foreach($docresultFETothers as $result)<!-- lab foreach -->
                       <?php 
                         $intctr++;
                       ?>
-                      <tr>
-                        <td>{{$result->CycleNo}}</td>                       
+                      <tr>                       
                         <td>{{$result->CycleDate}}</td>
-                        <td>{{date('l', strtotime($result->CycleDate))}}</td>                        
+                        <td>{{date('l', strtotime($result->CycleDate))}}</td>
+                        <td>
+                          <?php 
+                          $strsql ="SELECT Dose, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol FROM `fetsothermedsubs`
+                                    INNER JOIN medicines m on m.id = fetsothermedsubs.MedId
+                                    INNER JOIN medicineunits mu on mu.id = fetsothermedsubs.MedUnitId
+                                    INNER JOIN dayshifts d on d.id = fetsothermedsubs.DayShiftId
+                                    WHERE fetothersId =". $result->id;
+                  
+                          $subdocresults = DB::select($strsql);
 
-                        <td><textarea class="form-control">{{$result->Notes}}</textarea></td>
+                          foreach($subdocresults as $subdocresult )
+                          {
+                            echo $subdocresult->Medicine.'&nbsp'.$subdocresult->Dose.'&nbsp'.$subdocresult->ShortSymbol.'&nbsp'.$subdocresult->DayShifSymbol.'<br/>';
+                          }
+                          ?>
+
+                        </td>
+
+                        <td>{{$result->Notes}}</td>
                         <td>
                           <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-folder"></i>
                                   View
                           </a>
 
-                          <a class="btn btn-info btn-sm float-right" href="{{route('StimulatingMedicineEdit')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-info btn-sm float-right" href="{{route('FetEditOthers')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-pencil-alt"></i> Edit
                           </a>                       
 
-                          <button type="button" class="btn btn-danger btn-sm open-modal-delete float-right" data-toggle="modal" data-target="#modal-delete" value="{{$result->id}}"> <i class="fas fa-trash">
+                          <button type="button" class="btn btn-danger btn-sm open-modal-delete float-right" data-toggle="modal" data-target="#modal-delete-others" value="{{$result->id}}"> <i class="fas fa-trash">
                                 </i>Delete
                           </button>
                         </td>
@@ -646,6 +753,93 @@
       </div>
     <!-- /.modal -->
 
+    <!-- Modal delete bcp -->
+      <div class="modal fade" id="modal-delete-bcp">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Delete</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you to delete?</p>
+            </div>
+            <form method="POST" action="{{route('FetBCPDelete')}}">
+              {{ csrf_field() }}
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Delete</button>
+              </div>
+              <input type="hidden" id="del_id_bcp" name="del_id" value="0">
+              <input type="hidden" name="txtDocId" value="{{$DocId}}">
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    <!-- /.modal -->
+
+    <!-- Modal delete others-->
+      <div class="modal fade" id="modal-delete-others">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Delete</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you to delete?</p>
+            </div>
+            <form method="POST" action="{{route('StimulatingMedicineDelete')}}">
+              {{ csrf_field() }}
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Delete</button>
+              </div>
+              <input type="hidden" id="del_id" name="del_id" value="0">
+              <input type="hidden" name="txtDocId" value="{{$DocId}}">
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    <!-- /.modal -->
+
+    <!-- Modal delete -->
+      <div class="modal fade" id="modal-delete-expected-date">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Delete</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you to delete?</p>
+            </div>
+            <form method="POST" action="{{route('FetExpecteDateDelete')}}">
+              {{ csrf_field() }}
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Delete</button>
+              </div>
+              <input type="hidden" id="del_id_expdate" name="del_id" value="0">
+              <input type="hidden" name="txtDocId" value="{{$DocId}}">
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    <!-- /.modal -->
+
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -670,6 +864,16 @@
     $('.open-modal-delete').click(function(data){
       var id = $(this).val();
       $('#del_id').val(id);
+    });
+
+    $('.open-modal-delete-bcp').click(function(data){
+      var id = $(this).val();
+      $('#del_id_bcp').val(id);
+    });
+
+    $('.open-modal-delete-expdate').click(function(data){
+      var id = $(this).val();
+      $('#del_id_expdate').val(id);
     });
 
     $('.add-medicine-am').click(function(){
@@ -862,6 +1066,24 @@
 <script>
   $(function () {
     $("#example1").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": false,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": false,
+      "info": false
+    });
+    $("#bcptable").DataTable({
+      "responsive": true, 
+      "lengthChange": false, 
+      "searching": false,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": false,
+      "info": false
+    });
+    $("#ExpDatetable").DataTable({
       "responsive": true, 
       "lengthChange": false, 
       "searching": false,

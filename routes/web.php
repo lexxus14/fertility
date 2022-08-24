@@ -281,10 +281,18 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/fet/store','FETController@store')->name('FetStore');
     Route::post('/fet/otherstore','FETController@store_other')->name('FetOtherStore');
     Route::post('/fet/expectedstore','FETController@store_expected')->name('FetExpectedStore');
-    Route::get('/fet/edit/{StiPhaseId?}/{id?}','FETController@edit')->name('FetEdit');
+    Route::get('/fet/edit/{PhaseId?}/{id?}','FETController@edit')->name('FetEdit');
+    Route::get('/fet/editbcp/{PhaseId?}/{id?}','FETController@editbcp')->name('FetEditBCP');
+    Route::get('/fet/editexpdate/{PhaseId?}/{id?}','FETController@EditExpectedDate')->name('EditExpectedDate');
+    Route::get('/fet/editothers/{PhaseId?}/{id?}','FETController@EditOthers')->name('FetEditOthers');
     Route::post('/fet/update','FETController@update')->name('FetUpdate');
+    Route::post('/fet/updateothers','FETController@UpdateOthers')->name('FetUpdateOthers');
+    Route::post('/fet/updatebcp','FETController@updatebcp')->name('FetUpdateBcp');
+    Route::post('/fet/updateexpecteddate','FETController@UpdateExpecteDate')->name('UpdateExpecteDate');
     Route::get('/fet/view/{StiPhaseId?}/{id?}','FETController@show')->name('FetShow');
     Route::post('/fet/delete','FETController@destroy')->name('FetDelete');
+    Route::post('/fet/deletebcp','FETController@destroybcp')->name('FetBCPDelete');
+    Route::post('/fet/deleteexpecteddate','FETController@destroyexpecteddate')->name('FetExpecteDateDelete');
 /*FET*/
 
 /*HistoryAssessesment*/

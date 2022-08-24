@@ -63,6 +63,16 @@ class FETController extends Controller
         $docresultBCPS  = DB::select($strsql);
 
         $strsql ="select *
+                    from fetexpdates 
+                  where  FETPhaseID =".$DocId;
+        $docresultExpDate  = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetothers 
+                  where  FETPhaseID =".$DocId;
+        $docresultFETothers  = DB::select($strsql);
+
+        $strsql ="select *
                     from fetphases 
                   where  id =".$DocId;
         $docresultheaders = DB::select($strsql);
@@ -70,7 +80,7 @@ class FETController extends Controller
         $medicines = Medicine::all(); 
         $medicinesunits = MedicineUnit::all(); 
         $dayshifts = DayShfts::all(); 
-        return view('fet.patientindex',compact('docresult','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS'));
+        return view('fet.patientindex',compact('docresult','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers'));
     }
 
     /**
@@ -104,7 +114,7 @@ class FETController extends Controller
        $AddDate = 0;
        $date = date_create($request->txtDocDate);
        $docDate = date_create($request->txtDocDate);
-       $docDate = date_format($docDate,"Y-m-d");;
+       $docDate = date_format($docDate,"Y-m-d");
        for($ctrloop = intval($request->CycleFrom);$ctrloop<=intval($request->CycleTo);$ctrloop++)
        {
 
@@ -239,7 +249,7 @@ class FETController extends Controller
 
        
         
-        return redirect()->to('/fet/'.$request->StimulatingMedicationsid);
+        return redirect()->to('/fet/'.$request->FETPhaseID);
     }
 
     /**
@@ -310,9 +320,104 @@ class FETController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($PhaseId,$DocId)
     {
-        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fets 
+                  where  id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT Dose,m.id as MedId,fetsmedsubs.MedUnitId,fetsmedsubs.DayShiftId, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol 
+                    FROM `fetsmedsubs`
+                    INNER JOIN medicines m on m.id = fetsmedsubs.MedId
+                    INNER JOIN medicineunits mu on mu.id = fetsmedsubs.MedUnitId
+                    INNER JOIN dayshifts d on d.id = fetsmedsubs.DayShiftId
+                    WHERE FetId =".$DocId;
+        $subdocresults = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.edit',compact('PhaseId','DocId','docresults','patients','medicines','medicinesunits','subdocresults','dayshifts'));
+    }
+
+    public function EditOthers($PhaseId,$DocId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetothers 
+                  where  id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT Dose,m.id as MedId,fetsothermedsubs.MedUnitId,fetsothermedsubs.DayShiftId, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol 
+                    FROM `fetsothermedsubs`
+                    INNER JOIN medicines m on m.id = fetsothermedsubs.MedId
+                    INNER JOIN medicineunits mu on mu.id = fetsothermedsubs.MedUnitId
+                    INNER JOIN dayshifts d on d.id = fetsothermedsubs.DayShiftId
+                    WHERE fetothersId =".$DocId;
+        $subdocresults = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.editothers',compact('PhaseId','DocId','docresults','patients','medicines','medicinesunits','subdocresults','dayshifts'));
+    }
+
+    public function editbcp($PhaseId,$docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetBCPS 
+                  where  id =".$docId." and FETPhaseID=".$PhaseId;
+        $docresults  = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.editbcp',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
+    }
+
+    public function EditExpectedDate($PhaseId,$docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetexpdates 
+                  where  id =".$docId." and FETPhaseID=".$PhaseId;
+        $docresults  = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.editexpdate',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
     }
 
     /**
@@ -322,9 +427,132 @@ class FETController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updatebcp(Request $request)
     {
-        //
+        $docDate = date_create($request->txtDocDate);
+        $docDate = date_format($docDate,"Y-m-d");
+
+        $cdocDate = date_create($request->CycleDate);
+        $cdocDate = date_format($cdocDate,"Y-m-d");
+
+        $docFETBcp = FETBcp::find($request->txtDocId);
+        $docFETBcp->docdate = $docDate;
+        $docFETBcp->CycleDate =$cdocDate;
+        $docFETBcp->CycleNo = $request->CycleNo;
+        $docFETBcp->Notes = $request->Notes;
+        $docFETBcp->save();
+        return redirect()->to('/fet/'.$request->FETPhaseID);      
+    }
+
+    public function update(Request $request)
+    {
+        $docDate = date_create($request->txtDocDate);
+        $docDate = date_format($docDate,"Y-m-d");
+
+        $cdocDate = date_create($request->CycleDate);
+        $cdocDate = date_format($cdocDate,"Y-m-d");
+
+        $docfiles = FET::find($request->DocId);
+        $docfiles->CycleDate= $cdocDate;
+
+        
+        $docfiles->CycleNo = $request->CycleNo;
+
+        $docfiles->Notes = $request->Notes;
+
+        $docfiles->createdbyid=Auth::user()->id;
+        $docfiles->save();
+        $doclab_id = $docfiles->id;
+
+        $sub = DB::table('fetsmedsubs')->where('FetId', $request->DocId)->delete();
+
+        $MedId=$request->NMedId;
+        $dose=$request->Ndose;
+        $UnitId=$request->NUnitId;
+        $DayShiftId=$request->NDayShiftId;
+
+        $N = count($MedId);
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new FetMedSubs;
+            $pricelistsub->FetId = $doclab_id; 
+            $pricelistsub->MedId = $MedId[$i];
+            $pricelistsub->MedUnitId = $UnitId[$i];
+            $pricelistsub->DayShiftId = $DayShiftId[$i];
+            $pricelistsub->Dose = $dose[$i];
+            $pricelistsub->save();
+            
+        }
+
+        return redirect()->to('/fet/'.$request->PhaseId);      
+    }
+
+    public function UpdateOthers(Request $request)
+    {
+        $docDate = date_create($request->txtDocDate);
+        $docDate = date_format($docDate,"Y-m-d");
+
+        $cdocDate = date_create($request->CycleDate);
+        $cdocDate = date_format($cdocDate,"Y-m-d");
+
+        $docfiles = FETOthers::find($request->DocId);
+        $docfiles->CycleDate= $cdocDate;
+
+        
+        $docfiles->Notes = $request->Notes;
+
+        $docfiles->createdbyid=Auth::user()->id;
+        $docfiles->save();
+        $doclab_id = $docfiles->id;
+
+        $sub = DB::table('fetsothermedsubs')->where('fetothersId', $request->DocId)->delete();
+
+        $MedId=$request->NMedId;
+        $dose=$request->Ndose;
+        $UnitId=$request->NUnitId;
+        $DayShiftId=$request->NDayShiftId;
+
+        $N = count($MedId);
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new FetOtherMedSubs;
+            $pricelistsub->fetothersId = $doclab_id; 
+            $pricelistsub->MedId = $MedId[$i];
+            $pricelistsub->MedUnitId = $UnitId[$i];
+            $pricelistsub->DayShiftId = $DayShiftId[$i];
+            $pricelistsub->Dose = $dose[$i];
+            $pricelistsub->save();
+            
+        }
+
+        return redirect()->to('/fet/'.$request->PhaseId);      
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function UpdateExpecteDate(Request $request)
+    {
+        $docDate = date_create($request->txtDocDate);
+        $docDate = date_format($docDate,"Y-m-d");
+
+        $cdocDate = date_create($request->CycleDate);
+        $cdocDate = date_format($cdocDate,"Y-m-d");
+
+        $docFETBcp = FETExpDate::find($request->txtDocId);
+        $docFETBcp->docdate = $docDate;
+        $docFETBcp->CycleDate =$cdocDate;
+        $docFETBcp->CycleNo = $request->CycleNo;
+        $docFETBcp->Notes = $request->Notes;
+        $docFETBcp->save();
+        return redirect()->to('/fet/'.$request->FETPhaseID);      
     }
 
     /**
@@ -336,5 +564,33 @@ class FETController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroybcp(Request $request)
+    {
+
+        $leadassessment = FETBcp::destroy($request->del_id);       
+
+        return redirect()->to('/fet/'.$request->txtDocId);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyexpecteddate(Request $request)
+    {
+
+        $leadassessment = FETExpDate::destroy($request->del_id);       
+
+        return redirect()->to('/fet/'.$request->txtDocId);
     }
 }
