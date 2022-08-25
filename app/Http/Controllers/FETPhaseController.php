@@ -193,8 +193,10 @@ class FETPhaseController extends Controller
      * @param  \App\FETPhase  $fETPhase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FETPhase $fETPhase)
+    public function destroy(Request $request)
     {
-        //
+        $leadassessment = FETPhase::destroy($request->del_id);       
+
+        return redirect()->to('/fetphase/'.$request->txtpatientId);
     }
 }

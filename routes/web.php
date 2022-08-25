@@ -283,9 +283,9 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/fet/expectedstore','FETController@store_expected')->name('FetExpectedStore');
 
     Route::get('/fet/view/{PhaseId?}/{id?}','FETController@view')->name('FetView');
-    Route::get('/fet/view/{PhaseId?}/{id?}','FETController@viewbcp')->name('FetViewBCP');
-    Route::get('/fet/view/{PhaseId?}/{id?}','FETController@ViewExpectedDate')->name('ViewExpectedDate');
-    Route::get('/fet/view/{PhaseId?}/{id?}','FETController@ViewOthers')->name('ViewEditOthers');
+    Route::get('/fet/viewbcp/{PhaseId?}/{id?}','FETController@viewbcp')->name('FetViewBCP');
+    Route::get('/fet/viewexpdate/{PhaseId?}/{id?}','FETController@ViewExpectedDate')->name('ViewExpectedDate');
+    Route::get('/fet/viewothers/{PhaseId?}/{id?}','FETController@ViewOthers')->name('ViewEditOthers');
     
     Route::get('/fet/edit/{PhaseId?}/{id?}','FETController@edit')->name('FetEdit');
     Route::get('/fet/editbcp/{PhaseId?}/{id?}','FETController@editbcp')->name('FetEditBCP');
