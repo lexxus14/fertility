@@ -47,6 +47,16 @@
                 <a href="{{route('LeadView')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
                   <i class="fas fa-user-plus"></i> Info
                 </a>
+
+                <a href="{{route('FETPhase')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-file"></i> FET Form 2
+                </a>
               </div>
               <!-- /.card-body -->
             </div>

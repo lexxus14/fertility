@@ -65,7 +65,7 @@
                     <?php
                       $intTotalPatientResult =0;
                     ?>
-                    @foreach($TotalStimulatingPhases as $TotalRec)
+                    @foreach($TotalFETPhases as $TotalRec)
                     <?php
                       $intTotalPatientResult =$TotalRec->TotalPatientResult;
                     ?>

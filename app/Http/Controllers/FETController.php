@@ -77,6 +77,7 @@ class FETController extends Controller
                   where  id =".$DocId;
         $docresultheaders = DB::select($strsql);
 
+
         $medicines = Medicine::all(); 
         $medicinesunits = MedicineUnit::all(); 
         $dayshifts = DayShfts::all(); 

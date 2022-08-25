@@ -37,7 +37,11 @@ class PatientCalendarController extends Controller
                     where d.patientid=".$PatientId;
         $TotalStimulatingPhases = DB::select($strsql);
 
-        return view('patientcalendar.patientindex',compact('patients','TotalStimulatingPhases'));
+        $strsql ="select count(*) as TotalPatientResult from fetphases as d
+                    where d.patientid=".$PatientId;
+        $TotalFETPhases = DB::select($strsql);
+
+        return view('patientcalendar.patientindex',compact('patients','TotalStimulatingPhases','TotalFETPhases'));
     }
 
     /**
