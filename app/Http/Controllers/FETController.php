@@ -349,6 +349,41 @@ class FETController extends Controller
         return view('fet.edit',compact('PhaseId','DocId','docresults','patients','medicines','medicinesunits','subdocresults','dayshifts'));
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function view($PhaseId,$DocId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fets 
+                  where  id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT Dose,m.id as MedId,fetsmedsubs.MedUnitId,fetsmedsubs.DayShiftId, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol 
+                    FROM `fetsmedsubs`
+                    INNER JOIN medicines m on m.id = fetsmedsubs.MedId
+                    INNER JOIN medicineunits mu on mu.id = fetsmedsubs.MedUnitId
+                    INNER JOIN dayshifts d on d.id = fetsmedsubs.DayShiftId
+                    WHERE FetId =".$DocId;
+        $subdocresults = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.view',compact('PhaseId','DocId','docresults','patients','medicines','medicinesunits','subdocresults','dayshifts'));
+    }
+
     public function EditOthers($PhaseId,$DocId)
     {
         $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
@@ -378,6 +413,36 @@ class FETController extends Controller
         return view('fet.editothers',compact('PhaseId','DocId','docresults','patients','medicines','medicinesunits','subdocresults','dayshifts'));
     }
 
+    public function ViewOthers($PhaseId,$DocId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetothers 
+                  where  id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT Dose,m.id as MedId,fetsothermedsubs.MedUnitId,fetsothermedsubs.DayShiftId, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol 
+                    FROM `fetsothermedsubs`
+                    INNER JOIN medicines m on m.id = fetsothermedsubs.MedId
+                    INNER JOIN medicineunits mu on mu.id = fetsothermedsubs.MedUnitId
+                    INNER JOIN dayshifts d on d.id = fetsothermedsubs.DayShiftId
+                    WHERE fetothersId =".$DocId;
+        $subdocresults = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.viewothers',compact('PhaseId','DocId','docresults','patients','medicines','medicinesunits','subdocresults','dayshifts'));
+    }
+
+
     public function editbcp($PhaseId,$docId)
     {
         $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
@@ -399,6 +464,27 @@ class FETController extends Controller
         return view('fet.editbcp',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
     }
 
+    public function viewbcp($PhaseId,$docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetBCPS 
+                  where  id =".$docId." and FETPhaseID=".$PhaseId;
+        $docresults  = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.viewbcp',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
+    }
+
     public function EditExpectedDate($PhaseId,$docId)
     {
         $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
@@ -418,6 +504,27 @@ class FETController extends Controller
         $medicinesunits = MedicineUnit::all(); 
         $dayshifts = DayShfts::all();  
         return view('fet.editexpdate',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
+    }
+
+    public function ViewExpectedDate($PhaseId,$docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetexpdates 
+                  where  id =".$docId." and FETPhaseID=".$PhaseId;
+        $docresults  = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all();  
+        return view('fet.viowexpdate',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
     }
 
     /**
@@ -561,9 +668,24 @@ class FETController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $leadassessment = FET::destroy($request->del_id);       
+
+        return redirect()->to('/fet/'.$request->txtDocId);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyothercycle(Request $request)
+    {
+        $leadassessment = FETOthers::destroy($request->del_id);       
+
+        return redirect()->to('/fet/'.$request->txtDocId);
     }
 
     /**

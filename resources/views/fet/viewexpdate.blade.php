@@ -152,103 +152,47 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">FET</h3>
+            <h3 class="card-title">FET Expected Date</h3>
           </div>
           <div class="card-body">
             @foreach($docresults as $docresult)
-            <form id="quickForm" action="{{route('FetUpdate')}}" method="POST" enctype="multipart/form-data">
-              {{ csrf_field() }}
-            <input type="hidden" name="DocId" value="{{$DocId}}">
-            <input type="hidden" name="PhaseId" value="{{$PhaseId}}">
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-4">
-                  <div class="form-group">                  
-                    <label>Date</label>                      
-                      <input type="date" class="form-control" name="CycleDate" value="{{$docresult->CycleDate}}">
+            <form id="quickForm" action="{{route('UpdateExpecteDate')}}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+              <input type="hidden" name="txtDocId" value="{{$docId}}">
+              <input type="hidden" name="FETPhaseID" value="{{$PhaseId}}">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">                  
+                      <label>Date</label>                      
+                        <input type="date" class="form-control" name="txtDocDate" value="{{$docresult->docdate}}">
+                    </div>
+                  </div>                
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>Cycle Date({{date('l', strtotime($docresult->CycleDate))}})</label>                 
+                      <input type="date" name="CycleDate" placeholder="Number" class="form-control" value="{{$docresult->CycleDate}}">
+                    </div>
                   </div>
-                </div>                
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
-                    <label>Cycle No.</label>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>Cycle No</label>                 
+                      <input type="number" name="CycleNo" placeholder="Number" class="form-control" value="{{$docresult->CycleNo}}">
+                    </div>
                   </div>
                 </div> 
-                <div class="col-2">
-                  <div class="form-group">                  
-                    <input type="number" name="CycleNo" value="{{$docresult->CycleNo}}" placeholder="No" class="form-control">
+                <hr>  
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label>Notes</label>
+                      <textarea name="Notes" class="form-control">{{$docresult->Notes}}</textarea>
+                    </div>
                   </div>
-                </div>
-              </div> 
-              <hr>
-              <div class="row">                
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label>Medicine</label>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add-med">Add Med</button>
-                    <table class="table table-bordered">
-                    <thead>
-                      <tr>                        
-                        <th>Medicine</th>
-                        <th>Dosage</th>
-                        <th>Unit</th>
-                        <th>Day</th>
-                        <th style="width: 10px">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody id="tbody">
-                      <?php
-                          $intctr = 0;
-                        ?>
-                      @foreach($subdocresults as $result)<!-- lab foreach -->
-                      <?php 
-                        $intctr++;
-                      ?>
-                      <tr id="R{{$intctr}}">                    
-                        <td>{{$result->Medicine}}<input type="hidden" name="NMedId[]" value="{{$result->MedId}}"></td>
-                        <td>
-                          <input type="number" name="Ndose[]" value="{{$result->Dose}}" class="form-control">
-                        </td>
-                        <td>
-                          <select name="NUnitId[]" class="form-control">
-                            @foreach($medicinesunits as $medunit)
-                              @if($medunit->id==$result->MedUnitId)
-                                <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
-                              @else
-                                <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
-                              @endif
-                            @endforeach
-                          </select> 
-                        </td>
-                        <td>
-                          <select name="NDayShiftId[]" class="form-control">
-                            @foreach($dayshifts as $medunit)
-                              @if($medunit->id==$result->DayShiftId)
-                                <option selected value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
-                              @else
-                                <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
-                              @endif
-                            @endforeach
-                          </select> 
-                        </td>
-                        <td><button class="btn btn-danger btn-sm remove-other-medicine float-right">Remove</button></td>
-                      </tr>
-                       @endforeach      
-                    </tbody> 
-                  </table>
-                  </div>
-                </div>
-              </div>    
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
-                    <label>Notes</label>
-                    <textarea name="Notes" class="form-control">{{$docresult->Notes}}</textarea>
-                  </div>
-                </div>
-              </div> 
-            </div>            
+                </div> 
+              </div>            
               <div class="modal-footer justify-content-between">
                 <a href="{{route('FET')}}/{{$PhaseId}}" class="btn btn-default">Cancel</a>
               </div>
@@ -445,20 +389,13 @@
       $.get(url + '/' + med_id, function (data) {
         console.log(data);
             $('#tbody').append(`<tr id="R${++rowIdx}">                    
-                <td>${data.description}<input type="hidden" class="medid" name="NMedId[]" value="${data.id}"></td>
+                <td>${data.description}<input type="hidden" class="medid" name="MedId[]" value="${data.id}"></td>
                 <td>
-                  <input type="number" name="Ndose[]" value="6" class="form-control">
+                  <input type="number" name="dose[]" class="form-control">
                 </td>
                 <td>
-                  <select name="NUnitId[]" class="form-control">
+                  <select name="UnitId[]" class="form-control">
                     @foreach($medicinesunits as $medunit)
-                    <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
-                    @endforeach
-                  </select> 
-                </td>
-                <td>
-                  <select name="NDayShiftId[]" class="form-control">
-                    @foreach($dayshifts as $medunit)
                     <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
                     @endforeach
                   </select> 

@@ -205,7 +205,7 @@
 
                         <td><textarea class="form-control">{{$result->Notes}}</textarea></td>
                         <td>
-                          <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('FetViewBCP')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-folder"></i>
                                   View
                           </a>
@@ -249,7 +249,7 @@
 
                         <td><textarea class="form-control">{{$result->Notes}}</textarea></td>
                         <td>
-                          <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('ViewExpectedDate')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-folder"></i>
                                   View
                           </a>
@@ -311,7 +311,7 @@
 
                         <td>{{$result->Notes}}</td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$DocId}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FetView')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
@@ -371,7 +371,7 @@
 
                         <td>{{$result->Notes}}</td>
                         <td>
-                          <a class="btn btn-primary btn-sm float-right" href="{{route('StimulatingMedicineShow')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('ViewEditOthers')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-folder"></i>
                                   View
                           </a>
@@ -380,7 +380,7 @@
                             <i class="fas fa-pencil-alt"></i> Edit
                           </a>                       
 
-                          <button type="button" class="btn btn-danger btn-sm open-modal-delete float-right" data-toggle="modal" data-target="#modal-delete-others" value="{{$result->id}}"> <i class="fas fa-trash">
+                          <button type="button" class="btn btn-danger btn-sm open-modal-delete-other-cycle float-right" data-toggle="modal" data-target="#open-modal-delete-other-cycle" value="{{$result->id}}"> <i class="fas fa-trash">
                                 </i>Delete
                           </button>
                         </td>
@@ -737,7 +737,7 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('StimulatingMedicineDelete')}}">
+            <form method="POST" action="{{route('FetDelete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -783,7 +783,7 @@
     <!-- /.modal -->
 
     <!-- Modal delete others-->
-      <div class="modal fade" id="modal-delete-others">
+      <div class="modal fade" id="open-modal-delete-other-cycle">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -795,13 +795,13 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('StimulatingMedicineDelete')}}">
+            <form method="POST" action="{{route('FetOtherCycleDelete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Delete</button>
               </div>
-              <input type="hidden" id="del_id" name="del_id" value="0">
+              <input type="hidden" id="del_id_other_cyle" name="del_id" value="0">
               <input type="hidden" name="txtDocId" value="{{$DocId}}">
             </form>
           </div>
@@ -864,6 +864,11 @@
     $('.open-modal-delete').click(function(data){
       var id = $(this).val();
       $('#del_id').val(id);
+    });
+
+    $('.open-modal-delete-other-cycle').click(function(data){
+      var id = $(this).val();
+      $('#del_id_other_cyle').val(id);
     });
 
     $('.open-modal-delete-bcp').click(function(data){
