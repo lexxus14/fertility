@@ -302,6 +302,12 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/fet/deleteothercycle','FETController@destroyothercycle')->name('FetOtherCycleDelete');
 /*FET*/
 
+/*FET Page 2*/
+    Route::get('/fetpage2/{PhaseId?}','FETPage2Controller@FETpage2')->name('FETpage2');
+    Route::get('/fetpage2/add/{PhaseId?}','FETPage2Controller@create')->name('FETpage2Create');
+    Route::post('/fetpage2/add','FETPage2Controller@store')->name('FETpage2Store');
+/*FET Page 2*/
+
 /*HistoryAssessesment*/
 Route::get('/historyasse','HistoryAssessmentController@index')->name('HistoryAssessmentIndex');
 Route::get('/historyasse/{PatientID?}','HistoryAssessmentController@PatientHistory')->name('PatientHistory');

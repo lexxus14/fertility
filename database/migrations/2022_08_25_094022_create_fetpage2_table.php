@@ -16,7 +16,8 @@ class CreateFetpage2Table extends Migration
         Schema::create('FETPage2s', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('patientid');
-            $table->date('docdate');
+            $table->bigInteger('FETiD');
+            $table->date('docdate')->nullable();
             $table->date('LupronStartDate')->nullable();
             $table->date('CD2Date')->nullable();
             $table->string('UterinePosition')->nullable();
@@ -43,6 +44,6 @@ class CreateFetpage2Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('FETPage2');
+        Schema::dropIfExists('FETPage2s');
     }
 }

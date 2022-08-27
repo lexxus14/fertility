@@ -29,6 +29,6 @@ class CreateFetpage2diagnosissubTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('FETPage2DiagnosisSub');
+        Schema::dropIfExists('FETPage2DiagnosisSubs');
     }
 }

@@ -48,7 +48,7 @@
                   <i class="fas fa-user-plus"></i> Info
                 </a>
 
-                <a href="{{route('FETPhase')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
+                <a href="{{route('FETpage2')}}/{{$DocId}}" class="btn btn-app bg-danger">
                   <span class="badge bg-teal">
                     <?php
                       $intTotalPatientResult =0;
