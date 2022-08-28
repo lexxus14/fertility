@@ -44,7 +44,7 @@ class FETPage2Controller extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select * from FETPage2s 
-                  where id =".$DocId;
+                  where FETiD =".$DocId;
         $docresult = DB::select($strsql);
 
         return view('fetpage2.patientindex',compact('docresult','patients','DocId'));
@@ -110,13 +110,14 @@ class FETPage2Controller extends Controller
         $docfiles->CD1Etradiol = $request->CD1Etradiol;
         $docfiles->CD1PRL = $request->CD1PRL;
         $docfiles->BloodType = $request->BloodType;
+        $docfiles->FETDate = $request->FETDate;
         $docfiles->Embros = $request->Embros;
         $docfiles->Trans = $request->Trans;
         $docfiles->Cryo = $request->Cryo;
 
         $docfiles->filelink = '/file/'.$imagepath;
 
-        $docfiles->notes = $request->txtnotes;
+        $docfiles->Notes = $request->txtnotes;
         $docfiles->createdbyid=Auth::user()->id;
         $docfiles->save();
         $doclab_id = $docfiles->id;
@@ -175,9 +176,34 @@ class FETPage2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($PhaseId,$DocId)
     {
         //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="SELECT * from fetpage2s
+                    WHERE id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from FETPage2DiagnosisSubs
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = FETPage2DiagnosisSubs.DiagnosisID
+                    WHERE FETPage2sId =".$DocId;
+        $FETPage2DiagnosisSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from FETPage2CDSubs
+                    WHERE FETPage2sId =".$DocId;
+        $FETPage2CDSubs = DB::select($strsql);
+
+
+        $doctorDiagnosis = DoctorDiagnosis::all();
+
+        return view('fetpage2.view',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','FETPage2DiagnosisSubs','FETPage2CDSubs'));
     }
 
     /**
@@ -186,9 +212,34 @@ class FETPage2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($PhaseId,$DocId)
     {
         //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="SELECT * from fetpage2s
+                    WHERE id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from FETPage2DiagnosisSubs
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = FETPage2DiagnosisSubs.DiagnosisID
+                    WHERE FETPage2sId =".$DocId;
+        $FETPage2DiagnosisSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from FETPage2CDSubs
+                    WHERE FETPage2sId =".$DocId;
+        $FETPage2CDSubs = DB::select($strsql);
+
+
+        $doctorDiagnosis = DoctorDiagnosis::all();
+
+        return view('fetpage2.edit',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','FETPage2DiagnosisSubs','FETPage2CDSubs'));
     }
 
     /**
@@ -198,9 +249,121 @@ class FETPage2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $imagepath = "";
+
+        $strsql ="SELECT * from FETPage2s where id=".$request->FETiD;
+        $las = DB::select($strsql);
+
+        $laLinkFile ="";
+
+        foreach($las as $la){
+            $laLinkFile = $la->filelink;
+        }
+
+        if ($files = $request->file('inputFile')) {
+            
+            if(is_file(public_path($laLinkFile))){
+                unlink(public_path($laLinkFile));
+            }
+
+        // Define upload path
+           $destinationPath = public_path('/file/'); // upload path
+        // Upload Orginal Image           
+           $imagepath = rand().date('YmdHis') . "." . $files->getClientOriginalExtension();
+           $files->move($destinationPath, $imagepath);
+
+           $imagepath = 'file/'.$imagepath;
+       }
+       else{
+            $imagepath = $laLinkFile;
+       }
+
+       $docfiles = FETPage2::find($request->FETiD);
+
+        $date = date_create($request->docdate);
+        $docfiles->docdate= $date->format('Y-m-d');
+
+        $docfiles->patientid = $request->txtpatientId;
+        $docfiles->FETiD = $request->FETiD;
+
+        $date = date_create($request->LupronStartDate);
+        $docfiles->LupronStartDate= $date->format('Y-m-d');
+
+        $date = date_create($request->CD2Date);
+        $docfiles->CD2Date= $date->format('Y-m-d');
+
+        $docfiles->UterinePosition = $request->UterinePosition;
+        $docfiles->Measurement = $request->Measurement;
+        $docfiles->HIPPA = $request->HIPPA;
+        $docfiles->CD1Etradiol = $request->CD1Etradiol;
+        $docfiles->CD1PRL = $request->CD1PRL;
+        $docfiles->BloodType = $request->BloodType;
+        $docfiles->FETDate = $request->FETDate;
+        $docfiles->Embros = $request->Embros;
+        $docfiles->Trans = $request->Trans;
+        $docfiles->Cryo = $request->Cryo;
+
+        $docfiles->filelink = '/file/'.$imagepath;
+
+        $docfiles->Notes = $request->txtnotes;
+        $docfiles->createdbyid=Auth::user()->id;
+        $docfiles->save();
+        $doclab_id = $docfiles->id;
+
+        $sub = DB::table('FETPage2DiagnosisSubs')->where('FETPage2sId', $request->FETiD)->delete();
+
+        $DiagnosisID=$request->DiagnosisID;
+
+        $N = count($DiagnosisID);
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new FETPage2DiagSub;
+            $pricelistsub->FETPage2sId = $doclab_id; 
+            $pricelistsub->DiagnosisID = $DiagnosisID[$i];
+            $pricelistsub->save();
+            
+        }
+
+        $CDNo=$request->CDNo;
+        $CDDate=$request->CDDate;
+        $RT=$request->RT;
+        $LT=$request->LT;
+        $Lining=$request->Lining;
+        $Estradiol=$request->Estradiol;
+        $Notes=$request->Notes;
+
+        $sub = DB::table('FETPage2CDSubs')->where('FETPage2sId', $request->FETiD)->delete();
+
+        $N = count($CDNo);
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new FETPage2CDSub;
+            $pricelistsub->FETPage2sId = $doclab_id; 
+            $pricelistsub->CDNo = $CDNo[$i];
+
+            $date = date_create($request->CDDate[$i]);            
+            $pricelistsub->CDDate= $date->format('Y-m-d');
+
+            $pricelistsub->RT = $RT[$i];
+            $pricelistsub->LT = $LT[$i];
+            $pricelistsub->Lining = $Lining[$i];
+            $pricelistsub->Estradiol = $Estradiol[$i];
+            $pricelistsub->Notes = $Notes[$i];
+            $pricelistsub->save();
+            
+        }
+
+        $translinks = new SystemFunctionController;
+
+        $translinks->StoreTransLink($doclab_id,$this->DocTransName);
+        
+        return redirect()->to('/fetpage2/'.$request->FETiD);
+
+
     }
 
     /**
@@ -209,8 +372,23 @@ class FETPage2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $strsql ="SELECT * from fetpage2s where id=".$request->del_id;
+        $las = DB::select($strsql);
+
+        $laLinkFile ="";
+
+        foreach($las as $la){
+            $laLinkFile = $la->filelink;
+        }
+            
+        if(is_file(public_path($laLinkFile))){
+            unlink(public_path($laLinkFile));
+        }
+
+        $leadassessment = FETPage2::destroy($request->del_id);
+
+        return redirect()->to('/fetpage2/'.$request->DocId);
     }
 }

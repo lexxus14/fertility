@@ -16,7 +16,8 @@ class CreateFetpage2Table extends Migration
         Schema::create('FETPage2s', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('patientid');
-            $table->bigInteger('FETiD');
+            $table->bigInteger('FETiD')->unsigned();
+            $table->foreign('FETiD')->references('id')->on('fets')->onDelete('cascade');
             $table->date('docdate')->nullable();
             $table->date('LupronStartDate')->nullable();
             $table->date('CD2Date')->nullable();

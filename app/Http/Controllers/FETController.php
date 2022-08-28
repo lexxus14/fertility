@@ -77,11 +77,17 @@ class FETController extends Controller
                   where  id =".$DocId;
         $docresultheaders = DB::select($strsql);
 
+        $strsql ="select COUNT(*) AS TotalFETPage2
+                    from FETPage2s 
+                    inner join fets on fets.id =  FETPage2s.FETiD
+                  where  FETPhaseID =".$DocId;
+        $TotalFETPage2s = DB::select($strsql);
+
 
         $medicines = Medicine::all(); 
         $medicinesunits = MedicineUnit::all(); 
         $dayshifts = DayShfts::all(); 
-        return view('fet.patientindex',compact('docresult','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers'));
+        return view('fet.patientindex',compact('docresult','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers','TotalFETPage2s'));
     }
 
     /**

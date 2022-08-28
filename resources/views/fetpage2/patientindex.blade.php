@@ -46,6 +46,9 @@
                 <a href="{{route('LeadView')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
                   <i class="fas fa-user-plus"></i> Info
                 </a>
+                <a href="{{route('FET')}}/{{$DocId}}" class="btn btn-app bg-secondary">                  
+                  <i class="fas fa-user-plus"></i> FET
+                </a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -188,12 +191,12 @@
 		                    <td>{{$result->docdate}}</td>
 		                    <td>{{$result->Notes}}</td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('PatientVitalSignShow')}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FETpage2Show')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('PatientVitalSignEdit')}}/{{$result->id}}">
+		                      <a class="btn btn-info btn-sm float-right" href="{{route('FETpage2Edit')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-pencil-alt"></i> Edit
 		                      </a>                       
 
@@ -231,14 +234,14 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('PatientVitalSignDelete')}}">
+            <form method="POST" action="{{route('FETpage2Delete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Delete</button>
               </div>
               <input type="hidden" id="del_id" name="del_id" value="0">
-              <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
+              <input type="hidden" name="DocId" value="{{$DocId}}">
             </form>
           </div>
           <!-- /.modal-content -->

@@ -195,6 +195,19 @@ class FETPhaseController extends Controller
      */
     public function destroy(Request $request)
     {
+        $strsql ="SELECT * from fetphases where id=".$request->del_id;
+        $las = DB::select($strsql);
+
+        $laLinkFile ="";
+
+        foreach($las as $la){
+            $laLinkFile = $la->filelink;
+        }
+            
+        if(is_file(public_path($laLinkFile))){
+            unlink(public_path($laLinkFile));
+        }
+        
         $leadassessment = FETPhase::destroy($request->del_id);       
 
         return redirect()->to('/fetphase/'.$request->txtpatientId);

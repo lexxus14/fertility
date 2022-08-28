@@ -47,12 +47,20 @@
                 <a href="{{route('LeadView')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
                   <i class="fas fa-user-plus"></i> Info
                 </a>
+                <a href="{{route('FETPhase')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
+                  <i class="fas fa-user-plus"></i> FET Phase
+                </a>
 
                 <a href="{{route('FETpage2')}}/{{$DocId}}" class="btn btn-app bg-danger">
                   <span class="badge bg-teal">
                     <?php
                       $intTotalPatientResult =0;
                     ?>
+                    @foreach($TotalFETPage2s as $TotalFETPage2s)
+                    <?php
+                      $intTotalPatientResult =$TotalFETPage2s->TotalFETPage2;
+                    ?>
+                    @endforeach
                     
                     {{$intTotalPatientResult}}</span>
                   <i class="fas fa-file"></i> FET Form 2

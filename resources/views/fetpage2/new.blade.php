@@ -589,7 +589,7 @@
         console.log(data);
             $('#tbody').append(`<tr id="R${++rowIdx}">
               <td class="row-index text-center">
-              <input type="hidden" class="medid" name="FETPage2sId[]" value="${data.id}">
+              <input type="hidden"  name="DiagnosisID[]" value="${data.id}">
                 <p>${rowIdx}</p>
               </td>
               <td class="text-center">
@@ -597,7 +597,7 @@
               </td>
               <td class="text-center">
                 <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                  </i>
+                
 
                 </td>
               </tr>`);

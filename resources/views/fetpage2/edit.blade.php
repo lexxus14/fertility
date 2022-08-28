@@ -151,12 +151,11 @@
     <!-- /.content -->
 
   <section class="content">
-   <form action="{{route('PatientVitalSignUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
     @foreach($docresults as $docresult)
+   <form action="{{route('FETpage2Update')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
         {{ csrf_field() }}
-      <input type="hidden" id="TotalPayableAmount" name="txtTotalPayableAmount" value="0">
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="txtPatientVitalSignId" value="{{$docresult->id}}">
+      <input type="hidden" name="FETiD" value="{{$DocId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
@@ -170,7 +169,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Vital Sign</h3>
+              <h3 class="card-title">FET Form 2</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -183,26 +182,36 @@
                 <div class="col-2">
                     <div class="form-group">
                       <label>Date</label>
-                      <div class="input-group date" id="lead-date" data-target-input="nearest">
-                          <input type="text" id="lead-date-input" class="form-control datetimepicker-input" name="txtDocDate" data-target="#lead-date"/>
-
-                          <div class="input-group-append" data-target="#lead-date" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                           <script>
-                          const d = new Date("{{$docresult->docdate}}");
-                          let text = d.toLocaleString();
-                          document.getElementById("lead-date-input").value = text;
-                          </script>
-                      </div>
+                        <input type="date" class="form-control" value="{{$docresult->docdate}}" name="docdate"/>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                    <div class="form-group">
+                      <label>Lupron Start Date</label>
+                        <input type="date" class="form-control" value="{{$docresult->LupronStartDate}}" name="LupronStartDate"/>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                      <label>CD2</label>
+                        <input type="date" class="form-control" value="{{$docresult->CD2Date}}" name="CD2Date"/>
                     </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-4">
                     <div class="form-group">
-                      <label>Description</label>
-                      <input type="text" name="txtdescription" value="{{$docresult->description}}" class="form-control">
+                      <label>Uterine Position</label>
+                      <input type="text" name="UterinePosition" value="{{$docresult->UterinePosition}}" class="form-control">
+                    </div>                   
+
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                      <label>Measurment</label>
+                      <input type="number" name="Measurement" value="{{$docresult->Measurement}}" placeholder="mm" class="form-control">
                     </div>                   
 
                 </div>                
@@ -210,50 +219,42 @@
               <div class="row">
                 <div class="form-group">
                 <div class="col-12">
-                  <input type="button" value="Add Vital Sign" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
+                  <input type="button" value="Add Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
                 </div>
                 </div>
-              </div>   
+              </div>
               <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                 <!-- /.card-header -->
                     <!-- <table id="example1" class="table table-bordered table-striped"> -->
                     <table  class="table table-bordered table-striped">
                       <thead>                  
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Vital Sign</th>
-                        <th >Result</th>
-                        <th style="width: 40px">Action</th>
+                        <th>#</th>
+                        <th>Diagnosis</th>
+                        <th>Action</th>
                       </tr>                  
                       </thead>
                       <tbody id="tbody">
-                        
-                      <?php 
-                      $intctr = 0;
-                      ?>
-                      @foreach($patientvitalssubs as $patientvitalssub)
-                      <?php 
-                      $intctr++;
-                      ?>
-                      <tr id="R{{$intctr}}">
-                        <td class="row-index text-center">
-                        <input type="hidden" class="medid" name="txtvitalsignId[]" value="{{$patientvitalssub->vitalsignId}}">
-                          <p>{{$intctr}}</p>
-                        </td>
-                        <td class="text-center">
-                        {{$patientvitalssub->description}}
-                        </td>                        
-                        <td class="text-center">
-                          <textarea class="form-control amount amount{{$patientvitalssub->id}}" name="txtnote[]">{{$patientvitalssub->notes}}</textarea>
-                        </td>
-                        <td class="text-center">
-                          <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                            </i>
-
+                        <?php 
+                          $intctr = 0;
+                        ?>
+                        @foreach($FETPage2DiagnosisSubs as $FETPage2DiagnosisSub)
+                        <tr id="R{{$intctr}}">
+                          <?php $intctr++; ?>
+                          <td class="row-index text-center">
+                            <input type="hidden" name="FETPage2sId[]" value="{{$FETPage2DiagnosisSub->id}}">
+                            <p>{{$intctr}}</p>
+                          </td>
+                          <td class="text-center">
+                            {{$FETPage2DiagnosisSub->description}}
+                          </td>
+                          <td class="text-center">
+                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
                           </td>
                         </tr>
-                      @endforeach
+                        @endforeach 
+                      
         
                       </tbody>                  
                     </table>
@@ -264,11 +265,135 @@
               <div class="row">
                 <div class="col-4">
                   <div class="form-group">
+                    <label>HIPPA#</label>
+                    <input type="text" name="HIPPA" value="{{$docresult->HIPPA}}" class="form-control">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>CD1 Estradiol</label>
+                    <input type="text" name="CD1Etradiol" value="{{$docresult->CD1Etradiol}}" class="form-control">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>CD1 PRL</label>
+                    <input type="text" name="CD1PRL" value="{{$docresult->CD1PRL}}" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-12">
+                    <input type="button" value="Add Cycle" id="add_cd" class="btn btn-success float-right">
+                  </div>
+                </div>
+              </div>   
+              <div class="row">
+                <div class="col-12">
+                <!-- /.card-header -->
+                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                    <table  class="table table-bordered table-striped">
+                      <thead>                  
+                      <tr>
+                        <th>CD No</th>
+                        <th>Date</th>
+                        <th>Ultrasound</th>
+                        <th>Lining</th>
+                        <th>Estradiol</th>
+                        <th>Notes</th>
+                        <th>Action</th>
+                      </tr>                  
+                      </thead>
+                      <tbody id="tbody_cd">
+                        <?php
+                          $ctr=0;
+                        ?>
+                        @foreach($FETPage2CDSubs as $FETPage2CDSub)
+                        <tr id="RCD{{$ctr}}">
+                          <?php $ctr++; ?>
+                          <td class="row-index text-center">
+                            <input type="number" class="form-control" name="CDNo[]" value="{{$FETPage2CDSub->CDNo}}">
+                          </td>
+                          <td class="text-center">
+                            <input type="date" class="form-control" name="CDDate[]" value="{{$FETPage2CDSub->CDDate}}">
+                          </td>
+                          <td class="text-center">
+                            <div class="form-group row">
+                              <label for="rt" class="col-sm-2 col-form-label">RT</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="rt" name="RT[]" placeholder="RT" value="{{$FETPage2CDSub->RT}}">
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label for="lt" class="col-sm-2 col-form-label">LT</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="lt" name="LT[]" placeholder="LT" value="{{$FETPage2CDSub->LT}}">
+                              </div>
+                            </div>
+                          </td>        
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="Lining[]" value="{{$FETPage2CDSub->Lining}}">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="Estradiol[]" value="{{$FETPage2CDSub->Estradiol}}">
+                          </td>
+                          <td class="text-center">
+                            <textarea name="Notes[]" class="form-control">{{$FETPage2CDSub->Notes}} </textarea>
+                          </td>
+                          <td class="text-center">
+                            <input type="button" class="btn btn-danger btn-sm remove-cd float-right" value="Remove">
+                              </i>
+
+                            </td>
+                        </tr>
+                        @endforeach                     
+                      </tbody>                  
+                    </table>
+                <!-- /.card-body -->
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
                       <div class="form-group">
                         <label>Note</label>
-                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4">{{$docresult->notes}}</textarea>
+                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4">{{$docresult->Notes}}</textarea>
                       </div>                      
                     </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <div class="form-group">
+                    <label>Blood Type</label>
+                    <input type="text" name="BloodType" value="{{$docresult->BloodType}}" class="form-control">
+                  </div> 
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <label>FET Date</label>
+                    <input type="date" name="FETDate" value="{{$docresult->FETDate}}" class="form-control">
+                  </div> 
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <label>Embros</label>
+                    <input type="text" name="Embros" value="{{$docresult->Embros}}"  class="form-control">
+                  </div> 
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <label>Trans</label>
+                    <input type="text" name="Trans" value="{{$docresult->Trans}}" class="form-control">
+                  </div> 
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <label>Cyro</label>
+                    <input type="text" name="Cryo" value="{{$docresult->Cryo}}" class="form-control">
+                  </div> 
                 </div>
               </div>
               <div class="row">
@@ -280,14 +405,14 @@
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('PatientPatientVitalSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('FETpage2')}}/{{$PhaseId}}" class="btn btn-secondary">Cancel</a>
                   <input type="submit" value="Save" class="btn btn-success float-right">
                 </div>
               </div>
@@ -295,7 +420,8 @@
           </div>
           <!-- /.card -->
         </div>
-      </div>     
+      </div>
+      
 
     </form>
     @endforeach
@@ -309,7 +435,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Vital Sign</h4>
+              <h4 class="modal-title">Diagnosis</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -332,15 +458,15 @@
                     <?php
                       $intctr =0;
                     ?>
-                    @foreach($vitalSigns as $vitalSign)
+                    @foreach($doctorDiagnosis as $doctorDiagnosi)
                     <?php
                     $intctr++; 
                     ?>
                     <tr>
                       <td>{{$intctr}}</td>
-                      <td>{{$vitalSign->description}}</td>
+                      <td>{{$doctorDiagnosi->description}}</td>
 
-                      <td><button type="button" class="btn btn-success add-medicine-treatment" value="{{$vitalSign->id}}">Add</button> </td>
+                      <td><button type="button" class="btn btn-success add-medicine-treatment" value="{{$doctorDiagnosi->id}}">Add</button> </td>
                     </tr>
                     @endforeach
                   </tbody>
@@ -432,36 +558,104 @@
 
     <script >
     $(document).ready(function(){
-
+    var rowIdx = {{$intctr}};
+    var rowIdx_cd = {{$ctr}};        
     
-    var rowIdx = 0;
+    $('#add_cd').click(function(){
+      
+      $('#tbody_cd').append(`<tr id="RCD${++rowIdx_cd}">
+        <td class="row-index text-center">
+          <input type="number" class="form-control" name="CDNo[]" value="${rowIdx_cd}">
+        </td>
+        <td class="text-center">
+          <input type="date" class="form-control" name="CDDate[]">
+        </td>
+        <td class="text-center">
+          <div class="form-group row">
+            <label for="rt" class="col-sm-2 col-form-label">RT</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="rt" name="RT[]" placeholder="RT">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lt" class="col-sm-2 col-form-label">LT</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="lt" name="LT[]" placeholder="LT">
+            </div>
+          </div>
+        </td>        
+        <td class="text-center">
+          <input type="text" class="form-control" name="Lining[]">
+        </td>
+        <td class="text-center">
+          <input type="text" class="form-control" name="Estradiol[]">
+        </td>
+        <td class="text-center">
+          <textarea name="Notes[]" class="form-control"> </textarea>
+        </td>
+        <td class="text-center">
+          <input type="button" class="btn btn-danger btn-sm remove-cd float-right" value="Remove">
+            </i>
+
+          </td>
+        </tr>`);
+    });
+
+    // jQuery button click event to remove a row.
+    $('#tbody_cd').on('click', '.remove-cd', function () {
 
 
-          
-    
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // Iterating across all the rows
+      // obtained to change the index
+      child.each(function () {
+
+                  // Getting <tr> id.
+                  var id = $(this).attr('id');
+
+                  // Getting the <p> inside the .row-index class.
+                  var idx = $(this).children('.row-index').children('p');
+
+                  // Gets the row number from <tr> id.
+                  var dig = parseInt(id.substring(3));
+
+                  // Modifying row index.
+                  idx.html(`${dig - 1}`);
+
+                  // Modifying row id.
+                  $(this).attr('id', `RCD${dig - 1}`);
+      });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      rowIdx_cd--;
+    });
+
     /* Price List */
 
     $('.add-medicine-treatment').click(function(){
 
       var med_id = $(this).val();
-      url = '{{route('GetVitalSignInfo')}}';
+      url = '{{route('DoctorDiagnosInfo')}}';
 
       $.get(url + '/' + med_id, function (data) {
         console.log(data);
             $('#tbody').append(`<tr id="R${++rowIdx}">
               <td class="row-index text-center">
-              <input type="hidden" class="medid" name="txtvitalsignId[]" value="${data.id}">
+              <input type="hidden" name="DiagnosisID[]" value="${data.id}">
                 <p>${rowIdx}</p>
               </td>
               <td class="text-center">
               ${data.description}
               </td>
               <td class="text-center">
-                <textarea class="form-control amount amount${data.id}" name="txtnote[]"></textarea>
-              </td>
-              <td class="text-center">
                 <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                  </i>
+                 
 
                 </td>
               </tr>`);

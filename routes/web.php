@@ -306,6 +306,10 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::get('/fetpage2/{PhaseId?}','FETPage2Controller@FETpage2')->name('FETpage2');
     Route::get('/fetpage2/add/{PhaseId?}','FETPage2Controller@create')->name('FETpage2Create');
     Route::post('/fetpage2/add','FETPage2Controller@store')->name('FETpage2Store');
+    Route::get('/fetpage2/edit/{PhaseId?}/{id?}','FETPage2Controller@edit')->name('FETpage2Edit');
+    Route::post('/fetpage2/update','FETPage2Controller@update')->name('FETpage2Update');
+    Route::get('/fetpage2/view/{PhaseId?}/{id?}','FETPage2Controller@show')->name('FETpage2Show');
+    Route::post('/fetpage2/delete','FETPage2Controller@destroy')->name('FETpage2Delete');
 /*FET Page 2*/
 
 /*HistoryAssessesment*/
