@@ -28,6 +28,6 @@ class CreateMedicineunitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('StiMedOthMedSubs');
+        Schema::dropIfExists('MedicineUnits');
     }
 }

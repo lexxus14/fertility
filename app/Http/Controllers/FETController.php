@@ -531,7 +531,7 @@ class FETController extends Controller
         $medicines = Medicine::all(); 
         $medicinesunits = MedicineUnit::all(); 
         $dayshifts = DayShfts::all();  
-        return view('fet.viowexpdate',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
+        return view('fet.viewexpdate',compact('PhaseId','docId','docresults','patients','medicines','medicinesunits','dayshifts'));
     }
 
     /**

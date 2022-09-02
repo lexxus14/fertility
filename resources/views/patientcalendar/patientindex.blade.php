@@ -74,12 +74,12 @@
                   <i class="fas fa-file"></i> FET Form
                 </a>
 
-                <a href="{{route('FETPhase')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
+                <a href="{{route('FreshFormPhase')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
                   <span class="badge bg-teal">
                     <?php
                       $intTotalPatientResult =0;
                     ?>
-                    @foreach($TotalFETPhases as $TotalRec)
+                    @foreach($TotalFreshFormPhases as $TotalRec)
                     <?php
                       $intTotalPatientResult =$TotalRec->TotalPatientResult;
                     ?>

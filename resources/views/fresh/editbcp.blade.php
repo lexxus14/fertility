@@ -152,14 +152,14 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">FET BCP</h3>
+            <h3 class="card-title">Fresh Form BCP</h3>
           </div>
           <div class="card-body">
             @foreach($docresults as $docresult)
-            <form id="quickForm" action="{{route('FetUpdateBcp')}}" method="POST" enctype="multipart/form-data">
+            <form id="quickForm" action="{{route('FreshFormUpdateBcp')}}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
               <input type="hidden" name="txtDocId" value="{{$docId}}">
-              <input type="hidden" name="FETPhaseID" value="{{$PhaseId}}">
+              <input type="hidden" name="PhaseId" value="{{$PhaseId}}">
               <div class="modal-body">
                 <div class="row">
                   <div class="col-4">
@@ -194,7 +194,7 @@
                 </div> 
               </div>            
               <div class="modal-footer justify-content-between">
-                <a href="{{route('FET')}}/{{$PhaseId}}" class="btn btn-default">Cancel</a>
+                <a href="{{route('FreshForm')}}/{{$PhaseId}}" class="btn btn-default">Cancel</a>
                 <button type="submit" class="btn btn-primary">Save</button>
               </div>
             </form>

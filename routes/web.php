@@ -296,6 +296,7 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/fet/updateothers','FETController@UpdateOthers')->name('FetUpdateOthers');
     Route::post('/fet/updatebcp','FETController@updatebcp')->name('FetUpdateBcp');
     Route::post('/fet/updateexpecteddate','FETController@UpdateExpecteDate')->name('UpdateExpecteDate');
+
     Route::post('/fet/delete','FETController@destroy')->name('FetDelete');
     Route::post('/fet/deletebcp','FETController@destroybcp')->name('FetBCPDelete');
     Route::post('/fet/deleteexpecteddate','FETController@destroyexpecteddate')->name('FetExpecteDateDelete');
@@ -311,6 +312,39 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::get('/fetpage2/view/{PhaseId?}/{id?}','FETPage2Controller@show')->name('FETpage2Show');
     Route::post('/fetpage2/delete','FETPage2Controller@destroy')->name('FETpage2Delete');
 /*FET Page 2*/
+
+/*Fresh Form Phase*/
+    Route::get('/freshformphase/{PatientID?}','FreshFormPhaseController@FreshFormPhase')->name('FreshFormPhase');
+    Route::post('/freshformphase/add','FreshFormPhaseController@store')->name('FreshFormPhaseStore');
+    Route::get('/freshformphase/edit/{id?}','FreshFormPhaseController@edit')->name('FreshFormPhaseEdit');
+    Route::post('/freshformphase/update','FreshFormPhaseController@update')->name('FreshFormPhaseUpdate');
+    Route::get('/freshformphase/view/{PatientID?}','FreshFormPhaseController@show')->name('FreshFormPhaseShow');
+    Route::post('/freshformphase/delete','FreshFormPhaseController@destroy')->name('FreshFormPhaseDelete');
+
+/*Fresh Form Phase*/
+
+/*Fresh Form*/
+    Route::get('/freshform/{StiPhaseId?}','FreshFormController@FreshForm')->name('FreshForm');
+    Route::post('/freshform/store','FreshFormController@store')->name('FreshFormStore');
+    Route::post('/freshform/expectedstore','FreshFormController@store_expected')->name('FreshFormExpectedStore');
+
+    Route::get('/freshform/view/{PhaseId?}/{id?}','FreshFormController@view')->name('FreshFormView');
+    Route::get('/freshform/viewbcp/{PhaseId?}/{id?}','FreshFormController@viewbcp')->name('FreshFormViewBCP');
+    Route::get('/freshform/viewexpdate/{PhaseId?}/{id?}','FreshFormController@ViewExpectedDate')->name('FreshFormViewExpectedDate');
+
+    Route::get('/freshform/edit/{PhaseId?}/{id?}','FreshFormController@edit')->name('FreshFormEdit');
+    Route::get('/freshform/editbcp/{PhaseId?}/{id?}','FreshFormController@editbcp')->name('FreshFormEditBCP');
+    Route::get('/freshform/editexpdate/{PhaseId?}/{id?}','FreshFormController@EditExpectedDate')->name('FreshFormEditExpectedDate');
+
+    Route::post('/freshform/update','FreshFormController@update')->name('FreshFormUpdate');
+    Route::post('/freshform/updatebcp','FreshFormController@updatebcp')->name('FreshFormUpdateBcp');
+    Route::post('/freshform/updateexpecteddate','FreshFormController@UpdateExpecteDate')->name('FreshFormUpdateExpecteDate');
+
+    Route::post('/freshform/delete','FreshFormController@destroy')->name('FreshFormDelete');
+    Route::post('/freshform/bcpdelete','FreshFormController@FreshFormBCPdestroy')->name('FreshFormBCPdestroy');
+    Route::post('/freshform/expectedpdelete','FreshFormController@FreshFormExptecteddestroy')->name('FreshFormExptecteddestroy');
+/*Fresh Form*/
+
 
 /*HistoryAssessesment*/
 Route::get('/historyasse','HistoryAssessmentController@index')->name('HistoryAssessmentIndex');

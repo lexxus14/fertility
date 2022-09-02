@@ -194,7 +194,7 @@
                 </div> 
               </div>            
               <div class="modal-footer justify-content-between">
-                <a href="{{route('FET')}}/{{$PhaseId}}" class="btn btn-default">Cancel</a>
+                <a href="{{route('FreshForm')}}/{{$PhaseId}}" class="btn btn-default">Cancel</a>
               </div>
             </form>
             @endforeach

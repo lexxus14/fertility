@@ -15,8 +15,8 @@ class CreateFreshformedsubsTable extends Migration
     {
         Schema::create('FreshFormMedSubs', function (Blueprint $table) {
             $table->bigincrements('id');
-            $table->bigInteger('FreshPhaseID')->unsigned();
-            $table->foreign('FreshPhaseID')->references('id')->on('FreshPhases')->onDelete('cascade');
+            $table->bigInteger('FreshFormId')->unsigned();
+            $table->foreign('FreshFormId')->references('id')->on('FreshForms')->onDelete('cascade');
             $table->bigInteger('MedId')->nullable();
             $table->string('Dose')->nullable();   
             $table->bigInteger('MedUnitId')->nullable();   

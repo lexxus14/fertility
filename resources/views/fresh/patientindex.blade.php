@@ -47,8 +47,8 @@
                 <a href="{{route('LeadView')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
                   <i class="fas fa-user-plus"></i> Info
                 </a>
-                <a href="{{route('FETPhase')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
-                  <i class="fas fa-user-plus"></i> FET Phase
+                <a href="{{route('FreshFormPhase')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
+                  <i class="fas fa-user-plus"></i> Fresh Form Phase
                 </a>
 
                 <a href="{{route('FETpage2')}}/{{$DocId}}" class="btn btn-app bg-danger">
@@ -63,7 +63,7 @@
                     @endforeach
                     
                     {{$intTotalPatientResult}}</span>
-                  <i class="fas fa-file"></i> FET Form 2
+                  <i class="fas fa-file"></i> Short Protocol
                 </a>
               </div>
               <!-- /.card-body -->
@@ -175,11 +175,7 @@
 	          <div class="col-md-12">
 	            <div class="card">
 	              <div class="card-header">
-	                <h3 class="card-title"><b>FET Form</b></h3>      
-                    
-                  <button class="btn btn-success float-right open-modal-lead-assessment" data-toggle="modal" data-target="#modal-show-other-cycle" style="margin-right: 5px;">
-                    <i class="fas fa-pencil-alt"></i> Other Cycle
-                  </button>  
+	                <h3 class="card-title"><b>Fresh Form</b></h3>        
                   <button class="btn btn-success float-right open-modal-lead-assessment" data-toggle="modal" data-target="#modal-show-expected-period" style="margin-right: 5px;">
                     <i class="fas fa-pencil-alt"></i> Expected Period
                   </button> 
@@ -191,7 +187,7 @@
 	              <div class="card-body">                  
                   @foreach($docresultheaders as $docresultheader)                    
                     <div class="form-group">
-                      <h3 class="card-title"><b>FET Schedule for: {{$docresultheader->FedSched}}</b></h3></br>
+                      <h3 class="card-title"><b>FET Schedule for: {{$docresultheader->FreshSched}}</b></h3></br>
                       <h3 class="card-title"><b>Month: {{$docresultheader->Months}}</b></h3>
                     </div>                    
                     <textarea class="form-control">{{$docresultheader->Notes}}</textarea></b>
@@ -223,12 +219,12 @@
 
                         <td><textarea class="form-control">{{$result->Notes}}</textarea></td>
                         <td>
-                          <a class="btn btn-primary btn-sm float-right" href="{{route('FetViewBCP')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('FreshFormViewExpectedDate')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-folder"></i>
                                   View
                           </a>
 
-                          <a class="btn btn-info btn-sm float-right" href="{{route('FetEditBCP')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-info btn-sm float-right" href="{{route('FreshFormEditBCP')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-pencil-alt"></i> Edit
                           </a>                       
 
@@ -267,12 +263,12 @@
 
                         <td><textarea class="form-control">{{$result->Notes}}</textarea></td>
                         <td>
-                          <a class="btn btn-primary btn-sm float-right" href="{{route('ViewExpectedDate')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-primary btn-sm float-right" href="{{route('FreshFormViewExpectedDate')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-folder"></i>
                                   View
                           </a>
 
-                          <a class="btn btn-info btn-sm float-right" href="{{route('EditExpectedDate')}}/{{$DocId}}/{{$result->id}}">
+                          <a class="btn btn-info btn-sm float-right" href="{{route('FreshFormEditExpectedDate')}}/{{$DocId}}/{{$result->id}}">
                             <i class="fas fa-pencil-alt"></i> Edit
                           </a>                       
 
@@ -311,11 +307,11 @@
 		                    <td>{{date('l', strtotime($result->CycleDate))}}</td>
                         <td>
                           <?php 
-                          $strsql ="SELECT Dose, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol FROM `fetsmedsubs`
-                                    INNER JOIN medicines m on m.id = fetsmedsubs.MedId
-                                    INNER JOIN medicineunits mu on mu.id = fetsmedsubs.MedUnitId
-                                    INNER JOIN dayshifts d on d.id = fetsmedsubs.DayShiftId
-                                    WHERE FetId =". $result->id;
+                          $strsql ="SELECT Dose, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol FROM `freshformmedsubs`
+                                    INNER JOIN medicines m on m.id = freshformmedsubs.MedId
+                                    INNER JOIN medicineunits mu on mu.id = freshformmedsubs.MedUnitId
+                                    INNER JOIN dayshifts d on d.id = freshformmedsubs.DayShiftId
+                                    WHERE FreshFormId =". $result->id;
                   
                           $subdocresults = DB::select($strsql);
 
@@ -329,12 +325,12 @@
 
                         <td>{{$result->Notes}}</td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FetView')}}/{{$DocId}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FreshFormView')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('FetEdit')}}/{{$DocId}}/{{$result->id}}">
+		                      <a class="btn btn-info btn-sm float-right" href="{{route('FreshFormEdit')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-pencil-alt"></i> Edit
 		                      </a>                       
 
@@ -346,66 +342,6 @@
 	                     @endforeach      
 	                  </tbody>                  
 	                </table>
-                  <hr>
-                  <h3>Others</h3>
-                  <table id="othertable" class="table table-bordered table-striped">
-                    <thead>                  
-                    <tr>
-                      <th>Date</th>
-                      <th>Day</th>
-                      <th>Medicine</th>
-                      <th>Notes</th>
-                      <th>Action</th>
-                    </tr>                  
-                    </thead>
-                    <tbody>
-                      <?php
-                          $intctr = 0;
-                        ?>
-                      @foreach($docresultFETothers as $result)<!-- lab foreach -->
-                      <?php 
-                        $intctr++;
-                      ?>
-                      <tr>                       
-                        <td>{{$result->CycleDate}}</td>
-                        <td>{{date('l', strtotime($result->CycleDate))}}</td>
-                        <td>
-                          <?php 
-                          $strsql ="SELECT Dose, m.description as Medicine,mu.ShortSymbol,d.ShortSymbol as DayShifSymbol FROM `fetsothermedsubs`
-                                    INNER JOIN medicines m on m.id = fetsothermedsubs.MedId
-                                    INNER JOIN medicineunits mu on mu.id = fetsothermedsubs.MedUnitId
-                                    INNER JOIN dayshifts d on d.id = fetsothermedsubs.DayShiftId
-                                    WHERE fetothersId =". $result->id;
-                  
-                          $subdocresults = DB::select($strsql);
-
-                          foreach($subdocresults as $subdocresult )
-                          {
-                            echo $subdocresult->Medicine.'&nbsp'.$subdocresult->Dose.'&nbsp'.$subdocresult->ShortSymbol.'&nbsp'.$subdocresult->DayShifSymbol.'<br/>';
-                          }
-                          ?>
-
-                        </td>
-
-                        <td>{{$result->Notes}}</td>
-                        <td>
-                          <a class="btn btn-primary btn-sm float-right" href="{{route('ViewEditOthers')}}/{{$DocId}}/{{$result->id}}">
-                            <i class="fas fa-folder"></i>
-                                  View
-                          </a>
-
-                          <a class="btn btn-info btn-sm float-right" href="{{route('FetEditOthers')}}/{{$DocId}}/{{$result->id}}">
-                            <i class="fas fa-pencil-alt"></i> Edit
-                          </a>                       
-
-                          <button type="button" class="btn btn-danger btn-sm open-modal-delete-other-cycle float-right" data-toggle="modal" data-target="#open-modal-delete-other-cycle" value="{{$result->id}}"> <i class="fas fa-trash">
-                                </i>Delete
-                          </button>
-                        </td>
-                      </tr> 
-                       @endforeach      
-                    </tbody>                  
-                  </table>
 	              </div>
 	              <!-- /.card-body -->
 	            </div>
@@ -430,10 +366,10 @@
               </button>
             </div>
 
-            <form id="quickForm" action="{{route('FetStore')}}" method="POST" enctype="multipart/form-data">
+            <form id="quickForm" action="{{route('FreshFormStore')}}" method="POST" enctype="multipart/form-data">
               {{ csrf_field() }}
             <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-            <input type="hidden" name="FETPhaseID" value="{{$DocId}}">
+            <input type="hidden" name="FreshPhaseID" value="{{$DocId}}">
             <div class="modal-body">
               <div class="row">
                 <div class="col-4">
@@ -515,10 +451,10 @@
               </button>
             </div>
 
-            <form id="quickForm" action="{{route('FetExpectedStore')}}" method="POST" enctype="multipart/form-data">
+            <form id="quickForm" action="{{route('FreshFormExpectedStore')}}" method="POST" enctype="multipart/form-data">
               {{ csrf_field() }}
             <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-            <input type="hidden" name="FETPhaseID" value="{{$DocId}}">
+            <input type="hidden" name="FreshPhaseID" value="{{$DocId}}">
             <div class="modal-body">
               <div class="row">
                 <div class="col-4">
@@ -546,91 +482,6 @@
                 </div>
               </div> 
               <hr>    
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
-                    <label>Notes</label>
-                    <textarea name="Notes" class="form-control"></textarea>
-                  </div>
-                </div>
-              </div> 
-            </div>            
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-              </div>
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-    <!-- /.modal -->
-
-    <!-- Modal Other Cycle -->
-      <div class="modal fade" id="modal-show-other-cycle">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Other Cycle</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <form id="quickForm" action="{{route('FetOtherStore')}}" method="POST" enctype="multipart/form-data">
-              {{ csrf_field() }}
-            <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-            <input type="hidden" name="FETPhaseID" value="{{$DocId}}">
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-4">
-                  <div class="form-group">                  
-                    <label>Start Date</label>                      
-                      <input type="date" class="form-control" name="txtDocDate">
-                  </div>
-                </div>                
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
-                    <label>No. of Cycle</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">                  
-                    <input type="number" name="CycleFrom" placeholder="From" class="form-control">
-                  </div>
-                </div> 
-                <div class="col-2">
-                  <div class="form-group">                  
-                    <input type="number" name="CycleTo" placeholder="To" class="form-control">
-                  </div>
-                </div>
-              </div> 
-              <hr>
-              <div class="row">                
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label>Medicine</label>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add-med-other">Add Med</button>
-                    <table class="table table-bordered">
-                    <thead>
-                      <tr>                        
-                        <th>Medicine</th>
-                        <th>Dosage</th>
-                        <th>Unit</th>
-                        <th>Day</th>
-                        <th style="width: 10px">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody id="tbody_other">
-                      
-                    </tbody>
-                  </table>
-                  </div>
-                </div>
-              </div>    
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
@@ -697,51 +548,6 @@
       </div>
     <!-- /.Add Med Modal -->
 
-    <!-- Add Other Med Modal-->
-      <div class="modal fade" id="modal-add-med-other">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Search Medicine</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="card-body">
-                  <table id="example2" class="table table-bordered table-striped">
-                    <thead>                  
-                    <tr>                      
-                      <th>Medicine</th>
-                      <th>Action</th>
-                    </tr>                  
-                    </thead>
-                    <tbody>
-                      @foreach($medicines as $medicine)
-                      <tr>
-                        <td>{{$medicine->description}}</td>
-                        <td>
-                          <button class="btn btn-success btn-sm float-right add-other-medicine-other" value="{{$medicine->id}}">
-                            <i class="fas fa-plus"></i>
-                                  Add
-                          </button>                          
-                        </td>
-                      </tr>
-                      @endforeach      
-                    </tbody>                  
-                  </table>
-                </div>
-            </div>
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-    <!-- /.Add Other Med Modal -->
-
     <!-- Modal delete -->
       <div class="modal fade" id="modal-delete">
         <div class="modal-dialog">
@@ -755,7 +561,7 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('FetDelete')}}">
+            <form method="POST" action="{{route('FreshFormDelete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -784,42 +590,13 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('FetBCPDelete')}}">
+            <form method="POST" action="{{route('FreshFormBCPdestroy')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Delete</button>
               </div>
               <input type="hidden" id="del_id_bcp" name="del_id" value="0">
-              <input type="hidden" name="txtDocId" value="{{$DocId}}">
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-    <!-- /.modal -->
-
-    <!-- Modal delete others-->
-      <div class="modal fade" id="open-modal-delete-other-cycle">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Are you sure you to delete?</p>
-            </div>
-            <form method="POST" action="{{route('FetOtherCycleDelete')}}">
-              {{ csrf_field() }}
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Delete</button>
-              </div>
-              <input type="hidden" id="del_id_other_cyle" name="del_id" value="0">
               <input type="hidden" name="txtDocId" value="{{$DocId}}">
             </form>
           </div>
@@ -842,7 +619,7 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('FetExpecteDateDelete')}}">
+            <form method="POST" action="{{route('FreshFormExptecteddestroy')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1013,74 +790,6 @@
 
       // Decreasing total number of rows by 1.
       rowIdx--;
-    });
-
-        var rowIdx_other = 0;
-
-  $('.add-other-medicine-other').click(function(){
-
-      var med_id = $(this).val();
-      url = '{{route('GetMedInfo')}}';
-
-      $.get(url + '/' + med_id, function (data) {
-        console.log(data);
-            $('#tbody_other').append(`<tr id="R${++rowIdx_other}">                    
-                <td>${data.description}<input type="hidden" class="medid" name="OMedId[]" value="${data.id}"></td>
-                <td>
-                  <input type="number" name="Odose[]" value="6" class="form-control">
-                </td>
-                <td>
-                  <select name="OUnitId[]" class="form-control">
-                    @foreach($medicinesunits as $medunit)
-                    <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
-                    @endforeach
-                  </select> 
-                </td>
-                <td>
-                  <select name="ODayShiftId[]" class="form-control">
-                    @foreach($dayshifts as $medunit)
-                    <option value="{{$medunit->id}}">{{$medunit->ShortSymbol}}</option>
-                    @endforeach
-                  </select> 
-                </td>
-                <td><button class="btn btn-danger btn-sm remove-other-medicine float-right">Remove</button></td>
-              </tr>`);
-      });
-
-    });
-
-  // jQuery button click event to remove a row.
-    $('#tbody_other').on('click', '.remove-other-medicine', function () {
-
-      // Getting all the rows next to the row
-      // containing the clicked button
-      var child = $(this).closest('tr').nextAll();
-
-      // Iterating across all the rows
-      // obtained to change the index
-      child.each(function () {
-
-                  // Getting <tr> id.
-                  var id = $(this).attr('id');
-
-                  // Getting the <p> inside the .row-index class.
-                  var idx = $(this).children('.row-index').children('p');
-
-                  // Gets the row number from <tr> id.
-                  var dig = parseInt(id.substring(1));
-
-                  // Modifying row index.
-                  idx.html(`${dig - 1}`);
-
-                  // Modifying row id.
-                  $(this).attr('id', `R${dig - 1}`);
-      });
-
-      // Removing the current row.
-      $(this).closest('tr').remove();
-
-      // Decreasing total number of rows by 1.
-      rowIdx_other--;
     });
 
   });

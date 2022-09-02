@@ -156,7 +156,7 @@
 	          <div class="col-md-12">
 	            <div class="card">
 	              <div class="card-header">
-	                <h3 class="card-title"><b>FET Calendar</b></h3>
+	                <h3 class="card-title"><b>Fresh Form Calendar</b></h3>
 	                <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
 	                  <i class="fas fa-pencil-alt"></i> New
 	                </button>
@@ -185,16 +185,16 @@
 		                  <tr>
 		                    <td>{{$intctr}}</td>
 		                    <td>{{$result->docdate}}</td>
-                        <td>{{$result->FedSched}}</td>
+                        <td>{{$result->FreshSched}}</td>
                         <td>{{$result->Months}}</td>
 		                    <td>{{$result->Notes}}</td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FET')}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FreshForm')}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('FETPhaseEdit')}}/{{$result->id}}">
+		                      <a class="btn btn-info btn-sm float-right" href="{{route('FreshFormPhaseEdit')}}/{{$result->id}}">
 		                        <i class="fas fa-pencil-alt"></i> Edit
 		                      </a>                       
 
@@ -224,13 +224,13 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">FET Form</h4>
+              <h4 class="modal-title">Fresh Form</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
 
-            <form id="quickForm" action="{{route('FETPhaseStore')}}" method="POST" enctype="multipart/form-data">
+            <form id="quickForm" action="{{route('FreshFormPhaseStore')}}" method="POST" enctype="multipart/form-data">
               {{ csrf_field() }}
             <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
             <div class="modal-body">

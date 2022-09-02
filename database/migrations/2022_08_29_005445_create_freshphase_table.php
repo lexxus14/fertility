@@ -22,6 +22,7 @@ class CreateFreshphaseTable extends Migration
             $table->string('Notes')->nullable();
             $table->string('filelink')->nullable();            
             $table->integer('createdbyid')->nullable();
+            $table->timestamps(); 
         });
     }
 

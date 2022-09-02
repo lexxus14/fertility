@@ -149,7 +149,7 @@
     <!-- /.content -->
 
   <section class="content">
-   <form id="quickForm" action="{{route('FETPhaseUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
+   <form id="quickForm" action="{{route('FreshFormPhaseUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
     @foreach($docresults as $result)
         {{ csrf_field() }}
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
@@ -167,7 +167,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Edit Patient Consultation</h3>
+              <h3 class="card-title">Edit Fresh Form</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -181,24 +181,15 @@
                 <div class="col-2">
                     <div class="form-group">
                       <label>Date</label>
-                      <div class="input-group date" id="doc-date" data-target-input="nearest">
-                          <input type="text" id="doc-date-input" class="form-control datetimepicker-input" name="txtDocDate" data-target="#doc-date"/>
-                          <div class="input-group-append" data-target="#doc-date" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                      </div>
-
-                      <script>
-                        const d = new Date("{{$result->docdate}}");
-                        let text = d.toLocaleString();
-                        document.getElementById("doc-date-input").value = text;
-                      </script>
+                      
+                          <input type="date" class="form-control" name="txtDocDate" value="{{$result->docdate}}" />
+                      
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
                       <label>FET Schedule</label>
-                      <input type="text" value="{{$result->FedSched}}" class="form-control" name="FETSched" placeholder="Enter Description">
+                      <input type="text" value="{{$result->FreshSched}}" class="form-control" name="FETSched" placeholder="Enter Description">
                     </div>
                     <div class="form-group">
                         <label>Month</label>
