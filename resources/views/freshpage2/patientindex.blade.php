@@ -46,8 +46,8 @@
                 <a href="{{route('LeadView')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
                   <i class="fas fa-user-plus"></i> Info
                 </a>
-                <a href="{{route('FET')}}/{{$DocId}}" class="btn btn-app bg-secondary">                  
-                  <i class="fas fa-user-plus"></i> FET
+                <a href="{{route('FreshForm')}}/{{$DocId}}" class="btn btn-app bg-secondary">                  
+                  <i class="fas fa-user-plus"></i> Fresh Form
                 </a>
               </div>
               <!-- /.card-body -->
@@ -159,11 +159,11 @@
 	          <div class="col-md-12">
 	            <div class="card">
 	              <div class="card-header">
-	                <h3 class="card-title"><b>FET Form 2</b></h3>
+	                <h3 class="card-title"><b>Short Protocol</b></h3>
 	                <!-- <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
 	                  <i class="fas fa-pencil-alt"></i> New
 	                </button> -->
-                  <a href="{{route('FETpage2Create')}}/{{$DocId}}" class="btn btn-success float-right" style="margin-right: 5px;">
+                  <a href="{{route('FreshFormPage2Create')}}/{{$DocId}}" class="btn btn-success float-right" style="margin-right: 5px;">
                     <i class="fas fa-pencil-alt"></i> New
                   </a>
 	              </div>
@@ -191,12 +191,12 @@
 		                    <td>{{$result->docdate}}</td>
 		                    <td>{{$result->Notes}}</td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FETpage2Show')}}/{{$DocId}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('FreshFormPage2Show')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('FETpage2Edit')}}/{{$DocId}}/{{$result->id}}">
+		                      <a class="btn btn-info btn-sm float-right" href="{{route('FreshFormPage2Edit')}}/{{$DocId}}/{{$result->id}}">
 		                        <i class="fas fa-pencil-alt"></i> Edit
 		                      </a>                       
 
@@ -234,7 +234,7 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('FETpage2Delete')}}">
+            <form method="POST" action="{{route('FreshFormPage2Delete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

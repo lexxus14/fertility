@@ -51,7 +51,7 @@
                   <i class="fas fa-user-plus"></i> Fresh Form Phase
                 </a>
 
-                <a href="{{route('FETpage2')}}/{{$DocId}}" class="btn btn-app bg-danger">
+                <a href="{{route('FreshFormPage2')}}/{{$DocId}}" class="btn btn-app bg-danger">
                   <span class="badge bg-teal">
                     <?php
                       $intTotalPatientResult =0;

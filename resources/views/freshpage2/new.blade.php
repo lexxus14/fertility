@@ -150,223 +150,218 @@
     </section>
     <!-- /.content -->
 
-  <section class="content">
-   <form action="{{route('FETpage2Store')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
-        {{ csrf_field() }}
-      <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="FETiD" value="{{$DocId}}">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-primary">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="card-header">
-              <h3 class="card-title">FET Form 2</h3>
+    <section class="content">
+     <form action="{{route('FreshFormPage2Store')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
+          {{ csrf_field() }}
+        <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
+        <input type="hidden" name="FreshFormId" value="{{$DocId}}">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+              <div class="card-header">
+                <h3 class="card-title">Short Protocol</h3>
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-2">
-                    <div class="form-group">
-                      <label>Date</label>
-                        <input type="date" class="form-control" name="docdate"/>
-                    </div>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-2">
-                    <div class="form-group">
-                      <label>Lupron Start Date</label>
-                        <input type="date" class="form-control" name="LupronStartDate"/>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="form-group">
-                      <label>CD2</label>
-                        <input type="date" class="form-control" name="CD2Date"/>
-                    </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                    <div class="form-group">
-                      <label>Uterine Position</label>
-                      <input type="text" name="UterinePosition" class="form-control">
-                    </div>                   
-
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                      <label>Measurment</label>
-                      <input type="number" name="Measurement" placeholder="mm" class="form-control">
-                    </div>                   
-
-                </div>                
-              </div>
-              <div class="row">
-                <div class="form-group">
-                <div class="col-12">
-                  <input type="button" value="Add Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
-                </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th>#</th>
-                        <th>Diagnosis</th>
-                        <th>Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody">
-                        
-                      
-        
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>HIPPA#</label>
-                    <input type="text" name="HIPPA" class="form-control">
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>CD1 Estradiol</label>
-                    <input type="text" name="CD1Etradiol" class="form-control">
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>CD1 PRL</label>
-                    <input type="text" name="CD1PRL" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group">
-                  <div class="col-12">
-                    <input type="button" value="Add Cycle" id="add_cd" class="btn btn-success float-right">
-                  </div>
-                </div>
-              </div>   
-              <div class="row">
-                <div class="col-12">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th>CD No</th>
-                        <th>Date</th>
-                        <th>Ultrasound</th>
-                        <th>Lining</th>
-                        <th>Estradiol</th>
-                        <th>Notes</th>
-                        <th>Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody_cd">
-                        
-                      
-        
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2">
                       <div class="form-group">
-                        <label>Note</label>
-                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4"></textarea>
-                      </div>                      
-                    </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Blood Type</label>
-                    <input type="text" name="BloodType" class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>FET Date</label>
-                    <input type="date" name="FETDate" class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Embros</label>
-                    <input type="text" name="Embros" class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Trans</label>
-                    <input type="text" name="Trans" class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Cyro</label>
-                    <input type="text" name="Cryo" class="form-control">
-                  </div> 
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label for="exampleInputFile">File</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <label>Date</label>
+                          <input type="date" class="form-control" name="docdate"/>
                       </div>
-                      
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>ICSI</label>
+                          <input type="text" class="form-control" name="ICSI"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Egg Freezing</label>
+                          <input type="text" class="form-control" name="EggFreezing"/>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group">
+                  <div class="col-12">
+                    <input type="button" value="Add Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                  <!-- /.card-header -->
+                      <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                      <table  class="table table-bordered table-striped">
+                        <thead>                  
+                        <tr>
+                          <th>#</th>
+                          <th>Diagnosis</th>
+                          <th>Action</th>
+                        </tr>                  
+                        </thead>
+                        <tbody id="tbody">
+                          
+                        
+          
+                        </tbody>                  
+                      </table>
+                  <!-- /.card-body -->
+                    
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>CD 2</label>
+                      <input type="text" class="form-control" name="CD2">
+                    </div>
+                  </div>
+                  
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>Protocol</label>
+                      <input type="text" class="form-control" name="Protocol">
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <a href="{{route('PatientDoctorNotes')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
-                  <input type="submit" value="Save" class="btn btn-success float-right">
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>FSH</label>
+                          <input type="text" class="form-control" name="FSH"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Estradiol</label>
+                          <input type="text" class="form-control" name="txtEstradiol"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>AMH</label>
+                          <input type="text" class="form-control" name="AMH"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>CBC Date</label>
+                          <input type="date" class="form-control" name="CBCDate"/>
+                      </div>
+                  </div>
                 </div>
-              </div>
-            <!-- /.card-body -->
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Uterine Position</label>
+                          <input type="text" class="form-control" name="UterinePosition"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Measurement</label>
+                          <input type="number" class="form-control" name="Measurement" placeholder="mm" />
+                      </div>
+                  </div>                
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" name="IsConsent" id="chkConcent">
+                        <label for="chkConcent">
+                          Consent
+                        </label>
+                      </div>
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" name="IsCBC" id="IsCBC">
+                        <label for="IsCBC">
+                          CBC
+                        </label>
+                      </div>                    
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" name="WallaceYesNo" id="WallaceYesNo">
+                        <label for="WallaceYesNo">
+                          Wallace
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group">
+                    <div class="col-12">
+                      <input type="button" value="Add Cycle" id="add_cd" class="btn btn-success float-right">
+                    </div>
+                  </div>
+                </div>   
+                <div class="row">
+                  <div class="col-12">
+                  <!-- /.card-header -->
+                      <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                      <table  class="table table-bordered table-striped">
+                        <thead>                  
+                        <tr>
+                          <th>CD No</th>
+                          <th>Date</th>
+                          <th>Ultrasound</th>
+                          <th>Lining</th>
+                          <th>Estradiol</th>
+                          <th>Notes</th>
+                          <th>Action</th>
+                        </tr>                  
+                        </thead>
+                        <tbody id="tbody_cd">
+                          
+                        
+          
+                        </tbody>                  
+                      </table>
+                  <!-- /.card-body -->
+                    
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                        <div class="form-group">
+                          <label>Note</label>
+                          <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4"></textarea>
+                        </div>                      
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <a href="{{route('FreshFormPage2')}}/{{$DocId}}" class="btn btn-secondary">Cancel</a>
+                    <input type="submit" value="Save" class="btn btn-success float-right">
+                  </div>
+                </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
           </div>
-          <!-- /.card -->
         </div>
-      </div>
-      
+        
 
-    </form>
+      </form>
     </section>
     <!-- /.content -->
   </div>

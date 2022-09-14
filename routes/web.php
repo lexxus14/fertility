@@ -345,6 +345,16 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/freshform/expectedpdelete','FreshFormController@FreshFormExptecteddestroy')->name('FreshFormExptecteddestroy');
 /*Fresh Form*/
 
+/*Fresh Form Page2*/
+    Route::get('/freshshortprotocol/{PhaseId?}','FreshFormPage2Controller@FreshFormPage2')->name('FreshFormPage2');
+    Route::get('/freshshortprotocol/add/{PhaseId?}','FreshFormPage2Controller@create')->name('FreshFormPage2Create');
+    Route::post('/freshshortprotocol/add','FreshFormPage2Controller@store')->name('FreshFormPage2Store');
+    Route::get('/freshshortprotocol/edit/{PhaseId?}/{id?}','FreshFormPage2Controller@edit')->name('FreshFormPage2Edit');
+    Route::post('/freshshortprotocol/update','FreshFormPage2Controller@update')->name('FreshFormPage2Update');
+    Route::get('/freshshortprotocol/view/{PhaseId?}/{id?}','FreshFormPage2Controller@show')->name('FreshFormPage2Show');
+    Route::post('/freshshortprotocol/delete','FreshFormPage2Controller@destroy')->name('FreshFormPage2Delete');
+/*Fresh Form Page2*/
+
 
 /*HistoryAssessesment*/
 Route::get('/historyasse','HistoryAssessmentController@index')->name('HistoryAssessmentIndex');

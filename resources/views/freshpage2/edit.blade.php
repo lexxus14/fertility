@@ -152,10 +152,10 @@
 
   <section class="content">
     @foreach($docresults as $docresult)
-   <form action="{{route('FETpage2Update')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
+   <form action="{{route('FreshFormPage2Update')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
         {{ csrf_field() }}
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="FETiD" value="{{$DocId}}">
+      <input type="hidden" name="FreshFormId" value="{{$DocId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
@@ -169,7 +169,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">FET Form 2</h3>
+              <h3 class="card-title">Short Protocol</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -188,33 +188,17 @@
               </div>
               <div class="row">
                 <div class="col-2">
-                    <div class="form-group">
-                      <label>Lupron Start Date</label>
-                        <input type="date" class="form-control" value="{{$docresult->LupronStartDate}}" name="LupronStartDate"/>
-                    </div>
+                  <div class="form-group">
+                    <label>ICSI</label>
+                      <input type="text" class="form-control" value="{{$docresult->ICSI}}" name="ICSI"/>
+                  </div>
                 </div>
                 <div class="col-2">
-                    <div class="form-group">
-                      <label>CD2</label>
-                        <input type="date" class="form-control" value="{{$docresult->CD2Date}}" name="CD2Date"/>
-                    </div>
+                  <div class="form-group">
+                    <label>Egg Freezing</label>
+                      <input type="text" class="form-control" value="{{$docresult->EggFreezing}}" name="EggFreezing"/>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                    <div class="form-group">
-                      <label>Uterine Position</label>
-                      <input type="text" name="UterinePosition" value="{{$docresult->UterinePosition}}" class="form-control">
-                    </div>                   
-
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                      <label>Measurment</label>
-                      <input type="number" name="Measurement" value="{{$docresult->Measurement}}" placeholder="mm" class="form-control">
-                    </div>                   
-
-                </div>                
               </div>
               <div class="row">
                 <div class="form-group">
@@ -263,25 +247,97 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>HIPPA#</label>
-                    <input type="text" name="HIPPA" value="{{$docresult->HIPPA}}" class="form-control">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>CD 2</label>
+                      <input type="text" class="form-control" value="{{$docresult->CD2}}" name="CD2">
+                    </div>
+                  </div>
+                  
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>Protocol</label>
+                      <input type="text" class="form-control" value="{{$docresult->Protocol}}" name="Protocol">
+                    </div>
                   </div>
                 </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>CD1 Estradiol</label>
-                    <input type="text" name="CD1Etradiol" value="{{$docresult->CD1Etradiol}}" class="form-control">
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>FSH</label>
+                          <input type="text" class="form-control" value="{{$docresult->FSH}}" name="FSH"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Estradiol</label>
+                          <input type="text" class="form-control" value="{{$docresult->Estradiol}}" name="txtEstradiol"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>AMH</label>
+                          <input type="text" class="form-control" value="{{$docresult->AMH}}" name="AMH"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>CBC Date</label>
+                          <input type="date" class="form-control" value="{{$docresult->CBCDate}}" name="CBCDate"/>
+                      </div>
                   </div>
                 </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>CD1 PRL</label>
-                    <input type="text" name="CD1PRL" value="{{$docresult->CD1PRL}}" class="form-control">
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Uterine Position</label>
+                          <input type="text" class="form-control" value="{{$docresult->UterinePosition}}" name="UterinePosition"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Measurement</label>
+                          <input type="number" class="form-control" value="{{$docresult->Measurement}}" name="Measurement" placeholder="mm" />
+                      </div>
+                  </div>                
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <div class="icheck-success d-inline">
+                        @if($docresult->IsConsent==1)
+                        <input type="checkbox" name="IsConsent" checked id="chkConcent">
+                        @else
+                        <input type="checkbox" name="IsConsent" id="chkConcent">
+                        @endif
+                        <label for="chkConcent">
+                          Consent
+                        </label>
+                      </div>
+                      <div class="icheck-success d-inline">
+                        @if($docresult->IsCBC==1)
+                        <input type="checkbox" name="IsCBC" checked id="IsCBC">
+                        @else
+                        <input type="checkbox" name="IsCBC" id="IsCBC">
+                        @endif
+                        <label for="IsCBC">
+                          CBC
+                        </label>
+                      </div>                    
+                      <div class="icheck-success d-inline">
+                        @if($docresult->WallaceYesNo==1)
+                        <input type="checkbox" name="WallaceYesNo" checked id="WallaceYesNo">
+                        @else
+                        <input type="checkbox" name="WallaceYesNo" id="WallaceYesNo">
+                        @endif
+                        <label for="WallaceYesNo">
+                          Wallace
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+                  
               <div class="row">
                 <div class="form-group">
                   <div class="col-12">
@@ -313,22 +369,22 @@
                         <tr id="RCD{{$ctr}}">
                           <?php $ctr++; ?>
                           <td class="row-index text-center">
-                            <input type="number" class="form-control" name="CDNo[]" value="{{$FETPage2CDSub->CDNo}}">
+                            <input type="number" class="form-control" name="CDNo[]" value="{{$FETPage2CDSub->CycleNo}}">
                           </td>
                           <td class="text-center">
-                            <input type="date" class="form-control" name="CDDate[]" value="{{$FETPage2CDSub->CDDate}}">
+                            <input type="date" class="form-control" name="CDDate[]" value="{{$FETPage2CDSub->CycleDate}}">
                           </td>
                           <td class="text-center">
                             <div class="form-group row">
                               <label for="rt" class="col-sm-2 col-form-label">RT</label>
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" id="rt" name="RT[]" placeholder="RT" value="{{$FETPage2CDSub->RT}}">
+                                <input type="text" class="form-control" id="rt" name="RT[]" placeholder="RT" value="{{$FETPage2CDSub->UltrasoundRT}}">
                               </div>
                             </div>
                             <div class="form-group row">
                               <label for="lt" class="col-sm-2 col-form-label">LT</label>
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" id="lt" name="LT[]" placeholder="LT" value="{{$FETPage2CDSub->LT}}">
+                                <input type="text" class="form-control" id="lt" name="LT[]" placeholder="LT" value="{{$FETPage2CDSub->UltrasoundLT}}">
                               </div>
                             </div>
                           </td>        
@@ -363,56 +419,10 @@
                       </div>                      
                     </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Blood Type</label>
-                    <input type="text" name="BloodType" value="{{$docresult->BloodType}}" class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>FET Date</label>
-                    <input type="date" name="FETDate" value="{{$docresult->FETDate}}" class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Embros</label>
-                    <input type="text" name="Embros" value="{{$docresult->Embros}}"  class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Trans</label>
-                    <input type="text" name="Trans" value="{{$docresult->Trans}}" class="form-control">
-                  </div> 
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Cyro</label>
-                    <input type="text" name="Cryo" value="{{$docresult->Cryo}}" class="form-control">
-                  </div> 
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label for="exampleInputFile">File</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </div>             
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('FETpage2')}}/{{$PhaseId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('FreshFormPage2')}}/{{$PhaseId}}" class="btn btn-secondary">Cancel</a>
                   <input type="submit" value="Save" class="btn btn-success float-right">
                 </div>
               </div>

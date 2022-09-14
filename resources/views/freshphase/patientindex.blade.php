@@ -300,7 +300,7 @@
             <div class="modal-body">
               <p>Are you sure you to delete?</p>
             </div>
-            <form method="POST" action="{{route('FETPhaseDelete')}}">
+            <form method="POST" action="{{route('FreshFormPhaseDelete')}}">
               {{ csrf_field() }}
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

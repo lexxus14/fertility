@@ -194,8 +194,23 @@ class FreshFormPhaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $strsql ="SELECT * from FreshPhases where id=".$request->del_id;
+        $las = DB::select($strsql);
+
+        $laLinkFile ="";
+
+        foreach($las as $la){
+            $laLinkFile = $la->filelink;
+        }
+            
+        if(is_file(public_path($laLinkFile))){
+            unlink(public_path($laLinkFile));
+        }
+
+        $leadassessment = FreshFormPhase::destroy($request->del_id);
+
+        return redirect()->to('/freshformphase/'.$request->txtpatientId);
     }
 }
