@@ -150,292 +150,428 @@
     </section>
     <!-- /.content -->
 
-  <section class="content">
-    @foreach($docresults as $docresult)
-   <form action="{{route('FreshFormPage2Update')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
-        {{ csrf_field() }}
-      <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="FreshFormId" value="{{$PhaseId}}">
-      <input type="hidden" name="DocId" value="{{$DocId}}">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-primary">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="card-header">
-              <h3 class="card-title">Short Protocol</h3>
+    <section class="content">
+     <form action="{{route('FreshFormLongProStore')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
+          {{ csrf_field() }}
+        <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
+        <input type="hidden" name="FreshFormId" value="{{$DocId}}">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+              <div class="card-header">
+                <h3 class="card-title">Long Protocol</h3>
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-2">
-                    <div class="form-group">
-                      <label>Date</label>
-                        <input type="date" class="form-control" value="{{$docresult->docdate}}" name="docdate"/>
-                    </div>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-2">
+              <div class="card-body">
+                <div class="row">
                   <div class="form-group">
-                    <label>ICSI</label>
-                      <input type="text" class="form-control" value="{{$docresult->ICSI}}" name="ICSI"/>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label>Egg Freezing</label>
-                      <input type="text" class="form-control" value="{{$docresult->EggFreezing}}" name="EggFreezing"/>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group">
-                <div class="col-12">
-                  <input type="button" value="Add Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
-                </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th>#</th>
-                        <th>Diagnosis</th>
-                        <th>Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody">
-                        <?php 
-                          $intctr = 0;
-                        ?>
-                        @foreach($FETPage2DiagnosisSubs as $FETPage2DiagnosisSub)
-                        <tr id="R{{$intctr}}">
-                          <?php $intctr++; ?>
-                          <td class="row-index text-center">
-                            <input type="hidden" name="FETPage2sId[]" value="{{$FETPage2DiagnosisSub->id}}">
-                            <p>{{$intctr}}</p>
-                          </td>
-                          <td class="text-center">
-                            {{$FETPage2DiagnosisSub->description}}
-                          </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                          </td>
-                        </tr>
-                        @endforeach 
-                      
-        
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label>CD 2</label>
-                      <input type="text" class="form-control" value="{{$docresult->CD2}}" name="CD2">
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsConsent" id="chkConcent">
+                      <label for="chkConcent">
+                        Consent
+                      </label>
                     </div>
-                  </div>
-                  
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label>Protocol</label>
-                      <input type="text" class="form-control" value="{{$docresult->Protocol}}" name="Protocol">
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="CBC" id="CBC">
+                      <label for="CBC">
+                        CBC
+                      </label>
                     </div>
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsWallace" id="IsWallace">
+                      <label for="IsWallace">
+                        Wallace
+                      </label>
+                    </div>
+                    
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-2">
                       <div class="form-group">
+                        <label>Office</label>
+                          <input type="text" class="form-control" name="Office"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Retrieval Location</label>
+                          <input type="text" class="form-control" name="RetLoc"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Cryo Sperm Loc</label>
+                          <input type="text" class="form-control" name="CrySpermLoc"/>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>IVF</label>
+                          <input type="text" class="form-control" name="IVF"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Ovum Donor</label>
+                          <input type="text" class="form-control" name="OvDonor"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>IVF w/ Surrugate</label>
+                          <input type="text" class="form-control" name="IVFwSur"/>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Lupron Start Date</label>
+                          <input type="date" class="form-control" name="LupronStartDate"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>CD2</label>
+                          <input type="date" class="form-control" name="CD2"/>
+                      </div>
+                  </div>
+                  
+                </div>
+
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
                         <label>FSH</label>
-                          <input type="text" class="form-control" value="{{$docresult->FSH}}" name="FSH"/>
+                          <input type="text" class="form-control" name="FSH"/>
                       </div>
                   </div>
                   <div class="col-2">
                       <div class="form-group">
                         <label>Estradiol</label>
-                          <input type="text" class="form-control" value="{{$docresult->Estradiol}}" name="txtEstradiol"/>
+                          <input type="text" class="form-control" name="LongEstradiol"/>
                       </div>
                   </div>
                   <div class="col-2">
                       <div class="form-group">
                         <label>AMH</label>
-                          <input type="text" class="form-control" value="{{$docresult->AMH}}" name="AMH"/>
+                          <input type="text" class="form-control" name="AMH"/>
                       </div>
                   </div>
                   <div class="col-2">
                       <div class="form-group">
-                        <label>CBC Date</label>
-                          <input type="date" class="form-control" value="{{$docresult->CBCDate}}" name="CBCDate"/>
+                        <label>Date</label>
+                          <input type="date" class="form-control" name="LongProcDate"/>
                       </div>
                   </div>
+                  
                 </div>
+
                 <div class="row">
                   <div class="col-2">
                       <div class="form-group">
                         <label>Uterine Position</label>
-                          <input type="text" class="form-control" value="{{$docresult->UterinePosition}}" name="UterinePosition"/>
+                          <input type="text" class="form-control" name="UterinePosition"/>
                       </div>
                   </div>
                   <div class="col-2">
                       <div class="form-group">
                         <label>Measurement</label>
-                          <input type="number" class="form-control" value="{{$docresult->Measurement}}" name="Measurement" placeholder="mm" />
+                          <input type="number" class="form-control" name="Measurement" placeholder="mm" />
                       </div>
-                  </div>                
+                  </div>               
+                  
                 </div>
+                <hr>
+                <div class="row">
+                  <div class="form-group">
+                  <div class="col-12">
+                    <input type="button" value="Add Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                  <!-- /.card-header -->
+                      <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                      <table  class="table table-bordered table-striped">
+                        <thead>                  
+                        <tr>
+                          <th>#</th>
+                          <th>Diagnosis</th>
+                          <th>Action</th>
+                        </tr>                  
+                        </thead>
+                        <tbody id="tbody">
+                          
+                        
+          
+                        </tbody>                  
+                      </table>
+                  <!-- /.card-body -->
+                    
+                  </div>
+                </div>
+                <hr>
                 <div class="row">
                   <div class="col-4">
                     <div class="form-group">
-                      <div class="icheck-success d-inline">
-                        @if($docresult->IsConsent==1)
-                        <input type="checkbox" name="IsConsent" checked id="chkConcent">
-                        @else
-                        <input type="checkbox" name="IsConsent" id="chkConcent">
-                        @endif
-                        <label for="chkConcent">
-                          Consent
-                        </label>
-                      </div>
-                      <div class="icheck-success d-inline">
-                        @if($docresult->IsCBC==1)
-                        <input type="checkbox" name="IsCBC" checked id="IsCBC">
-                        @else
-                        <input type="checkbox" name="IsCBC" id="IsCBC">
-                        @endif
-                        <label for="IsCBC">
-                          CBC
-                        </label>
-                      </div>                    
-                      <div class="icheck-success d-inline">
-                        @if($docresult->WallaceYesNo==1)
-                        <input type="checkbox" name="WallaceYesNo" checked id="WallaceYesNo">
-                        @else
-                        <input type="checkbox" name="WallaceYesNo" id="WallaceYesNo">
-                        @endif
-                        <label for="WallaceYesNo">
-                          Wallace
-                        </label>
-                      </div>
+                      <label>Protocol</label>
+                      <input type="text" class="form-control" name="Protocol">
                     </div>
                   </div>
-                </div>
                   
-              <div class="row">
-                <div class="form-group">
-                  <div class="col-12">
-                    <input type="button" value="Add Cycle" id="add_cd" class="btn btn-success float-right">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>CD1 Estradiol</label>
+                      <input type="text" class="form-control" name="CD1Estradiol">
+                    </div>
                   </div>
-                </div>
-              </div>   
-              <div class="row">
-                <div class="col-12">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th>CD No</th>
-                        <th>Date</th>
-                        <th>Ultrasound</th>
-                        <th>Lining</th>
-                        <th>Estradiol</th>
-                        <th>Notes</th>
-                        <th>Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody_cd">
-                        <?php
-                          $ctr=0;
-                        ?>
-                        @foreach($FETPage2CDSubs as $FETPage2CDSub)
-                        <tr id="RCD{{$ctr}}">
-                          <?php $ctr++; ?>
-                          <td class="row-index text-center">
-                            <input type="number" class="form-control" name="CDNo[]" value="{{$FETPage2CDSub->CycleNo}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="date" class="form-control" name="CDDate[]" value="{{$FETPage2CDSub->CycleDate}}">
-                          </td>
-                          <td class="text-center">
-                            <div class="form-group row">
-                              <label for="rt" class="col-sm-2 col-form-label">RT</label>
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" id="rt" name="RT[]" placeholder="RT" value="{{$FETPage2CDSub->UltrasoundRT}}">
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <label for="lt" class="col-sm-2 col-form-label">LT</label>
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" id="lt" name="LT[]" placeholder="LT" value="{{$FETPage2CDSub->UltrasoundLT}}">
-                              </div>
-                            </div>
-                          </td>        
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="Lining[]" value="{{$FETPage2CDSub->Lining}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="Estradiol[]" value="{{$FETPage2CDSub->Estradiol}}">
-                          </td>
-                          <td class="text-center">
-                            <textarea name="Notes[]" class="form-control">{{$FETPage2CDSub->Notes}} </textarea>
-                          </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-cd float-right" value="Remove">
-                              </i>
-
-                            </td>
-                        </tr>
-                        @endforeach                     
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
+                  <div class="col-2">
                       <div class="form-group">
-                        <label>Note</label>
-                        <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4">{{$docresult->Notes}}</textarea>
-                      </div>                      
+                        <label>CD1 Prolactin</label>
+                          <input type="text" class="form-control" name="CD1Prolactin"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>CD9 Prolactin</label>
+                          <input type="text" class="form-control" name="CD9Prolactin"/>
+                      </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="form-group">
+                    <div class="col-12">
+                      <input type="button" value="Add Cycle" id="add_cd" class="btn btn-success float-right">
                     </div>
+                  </div>
+                </div>   
+                <div class="row">
+                  <div class="col-12">
+                  <!-- /.card-header -->
+                      <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                      <table  class="table table-bordered table-striped">
+                        <thead>                  
+                        <tr>
+                          <th>CD No</th>
+                          <th>Date</th>
+                          <th>Ultrasound</th>
+                          <th>Lining</th>
+                          <th>Estradiol</th>
+                          <th>Notes</th>
+                          <th>Action</th>
+                        </tr>                  
+                        </thead>
+                        <tbody id="tbody_cd">
+                          
+                        
+          
+                        </tbody>                  
+                      </table>
+                  <!-- /.card-body -->
+                    
+                  </div>
                 </div>
-              </div>             
-              <div class="row">
-                <div class="col-12">
-                  <a href="{{route('FreshFormPage2')}}/{{$PhaseId}}" class="btn btn-secondary">Cancel</a>
-                  <input type="submit" value="Save" class="btn btn-success float-right">
+                <hr>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                        <div class="form-group">
+                          <label>Note</label>
+                          <textarea id="inputNoteLead-Edit" name="txtnotes" class="form-control" rows="4"></textarea>
+                        </div>                      
+                      </div>
+                  </div>
                 </div>
-              </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>
-      
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>hCG</label>
+                          <input type="date" class="form-control" name="HcgDate"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Time</label>
+                          <input type="time" class="form-control" name="HCGTime"/>
+                      </div>
+                  </div>                  
+            
 
-    </form>
-    @endforeach
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>ER</label>
+                          <input type="date" class="form-control" name="ERDate"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Time</label>
+                          <input type="time" class="form-control" name="ERTime"/>
+                      </div>
+                  </div>   
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Blood Type</label>
+                          <input type="text" class="form-control" name="BloodType"/>
+                      </div>
+                  </div>             
+                </div>
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>ET Date</label>
+                          <input type="date" class="form-control" name="ETDate"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>#Embryo</label>
+                          <input type="text" class="form-control" name="NoEmbryos"/>
+                      </div>
+                  </div>                  
+            
+
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>#Trans</label>
+                          <input type="text" class="form-control" name="NoTrans"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>#Eggs</label>
+                          <input type="text" class="form-control" name="NoEggs"/>
+                      </div>
+                  </div>   
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>#Cryo</label>
+                          <input type="text" class="form-control" name="NoCryo"/>
+                      </div>
+                  </div>             
+                </div>
+                <div class="row">
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>BETA #1</label>
+                          <input type="text" class="form-control" name="BetaNo1"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Date</label>
+                          <input type="date" class="form-control" name="Beta1Date"/>
+                      </div>
+                  </div>                  
+            
+
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>BETA #1s</label>
+                          <input type="text" class="form-control" name="BetNo2"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>Date</label>
+                          <input type="date" class="form-control" name="Beta2Date"/>
+                      </div>
+                  </div>   
+                  <div class="col-2">
+                      <div class="form-group">
+                        <label>P4</label>
+                          <input type="text" class="form-control" name="P4"/>
+                      </div>
+                  </div>             
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="form-group">
+                    <div class="col-12">
+                      <input type="button" value="Add OB US" id="add_obus" class="btn btn-success float-right">
+                    </div>
+                  </div>
+                </div>   
+                <div class="row">
+                  <div class="col-12">
+                  <!-- /.card-header -->
+                      <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                      <table  class="table table-bordered table-striped">
+                        <thead>                  
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th>Progesteron</th>
+                          <th># SACS</th>
+                          <th># FHT</th>
+                          <th>Action</th>
+                        </tr>                  
+                        </thead>
+                        <tbody id="tbody_obus">
+                          
+                        
+          
+                        </tbody>                  
+                      </table>
+                  <!-- /.card-body -->
+                    
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-4">
+                      <div class="form-group">
+                        <label>OB/GYN</label>
+                          <input type="text" class="form-control" name="ObGyn"/>
+                      </div>
+                  </div>
+                  <div class="col-4">
+                      <div class="form-group">
+                        <label>Tel. No.</label>
+                          <input type="text" class="form-control" name="TelNo"/>
+                      </div>
+                  </div>   
+                  <div class="col-4">
+                      <div class="form-group">
+                        <label>Address</label>
+                          <input type="text" class="form-control" name="Add"/>
+                      </div>
+                  </div> 
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <a href="{{route('FreshFormLongPro')}}/{{$DocId}}" class="btn btn-secondary">Cancel</a>
+                    <input type="submit" value="Save" class="btn btn-success float-right">
+                  </div>
+                </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        
+
+      </form>
     </section>
     <!-- /.content -->
   </div>
@@ -569,8 +705,9 @@
 
     <script >
     $(document).ready(function(){
-    var rowIdx = {{$intctr}};
-    var rowIdx_cd = {{$ctr}};        
+    var rowIdx = 0;
+    var rowIdx_cd = 0;        
+    var rowIdx_obus = 0;        
     
     $('#add_cd').click(function(){
       
@@ -612,6 +749,39 @@
         </tr>`);
     });
 
+    $('#add_obus').click(function(){
+      
+      $('#tbody_obus').append(`<tr id="ROBS${++rowIdx_obus}">
+        <td class="row-index text-center">
+          <div class="form-group row">
+            <label for="lt" class="col-sm-4 col-form-label">OB US#</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="lt" name="OBUSNo[]" value="${rowIdx_obus}">
+            </div>
+          </div>
+        
+          
+        </td>
+        <td class="text-center">
+          <input type="text" class="form-control" name="OBUS[]">
+        </td>
+        <td class="text-center">
+            <input type="text" class="form-control" name="Progesterone[]">
+        </td>        
+        <td class="text-center">
+          <input type="text" class="form-control" name="NoSACS[]">
+        </td>
+        <td class="text-center">
+          <input type="text" class="form-control" name="NoFHT[]">
+        </td>
+        <td class="text-center">
+          <input type="button" class="btn btn-danger btn-sm remove-obus float-right" value="Remove">
+            </i>
+
+          </td>
+        </tr>`);
+    });
+
     // jQuery button click event to remove a row.
     $('#tbody_cd').on('click', '.remove-cd', function () {
 
@@ -647,6 +817,41 @@
       rowIdx_cd--;
     });
 
+    // jQuery button click event to remove a row.
+    $('#tbody_obus').on('click', '.remove-obus', function () {
+
+
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // Iterating across all the rows
+      // obtained to change the index
+      child.each(function () {
+
+                  // Getting <tr> id.
+                  var id = $(this).attr('id');
+
+                  // Getting the <p> inside the .row-index class.
+                  var idx = $(this).children('.row-index').children('p');
+
+                  // Gets the row number from <tr> id.
+                  var dig = parseInt(id.substring(4));
+
+                  // Modifying row index.
+                  idx.html(`${dig - 1}`);
+
+                  // Modifying row id.
+                  $(this).attr('id', `ROBS${dig - 1}`);
+      });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      rowIdx_obus--;
+    });
+
     /* Price List */
 
     $('.add-medicine-treatment').click(function(){
@@ -658,7 +863,7 @@
         console.log(data);
             $('#tbody').append(`<tr id="R${++rowIdx}">
               <td class="row-index text-center">
-              <input type="hidden" name="DiagnosisID[]" value="${data.id}">
+              <input type="hidden"  name="DiagnosisID[]" value="${data.id}">
                 <p>${rowIdx}</p>
               </td>
               <td class="text-center">
@@ -666,7 +871,7 @@
               </td>
               <td class="text-center">
                 <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                 
+                
 
                 </td>
               </tr>`);

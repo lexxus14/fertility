@@ -65,6 +65,21 @@
                     {{$intTotalPatientResult}}</span>
                   <i class="fas fa-file"></i> Short Protocol
                 </a>
+
+                <a href="{{route('FreshFormLongPro')}}/{{$DocId}}" class="btn btn-app bg-danger">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    @foreach($TotalFreshLongPros as $TotalFreshLongPro)
+                    <?php
+                      $intTotalPatientResult =$TotalFreshLongPro->TotalFreshLongPro;
+                    ?>
+                    @endforeach
+                    
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-file"></i> Long Protocol
+                </a>
               </div>
               <!-- /.card-body -->
             </div>

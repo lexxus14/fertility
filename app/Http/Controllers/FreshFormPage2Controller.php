@@ -45,7 +45,7 @@ class FreshFormPage2Controller extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select * from FreshFormCyclePage2s 
-                  where FreshFormsiD =".$DocId;
+                  where freshphasesiD =".$DocId;
         $docresult = DB::select($strsql);
 
         return view('freshpage2.patientindex',compact('docresult','patients','DocId'));
@@ -85,7 +85,7 @@ class FreshFormPage2Controller extends Controller
         $docfiles = new FreshFormCyclePage2;
 
         $docfiles->patientid = $request->txtpatientId;
-        $docfiles->FreshFormsiD = $request->FreshFormId;
+        $docfiles->freshphasesiD = $request->FreshFormId;
         $date = date_create($request->docdate);
         $docfiles->docdate= $date->format('Y-m-d');
         $docfiles->ICSI = $request->ICSI;
@@ -241,7 +241,7 @@ class FreshFormPage2Controller extends Controller
      */
     public function update(Request $request)
     {
-        $docfiles = FreshFormCyclePage2::find($request->FreshFormId);
+        $docfiles = FreshFormCyclePage2::find($request->DocId);
 
         $date = date_create($request->docdate);
         $docfiles->docdate= $date->format('Y-m-d');
@@ -269,7 +269,7 @@ class FreshFormPage2Controller extends Controller
         $docfiles->save();
         $doclab_id = $docfiles->id;
 
-        $sub = DB::table('FreshFormCycleFerDias')->where('FreshFormCyclePage2siD', $request->FreshFormId)->delete();
+        $sub = DB::table('FreshFormCycleFerDias')->where('FreshFormCyclePage2siD', $request->DocId)->delete();
 
         $DiagnosisID=$request->DiagnosisID;
 
@@ -284,7 +284,7 @@ class FreshFormPage2Controller extends Controller
             
         }
 
-        $sub = DB::table('FreshFormCyclePage2Subs')->where('FreshFormCyclePage2siD', $request->FreshFormId)->delete();
+        $sub = DB::table('FreshFormCyclePage2Subs')->where('FreshFormCyclePage2siD', $request->DocId)->delete();
 
         $CycleNo=$request->CDNo;
         $CycleDate=$request->CDDate;

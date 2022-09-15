@@ -82,16 +82,22 @@ class FreshFormController extends Controller
         $docresultheaders = DB::select($strsql);
 
         $strsql ="select COUNT(*) AS TotalFETPage2
-                    from FETPage2s 
-                    inner join fets on fets.id =  FETPage2s.FETiD
-                  where  FETPhaseID =".$DocId;
+                    from FreshFormCyclePage2s 
+                    inner join FreshPhases on FreshPhases.id =  FreshFormCyclePage2s.freshphasesiD
+                  where  freshphasesiD =".$DocId;
         $TotalFETPage2s = DB::select($strsql);
+
+        $strsql ="select COUNT(*) AS TotalFreshLongPro
+                    from FreshFormLongPros 
+                    inner join FreshPhases on FreshPhases.id =  FreshFormLongPros.freshphasesiD
+                  where  freshphasesiD =".$DocId;
+        $TotalFreshLongPros = DB::select($strsql);
 
 
         $medicines = Medicine::all(); 
         $medicinesunits = MedicineUnit::all(); 
         $dayshifts = DayShfts::all(); 
-        return view('fresh.patientindex',compact('docresult','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers','TotalFETPage2s'));
+        return view('fresh.patientindex',compact('docresult','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers','TotalFETPage2s','TotalFreshLongPros'));
     }
 
     /**

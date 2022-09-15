@@ -19,8 +19,8 @@ class CreateFreshformcyclepage2 extends Migration
             $table->date('docdate')->nullable();
             $table->bigInteger('createdbyid');
             $table->string('Notes')->nullable();
-            $table->bigInteger('FreshFormsiD')->unsigned();
-            $table->foreign('FreshFormsiD')->references('id')->on('FreshForms')->onDelete('cascade');
+            $table->bigInteger('freshphasesiD')->unsigned();
+            $table->foreign('freshphasesiD')->references('id')->on('freshphases')->onDelete('cascade');
             $table->string('ICSI')->nullable();
             $table->string('EggFreezing')->nullable();
             $table->string('CD2')->nullable();

@@ -355,6 +355,16 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/freshshortprotocol/delete','FreshFormPage2Controller@destroy')->name('FreshFormPage2Delete');
 /*Fresh Form Page2*/
 
+/*Fresh Form Long Protocol*/
+    Route::get('/freshlongprotocol/{PhaseId?}','FreshFormLongProtocolController@FreshFormLongPro')->name('FreshFormLongPro');
+    Route::get('/freshlongprotocol/add/{PhaseId?}','FreshFormLongProtocolController@create')->name('FreshFormLongProCreate');
+    Route::post('/freshlongprotocol/add','FreshFormLongProtocolController@store')->name('FreshFormLongProStore');
+    Route::get('/freshlongprotocol/edit/{PhaseId?}/{id?}','FreshFormLongProtocolController@edit')->name('FreshFormLongProEdit');
+    Route::post('/freshlongprotocol/update','FreshFormLongProtocolController@update')->name('FreshFormLongProUpdate');
+    Route::get('/freshlongprotocol/view/{PhaseId?}/{id?}','FreshFormLongProtocolController@show')->name('FreshFormLongProShow');
+    Route::post('/freshlongprotocol/delete','FreshFormLongProtocolController@destroy')->name('FreshFormLongProDelete');
+/*Fresh Form Page2*/
+
 
 /*HistoryAssessesment*/
 Route::get('/historyasse','HistoryAssessmentController@index')->name('HistoryAssessmentIndex');
