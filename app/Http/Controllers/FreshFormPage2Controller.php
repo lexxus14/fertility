@@ -81,7 +81,6 @@ class FreshFormPage2Controller extends Controller
     public function store(Request $request)
     {
        //
-
         $docfiles = new FreshFormCyclePage2;
 
         $docfiles->patientid = $request->txtpatientId;

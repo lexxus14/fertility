@@ -363,7 +363,17 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/freshlongprotocol/update','FreshFormLongProtocolController@update')->name('FreshFormLongProUpdate');
     Route::get('/freshlongprotocol/view/{PhaseId?}/{id?}','FreshFormLongProtocolController@show')->name('FreshFormLongProShow');
     Route::post('/freshlongprotocol/delete','FreshFormLongProtocolController@destroy')->name('FreshFormLongProDelete');
-/*Fresh Form Page2*/
+/*Fresh Form Long Protocol*/
+
+/*Clomid Cycle*/
+    Route::get('/clomidcycle/{PatientID?}','ClomidCycleController@ClomidCycle')->name('ClomidCycle');
+    Route::get('/clomidcycle/add/{PatientID?}','ClomidCycleController@create')->name('ClomidCycleCreate');
+    Route::post('/clomidcycle/add','ClomidCycleController@store')->name('ClomidCycleStore');
+    Route::get('/clomidcycle/edit/{id?}','ClomidCycleController@edit')->name('ClomidCycleEdit');
+    Route::post('/clomidcycle/update','ClomidCycleController@update')->name('ClomidCycleUpdate');
+    Route::get('/clomidcycle/view/{id?}','ClomidCycleController@show')->name('ClomidCycleShow');
+    Route::post('/clomidcycle/delete','ClomidCycleController@destroy')->name('ClomidCycleDelete');
+/*Clomid Cycle*/
 
 
 /*HistoryAssessesment*/

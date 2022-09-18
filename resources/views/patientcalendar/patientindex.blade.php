@@ -88,6 +88,20 @@
                   <i class="fas fa-file"></i> Fresh Form
                 </a>
 
+                <a href="{{route('ClomidCycle')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    @foreach($TotalClomidCycles as $TotalRec)
+                    <?php
+                      $intTotalPatientResult =$TotalRec->TotalPatientResult;
+                    ?>
+                    @endforeach
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-file"></i> Clomid Cycle
+                </a>
+
               </div>
               <!-- /.card-body -->
             </div>

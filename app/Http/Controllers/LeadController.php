@@ -751,13 +751,13 @@ class LeadController extends Controller
              while(($csv = fgetcsv($file_open, 1000, ",")) !== false)
                  {
                             $lead = new ImpTempTable;
-                            $lead->Field1 =$csv[0];
+                            $lead->Field1 = $csv[0];
                             $lead->Field2 = $csv[1];
                             $lead->Field3 = $csv[2];                          
                             $lead->Field4 = $csv[3];                          
                             $lead->Field5 = $csv[4];                          
-                            $lead->Field6 = $csv[5];                          
-                            $lead->Field7 = $csv[6];                          
+                            // $lead->Field6 = $csv[5];                          
+                            // $lead->Field7 = $csv[6];                          
                             // $lead->Field8 = $csv[7];                          
                             // $lead->Field9 = $csv[8];                          
                             // $lead->Field10 = $csv[9];                          
