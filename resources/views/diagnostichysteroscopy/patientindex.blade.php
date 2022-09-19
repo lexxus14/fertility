@@ -192,7 +192,7 @@
                         </td>
                         <td>
                           @if(is_file(public_path($result->filelink)))
-                          <a href="{{asset($result->filelink)}}">File</a>
+                          <a href="{{asset($result->filelink)}}" target="_blank">Existing File...</a>
                           @endif
                         </td>
 		                    <td>

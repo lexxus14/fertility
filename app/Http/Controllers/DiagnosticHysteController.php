@@ -124,9 +124,21 @@ class DiagnosticHysteController extends Controller
      * @param  \App\DiagnosticHyste  $diagnosticHyste
      * @return \Illuminate\Http\Response
      */
-    public function show(DiagnosticHyste $diagnosticHyste)
+    public function show($docId)
     {
-        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join DiagnosticyHysteroscopy as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from DiagnosticyHysteroscopy 
+                  where id =".$docId;;
+        $docresults = DB::select($strsql);
+
+        return view('diagnostichysteroscopy.view',compact('patients','docresults','docId'));
     }
 
     /**
@@ -163,7 +175,7 @@ class DiagnosticHysteController extends Controller
     {
         $imagepath = "";
 
-        $strsql ="SELECT * from patientvitalsigns where id=".$request->txtPatientVitalSignId;
+        $strsql ="SELECT * from DiagnosticyHysteroscopy where id=".$request->docId;
         $las = DB::select($strsql);
 
         $laLinkFile ="";
@@ -190,40 +202,25 @@ class DiagnosticHysteController extends Controller
             $imagepath = $laLinkFile;
        }
 
-       $docfiles = PatientVitalSign::find($request->txtPatientVitalSignId);
-       $docfiles->patientid = $request->txtpatientId;
+       $docfiles = DiagnosticHyste::find($request->docId);
 
        $date = date_create($request->txtDocDate);
        $docfiles->docdate= $date->format('Y-m-d');
+       $docfiles->filelink=$imagepath;
+        $docfiles->DiagHsyNote=$request->DiagHsyNote;
+        $docfiles->LtOvary=$request->LtOvary;
+        $docfiles->RtOvary=$request->RtOvary;
+        $docfiles->EndoStripe=$request->EndoStripe;
+        $docfiles->Fibroids=$request->Fibroids;
+        $docfiles->Polyps=$request->Polyps;
+        $docfiles->FreeFluid=$request->FreeFluid;
+        $docfiles->Hydrosalpinx=$request->Hydrosalpinx;
+        $docfiles->Comments=$request->Comments;
+        $docfiles->IsVFok= $this->CheckCheckBox($request->IsVFok);
+        $docfiles->NoWhy=$request->NoWhy;
+        $docfiles->save();
 
-       $docfiles->description = $request->txtdescription;
-       $docfiles->filelink = $imagepath;
-
-        $docfiles->notes = $request->txtnotes;
-        $docfiles->createdbyid=Auth::user()->id;
-
-       $docfiles->save();
-
-       $sub = DB::table('patientvitalsignsub')->where('patientvitalsignId', $request->txtPatientVitalSignId)->delete();
-
-       $doclab_id = $docfiles->id;
-
-        $VitalSignId=$request->txtvitalsignId;
-        $vitalSignNote=$request->txtnote;
-
-        $N = count($VitalSignId);
-
-        for($i=0; $i < $N; $i++)
-        {
-            $pricelistsub = new PatientVitalSignSub;
-            $pricelistsub->patientvitalsignId = $doclab_id; 
-            $pricelistsub->vitalsignId = $VitalSignId[$i];
-            $pricelistsub->notes = $vitalSignNote[$i];
-            $pricelistsub->save();
-            
-        }
-
-        return redirect()->to('/patientvitalsign/'.$request->txtpatientId);
+        return redirect()->to('/diaghyste/'.$request->txtpatientId);
     }
 
     /**
@@ -232,9 +229,24 @@ class DiagnosticHysteController extends Controller
      * @param  \App\DiagnosticHyste  $diagnosticHyste
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DiagnosticHyste $diagnosticHyste)
+    public function destroy(Request $request)
     {
-        //
+        $strsql ="SELECT * from DiagnosticyHysteroscopy where id=".$request->del_id;
+        $las = DB::select($strsql);
+
+        $laLinkFile ="";
+
+        foreach($las as $la){
+            $laLinkFile = $la->filelink;
+        }
+            
+        if(is_file(public_path($laLinkFile))){
+            unlink(public_path($laLinkFile));
+        }
+
+        $leadassessment = DiagnosticHyste::destroy($request->del_id);
+
+        return redirect()->to('/diaghyste/'.$request->txtpatientId);
     }
 
     public function CheckCheckBox($CheckBox)

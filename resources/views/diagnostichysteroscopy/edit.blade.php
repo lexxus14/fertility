@@ -181,7 +181,7 @@
               <div class="form-group row">
                   <div class="col-md-2">
                     <label for="docdate" class="col-form-label">Date</label>
-                    <input type="date" class="form-control" id="docdate" name="docdate"/>
+                    <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}" />
                   </div>
               </div>
               <div class="row">
@@ -189,7 +189,7 @@
                   <div class="form-group">
                       <div class="form-group">
                         <label>Diagnosis:</label>
-                        <textarea id="inputNoteLead-Edit" name="DiagHsyNote" class="form-control" rows="4"></textarea>
+                        <textarea id="inputNoteLead-Edit" name="DiagHsyNote" class="form-control" rows="4">{{$docresult->DiagHsyNote}}</textarea>
                       </div>                      
                     </div>
                 </div>
@@ -198,19 +198,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="RtOvary" class="col-form-label">LT Ovary</label>
-                    <input type="text" class="form-control" id="RtOvary" name="LtOvary">  
+                    <input type="text" class="form-control" id="RtOvary" name="LtOvary" value="{{$docresult->LtOvary}}">  
                   </div>                  
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="RtOvary" class="col-form-label">RT Ovary</label>
-                    <input type="text" class="form-control" id="RtOvary" name="RtOvary"> 
+                    <input type="text" class="form-control" id="RtOvary" name="RtOvary" value="{{$docresult->RtOvary}}"> 
                   </div>                  
                 </div> 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="EndoStripe" class="col-form-label">Endo Stripe</label>
-                    <input type="text" class="form-control" id="EndoStripe" name="EndoStripe"> 
+                    <input type="text" class="form-control" id="EndoStripe" name="EndoStripe" value="{{$docresult->EndoStripe}}"> 
                   </div>                  
                 </div>               
               </div>
@@ -219,13 +219,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="Fibroids" class="col-form-label">Fibroids</label>
-                    <input type="text" class="form-control" id="Fibroids" name="Fibroids">  
+                    <input type="text" class="form-control" id="Fibroids" name="Fibroids" value="{{$docresult->Fibroids}}">  
                   </div>                  
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="Polyps" class="col-form-label">Polyps</label>
-                    <input type="text" class="form-control" id="Polyps" name="Polyps"> 
+                    <input type="text" class="form-control" id="Polyps" name="Polyps" value="{{$docresult->Polyps}}"> 
                   </div>                  
                 </div>
               </div>
@@ -234,13 +234,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="FreeFluid" class="col-form-label">Free Fluid</label>
-                    <input type="text" class="form-control" id="FreeFluid" name="FreeFluid">  
+                    <input type="text" class="form-control" id="FreeFluid" name="FreeFluid" value="{{$docresult->FreeFluid}}">  
                   </div>                  
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="Hydrosalpinx" class="col-form-label">Hydrosalpinx</label>
-                    <input type="text" class="form-control" id="Hydrosalpinx" name="Hydrosalpinx"> 
+                    <input type="text" class="form-control" id="Hydrosalpinx" name="Hydrosalpinx" value="{{$docresult->Hydrosalpinx}}"> 
                   </div>                  
                 </div>
               </div>
@@ -249,7 +249,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="Comments" class="col-form-label">Comments</label>
-                    <textarea class="form-control" name="Comments" id="Comments"></textarea>
+                    <textarea class="form-control" name="Comments" id="Comments">{{$docresult->Hydrosalpinx}}</textarea>
                   </div>
                 </div>
               </div>
@@ -258,7 +258,11 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="icheck-success d-inline">
+                      @if($docresult->IsVFok==1)
+                      <input type="checkbox" name="IsVFok" id="IsVFok" checked>
+                      @else
                       <input type="checkbox" name="IsVFok" id="IsVFok">
+                      @endif
                       <label for="IsVFok">
                         Ok to Proceed to IVF
                       </label>
@@ -271,7 +275,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="NoWhy" class="col-form-label">If No, Why?</label>
-                    <textarea class="form-control" name="NoWhy" id="NoWhy"></textarea>
+                    <textarea class="form-control" name="NoWhy" id="NoWhy">{{$docresult->NoWhy}}</textarea>
                   </div>
                 </div>
               </div>
@@ -285,8 +289,12 @@
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
-                      
+
                     </div>
+                    <br/>
+                      @if(is_file(public_path($docresult->filelink)))
+                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
+                      @endif
                   </div>
                 </div>
               </div>

@@ -151,12 +151,10 @@
     <!-- /.content -->
 
   <section class="content">
-   <form action="{{route('DoctorNotesUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
     @foreach($docresults as $docresult)
-        {{ csrf_field() }}
-      <input type="hidden" id="TotalPayableAmount" name="txtTotalPayableAmount" value="0">
+
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="txtDoctorNotesId" value="{{$docresult->id}}">
+      <input type="hidden" name="docId" value="{{$docId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
@@ -170,7 +168,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Vital Sign</h3>
+              <h3 class="card-title">Diagnostic Hysteroscopy</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -179,99 +177,130 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="row">
-                <div class="col-2">
-                    <div class="form-group">
-                      <label>Date</label>
-                      <div class="input-group date" id="lead-date" data-target-input="nearest">
-                          <input type="text" id="lead-date-input" class="form-control datetimepicker-input" name="txtDocDate" data-target="#lead-date"/>
-
-                          <div class="input-group-append" data-target="#lead-date" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                           <script>
-                          const d = new Date("{{$docresult->docdate}}");
-                          let text = d.toLocaleString();
-                          document.getElementById("lead-date-input").value = text;
-                          </script>
-                      </div>
-                    </div>
-                </div>
+              <div class="form-group row">
+                  <div class="col-md-2">
+                    <label for="docdate" class="col-form-label">Date</label>
+                    <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}" />
+                  </div>
               </div>
-              <div class="row">
-                <div class="col-4">
-                    <div class="form-group">
-                      <label>Description</label>
-                      <input type="text" name="txtdescription" value="{{$docresult->description}}" class="form-control">
-                    </div>                   
-
-                </div>                
-              </div>
-   
               <div class="row">
                 <div class="col-12">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Vital Sign</th>
-                        <th >Note</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody">
-                        
-                      <?php 
-                      $intctr = 0;
-                      ?>
-                      @foreach($patientvitalsignssubs as $patientvitalsignssub)
-                      <?php 
-                      $intctr++;
-                      ?>
-                      <tr id="R{{$intctr}}">
-                        <td class="row-index text-center">
-                        <input type="hidden" class="medid" name="txtlabtestId[]" value="{{$patientvitalsignssub->vitalsignId}}">
-                          <p>{{$intctr}}</p>
-                        </td>
-                        <td class="text-center">
-                        {{$patientvitalsignssub->description}}
-                        </td>                        
-                        <td class="text-center">
-                          <div>{{$patientvitalsignssub->notes}}</div>
-                        </td>
-                      </tr>
-                      @endforeach
-        
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
                   <div class="form-group">
                       <div class="form-group">
-                        <label>Note</label>
-                        <div>{{$docresult->notes}}</div>
+                        <label>Diagnosis:</label>
+                        <textarea id="inputNoteLead-Edit" name="DiagHsyNote" class="form-control" rows="4">{{$docresult->DiagHsyNote}}</textarea>
                       </div>                      
                     </div>
                 </div>
               </div>
+              <div class="row">                
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="RtOvary" class="col-form-label">LT Ovary</label>
+                    <input type="text" class="form-control" id="RtOvary" name="LtOvary" value="{{$docresult->LtOvary}}">  
+                  </div>                  
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="RtOvary" class="col-form-label">RT Ovary</label>
+                    <input type="text" class="form-control" id="RtOvary" name="RtOvary" value="{{$docresult->RtOvary}}"> 
+                  </div>                  
+                </div> 
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="EndoStripe" class="col-form-label">Endo Stripe</label>
+                    <input type="text" class="form-control" id="EndoStripe" name="EndoStripe" value="{{$docresult->EndoStripe}}"> 
+                  </div>                  
+                </div>               
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="Fibroids" class="col-form-label">Fibroids</label>
+                    <input type="text" class="form-control" id="Fibroids" name="Fibroids" value="{{$docresult->Fibroids}}">  
+                  </div>                  
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="Polyps" class="col-form-label">Polyps</label>
+                    <input type="text" class="form-control" id="Polyps" name="Polyps" value="{{$docresult->Polyps}}"> 
+                  </div>                  
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="FreeFluid" class="col-form-label">Free Fluid</label>
+                    <input type="text" class="form-control" id="FreeFluid" name="FreeFluid" value="{{$docresult->FreeFluid}}">  
+                  </div>                  
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="Hydrosalpinx" class="col-form-label">Hydrosalpinx</label>
+                    <input type="text" class="form-control" id="Hydrosalpinx" name="Hydrosalpinx" value="{{$docresult->Hydrosalpinx}}"> 
+                  </div>                  
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="Comments" class="col-form-label">Comments</label>
+                    <textarea class="form-control" name="Comments" id="Comments">{{$docresult->Hydrosalpinx}}</textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="icheck-success d-inline">
+                      @if($docresult->IsVFok==1)
+                      <input type="checkbox" name="IsVFok" id="IsVFok" checked>
+                      @else
+                      <input type="checkbox" name="IsVFok" id="IsVFok">
+                      @endif
+                      <label for="IsVFok">
+                        Ok to Proceed to IVF
+                      </label>
+                    </div>                   
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="NoWhy" class="col-form-label">If No, Why?</label>
+                    <textarea class="form-control" name="NoWhy" id="NoWhy">{{$docresult->NoWhy}}</textarea>
+                  </div>
+                </div>
+              </div>
+
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label for="exampleInputFile">File</label>
                     <div class="input-group">
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+
                     </div>
+                    <br/>
+                      @if(is_file(public_path($docresult->filelink)))
+                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
+                      @endif
                   </div>
                 </div>
               </div>
+              
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('PatientPatientVitalSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('DiagHysteroscopy')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
                 </div>
               </div>
             <!-- /.card-body -->
@@ -279,14 +308,13 @@
           <!-- /.card -->
         </div>
       </div>
-      
 
-    </form>
     @endforeach
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
 
 
   <!-- DataTables  & Plugins -->
@@ -355,132 +383,6 @@
   });
 </script>
 
-    <script >
-    $(document).ready(function(){
-
-    
-    var rowIdx = 0;
-
-
-          
-    
-    /* Price List */
-
-    $('.add-medicine-treatment').click(function(){
-
-      var med_id = $(this).val();
-      url = '{{route('GetLabTestInfo')}}';
-
-      $.get(url + '/' + med_id, function (data) {
-        console.log(data);
-            $('#tbody').append(`<tr id="R${++rowIdx}">
-              <td class="row-index text-center">
-              <input type="hidden" class="medid" name="txtlabtestId[]" value="${data.id}">
-                <p>${rowIdx}</p>
-              </td>
-              <td class="text-center">
-              ${data.description}
-              </td>
-              <td class="text-center">
-                <textarea class="form-control amount amount${data.id}" name="txtnote[]"></textarea>
-              </td>
-              <td class="text-center">
-                <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                  </i>
-
-                </td>
-              </tr>`);
-      });
-
-    });
-
-
-    // jQuery button click event to remove a row.
-    $('#tbody').on('click', '.remove-medicine-treatment', function () {
-
-      var med_value = 0;
-      var total_amount =0;
-      var totalPayableAmount = 0;
-
-      // Getting all the rows next to the row
-      // containing the clicked button
-      var child = $(this).closest('tr').nextAll();
-
-      // Iterating across all the rows
-      // obtained to change the index
-      child.each(function () {
-
-                  // Getting <tr> id.
-                  var id = $(this).attr('id');
-
-                  // Getting the <p> inside the .row-index class.
-                  var idx = $(this).children('.row-index').children('p');
-
-                  // Gets the row number from <tr> id.
-                  var dig = parseInt(id.substring(1));
-
-                  // Modifying row index.
-                  idx.html(`${dig - 1}`);
-
-                  // Modifying row id.
-                  $(this).attr('id', `R${dig - 1}`);
-      });
-
-      // Removing the current row.
-      $(this).closest('tr').remove();
-
-      // Decreasing total number of rows by 1.
-      rowIdx--;
-    });
-
-    $('.open-modal-lead-assessment').click(function(data){
-      var id = $(this).val();
-      $('#patient_id').val(id);
-    });
-
-    //display modal form for task editing
-    $('.open-modal-lead-assessment-edit').click(function(){
-        var task_id = $(this).val();
-        // alert(task_id);
-        $.get(url  + task_id, function (data) {
-            //success data
-            console.log(data);
-            $('#LeadAssUpdateId').val(data[0].id);
-
-            const d = new Date(data[0].date);
-            let text = d.toLocaleDateString();
-            $('#lead-date-update-ass').val(text);
-            $("#cmbStaff").append("<option value='"+data[0].staffid+"'selected>"+data[0].name +"</option>");
-            $("#cmbReason").append("<option value='"+data[0].reasonid+"'selected>"+data[0].description +"</option>");
-            $('#inputNoteLead-Edit').text(data[0].notes);
-            // $('#task').val(data.task);
-            // $('#description').val(data.description);
-            // $('#btn-save').val("update");
-
-            // $('#myModal').modal('show');
-        }) 
-
-        // $.get(url + '/' + task_id, function (data) {
-        //     //success data
-        //     var i = 0
-        //     for (i = 0, len = data.length; i < len; i++) {
-        //         console.log(data[i]);
-        //     }
-            //console.log(data[1]);
-
-            // $('#task_id').val(data.id);
-            // $('#task').val(data.task);
-            // $('#description').val(data.description);
-            // $('#btn-save').val("update");
-
-            $('#modal-lead-assessment-edit').modal('show');
-        })
-    });
-
-/* Lead Assessement */
-
-
-  </script>
 
 <script>
 $(function () {
