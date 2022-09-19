@@ -188,6 +188,7 @@
                     {{$intTotalPatientMedication}}</span>
                   <i class="fas fa-file-prescription"></i>Patient Medication
                 </a>
+
                 <a href="{{route('PatientProcedure')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
                   <span class="badge bg-danger">
                     <?php $intTotalPatientProcedure = 0; ?>
@@ -199,6 +200,19 @@
                     {{$intTotalPatientProcedure}}
                   </span>
                   <i class="fas fa-procedures"></i>Patient Procedure
+                </a>
+
+                <a href="{{route('DiagHysteroscopy')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-danger">
+                    <?php $intTotalPatientProcedure = 0; ?>
+                    @foreach($TotalDiagnosticyHysteroscopy as $TotalDiagnosticyHysteroscop)
+                    <?php
+                      $intTotalPatientProcedure = $TotalDiagnosticyHysteroscop->TotalDiagnosticyHysteroscopy;
+                      ?>
+                    @endforeach
+                    {{$intTotalPatientProcedure}}
+                  </span>
+                  <i class="fas fa-comment-medical"></i>Diag Hysteroscopy
                 </a>
 
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">

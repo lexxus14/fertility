@@ -175,15 +175,28 @@ Route::post('/labinv/delete','LabInvestigationController@destroy')->name('LabInv
 Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInvestigationUpdate');
 
 /*Patient Vital Sign*/
-Route::get('/patientvitalsign','PatientVitalSignController@index')->name('PatientVitalSignIndex');
-Route::get('/patientvitalsign/{PatientID?}','PatientVitalSignController@PatientVitalSign')->name('PatientPatientVitalSign');
-Route::get('/patientvitalsign/add/{PatientID?}','PatientVitalSignController@create')->name('PatientVitalSignCreate');
-Route::post('/patientvitalsign/add','PatientVitalSignController@store')->name('PatientVitalSignStore');
+    Route::get('/patientvitalsign','PatientVitalSignController@index')->name('PatientVitalSignIndex');
+    Route::get('/patientvitalsign/{PatientID?}','PatientVitalSignController@PatientVitalSign')->name('PatientPatientVitalSign');
+    Route::get('/patientvitalsign/add/{PatientID?}','PatientVitalSignController@create')->name('PatientVitalSignCreate');
+    Route::post('/patientvitalsign/add','PatientVitalSignController@store')->name('PatientVitalSignStore');
 
-Route::get('/patientvitalsign/edit/{id?}','PatientVitalSignController@edit')->name('PatientVitalSignEdit');
-Route::get('/patientvitalsign/view/{PatientID?}','PatientVitalSignController@show')->name('PatientVitalSignShow');
-Route::post('/patientvitalsign/delete','PatientVitalSignController@destroy')->name('PatientVitalSignDelete');
-Route::post('/patientvitalsign/update','PatientVitalSignController@update')->name('PatientVitalSignUpdate');
+    Route::get('/patientvitalsign/edit/{id?}','PatientVitalSignController@edit')->name('PatientVitalSignEdit');
+    Route::get('/patientvitalsign/view/{PatientID?}','PatientVitalSignController@show')->name('PatientVitalSignShow');
+    Route::post('/patientvitalsign/delete','PatientVitalSignController@destroy')->name('PatientVitalSignDelete');
+    Route::post('/patientvitalsign/update','PatientVitalSignController@update')->name('PatientVitalSignUpdate');
+/*Patient Vital Sign*/
+
+/*Patient Diagnostic Hysteroscopy*/
+    // Route::get('/diaghyste','DiagnosticHysteController@index')->name('DiagHysteroscopyIndex');
+    Route::get('/diaghyste/{PatientID?}','DiagnosticHysteController@DiagHysteroscopy')->name('DiagHysteroscopy');
+    Route::get('/diaghyste/add/{PatientID?}','DiagnosticHysteController@create')->name('DiagHysteroscopyCreate');
+    Route::post('/diaghyste/add','DiagnosticHysteController@store')->name('DiagHysteroscopyStore');
+
+    Route::get('/diaghyste/edit/{id?}','DiagnosticHysteController@edit')->name('DiagHysteroscopyEdit');
+    Route::get('/diaghyste/view/{PatientID?}','DiagnosticHysteController@show')->name('DiagHysteroscopyShow');
+    Route::post('/diaghyste/delete','DiagnosticHysteController@destroy')->name('DiagHysteroscopyDelete');
+    Route::post('/diaghyste/update','DiagnosticHysteController@update')->name('DiagHysteroscopyUpdate');
+/*Patient Diagnostic Hysteroscopy*/
 
 /*Patient Doctor Diagnosis*/
 Route::get('/patientdoctordiagnosis','PatientDoctorDiagnosisController@index')->name('PatientDoctorDiagnosisIndex');
