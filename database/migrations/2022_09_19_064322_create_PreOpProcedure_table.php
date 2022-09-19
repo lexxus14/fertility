@@ -14,8 +14,9 @@ class CreatePreOpProcedureTable extends Migration
     public function up()
     {
         Schema::create('PreOpProcedures', function (Blueprint $table) {
-            $table->bigInteger('PostOpPostNotesiD')->unsigned();
-            $table->foreign('PostOpPostNotesiD')->references('id')->on('PostOpPostNotes')->onDelete('cascade');
+            $table->bigIncrements('id');
+            $table->bigInteger('PostOpPostProcNotesId')->unsigned();
+            $table->foreign('PostOpPostProcNotesId')->references('id')->on('PostOpPostProcNotes')->onDelete('cascade');
             $table->bigInteger('ProcedureId')->unsigned();
             $table->timestamps();
         });

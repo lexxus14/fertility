@@ -153,8 +153,6 @@
   <section class="content">
     @foreach($docresults as $docresult)
 
-      <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="docId" value="{{$docId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
@@ -168,7 +166,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Diagnostic Hysteroscopy</h3>
+              <h3 class="card-title">Post Operation/Procedure Notes</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -182,64 +180,157 @@
                     <label for="docdate" class="col-form-label">Date</label>
                     <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}" />
                   </div>
+                  <div class="col-md-2">
+                    <label for="docTime" class="col-form-label">Time</label>
+                    <input type="time" class="form-control" id="docTime" name="docTime"  value="{{$docresult->docTime}}"/>
+                  </div>
               </div>
+ 
               <div class="row">
                 <div class="col-12">
-                  <div class="form-group">
-                      <div class="form-group">
-                        <label>Diagnosis:</label>
-                        <textarea id="inputNoteLead-Edit" name="DiagHsyNote" class="form-control" rows="4">{{$docresult->DiagHsyNote}}</textarea>
-                      </div>                      
-                    </div>
+                <!-- /.card-header -->
+                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                    <table  class="table table-bordered table-striped">
+                      <thead>                  
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Pre Diagnosis</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>                  
+                      </thead>
+                      <tbody id="tbody">
+                        <?php $intctr=1 ?>
+                        @foreach($PreOpDiagnosis as $PreOpDiagnosi)
+                       <tr id="R{{$intctr}}">
+                          <td class="row-index text-center">
+                            <input type="hidden" class="medid" name="PreDiagnosisId[]" value="{{$PreOpDiagnosi->id}}">
+                            <p>{{$intctr}}</p>
+                          </td>
+                          <td class="text-center">
+                            {{$PreOpDiagnosi->description}}
+                          </td>
+                          <td class="text-center">
+                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
+                          </td>
+                        </tr>
+                        <?php $intctr++; ?>
+                        @endforeach  
+                      </tbody>                  
+                    </table>
+                <!-- /.card-body -->
+                  
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-12">
+                <!-- /.card-header -->
+                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                    <table  class="table table-bordered table-striped">
+                      <thead>                  
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Procedure</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>                  
+                      </thead>
+                      <tbody id="tbody_pro">
+                        <?php $intctr2=1; ?>
+                        @foreach($PreOpProcedures as $PreOpProcedure)
+                        <tr id="R{{$intctr2}}">
+                          <td class="row-index text-center">
+                            <input type="hidden" class="medid" name="ProcedureId[]" value="{{$PreOpProcedure->id}}">
+                            <p>{{$intctr2}}</p>
+                          </td>
+                          <td class="text-center">
+                            {{$PreOpProcedure->description}}
+                          </td>
+                          <td class="text-center">
+                            <input type="button" class="btn btn-danger btn-sm remove-procedure float-right" value="Remove">                           
+                          </td>
+                        </tr> 
+                        <?php $intctr2++; ?>
+                        @endforeach                   
+                      </tbody>                  
+                    </table>
+                <!-- /.card-body -->
+                  
+                </div>
+              </div>
+   
+              <div class="row">
+                <div class="col-12">
+                <!-- /.card-header -->
+                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                    <table  class="table table-bordered table-striped">
+                      <thead>                  
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Findings/Post-Op Diagnosis</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>                  
+                      </thead>
+                      <tbody id="tbody_findings">
+                        <?php $intctr3=1; ?>
+                        @foreach($FindingPostOpDiags as $FindingPostOpDiag)
+                        <tr id="R{{$intctr3}}">
+                          <td class="row-index text-center">
+                            <input type="hidden" class="medid" name="FindingDiagnosisId[]" value="{{$FindingPostOpDiag->id}}">
+                            <p>{{$intctr3}}</p>
+                          </td>
+                          <td class="text-center">
+                            {{$FindingPostOpDiag->description}}
+                          </td>
+                          <td class="text-center">
+                            <input type="button" class="btn btn-danger btn-sm remove-findings float-right" value="Remove">
+                          </td>
+                        </tr> 
+                        <?php $intctr3++; ?>
+                        @endforeach
+                      </tbody>                  
+                    </table>
+                <!-- /.card-body -->
+                  
+                </div>
+              </div>
+
               <div class="row">                
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="RtOvary" class="col-form-label">LT Ovary</label>
-                    <input type="text" class="form-control" id="RtOvary" name="LtOvary" value="{{$docresult->LtOvary}}">  
+                    <label for="SurgeonPerformingMD" class="col-form-label">Surgeon/Performing MD</label>
+                    <input type="text" class="form-control" id="SurgeonPerformingMD" name="SurgeonPerformingMD" value="{{$docresult->SurgeonPerformingMD}}">  
                   </div>                  
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="RtOvary" class="col-form-label">RT Ovary</label>
-                    <input type="text" class="form-control" id="RtOvary" name="RtOvary" value="{{$docresult->RtOvary}}"> 
+                    <label for="Anesthesiologist" class="col-form-label">Anesthesiologist</label>
+                    <input type="text" class="form-control" id="Anesthesiologist" name="Anesthesiologist" value="{{$docresult->Anesthesiologist}}"> 
                   </div>                  
                 </div> 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="EndoStripe" class="col-form-label">Endo Stripe</label>
-                    <input type="text" class="form-control" id="EndoStripe" name="EndoStripe" value="{{$docresult->EndoStripe}}"> 
+                    <label for="AnesthesiaUsed" class="col-form-label">Anesthesia Used</label>
+                    <input type="text" class="form-control" id="AnesthesiaUsed" name="AnesthesiaUsed" value="{{$docresult->AnesthesiaUsed}}"> 
                   </div>                  
                 </div>               
               </div>
-
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="Fibroids" class="col-form-label">Fibroids</label>
-                    <input type="text" class="form-control" id="Fibroids" name="Fibroids" value="{{$docresult->Fibroids}}">  
+                    <label for="Specimens" class="col-form-label">Specimens</label>
+                    <input type="text" class="form-control" id="Specimens" name="Specimens" value="{{$docresult->Specimens}}">  
                   </div>                  
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="Polyps" class="col-form-label">Polyps</label>
-                    <input type="text" class="form-control" id="Polyps" name="Polyps" value="{{$docresult->Polyps}}"> 
+                    <label for="Drains" class="col-form-label">Drains</label>
+                    <input type="text" class="form-control" id="Drains" name="Drains" value="{{$docresult->Drains}}"> 
                   </div>                  
                 </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="FreeFluid" class="col-form-label">Free Fluid</label>
-                    <input type="text" class="form-control" id="FreeFluid" name="FreeFluid" value="{{$docresult->FreeFluid}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="Hydrosalpinx" class="col-form-label">Hydrosalpinx</label>
-                    <input type="text" class="form-control" id="Hydrosalpinx" name="Hydrosalpinx" value="{{$docresult->Hydrosalpinx}}"> 
+                    <label for="EstBloodLoss" class="col-form-label">Est. Blood Loss</label>
+                    <input type="text" class="form-control" id="EstBloodLoss" name="EstBloodLoss" value="{{$docresult->EstBloodLoss}}"> 
                   </div>                  
                 </div>
               </div>
@@ -247,34 +338,70 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="Comments" class="col-form-label">Comments</label>
-                    <textarea class="form-control" name="Comments" id="Comments">{{$docresult->Hydrosalpinx}}</textarea>
+                    <label for="Complications" class="col-form-label">Complications</label>
+                    <textarea class="form-control" name="Complications" id="Complications">{{$docresult->EstBloodLoss}}</textarea>
                   </div>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-12">
+                  Conditions:
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
                   <div class="form-group">
                     <div class="icheck-success d-inline">
-                      @if($docresult->IsVFok==1)
-                      <input type="checkbox" name="IsVFok" id="IsVFok" checked>
+                      @if($docresult->IsConStable==1)
+                      <input type="checkbox" name="IsConStable" id="IsConStable" checked>
                       @else
-                      <input type="checkbox" name="IsVFok" id="IsVFok">
+                      <input type="checkbox" name="IsConStable" id="IsConStable">
                       @endif
-                      <label for="IsVFok">
-                        Ok to Proceed to IVF
+                      <label for="IsConStable">
+                        Stable
+                      </label>
+                    </div>                   
+                  </div>
+                  <div class="form-group">
+                    <div class="icheck-success d-inline">
+                      @if($docresult->IsConGuarded==1)
+                      <input type="checkbox" name="IsConGuarded" id="IsConGuarded" checked>
+                      @else
+                      <input type="checkbox" name="IsConGuarded" id="IsConGuarded">
+                      @endif
+                      <label for="IsConGuarded">
+                        Guarded
+                      </label>
+                    </div>                   
+                  </div>
+                  <div class="form-group">
+                    <div class="icheck-success d-inline">
+                      @if($docresult->IsConCritical==1)
+                      <input type="checkbox" name="IsConCritical" id="IsConCritical" checked>
+                      @else
+                      <input type="checkbox" name="IsConCritical" id="IsConCritical">
+                      @endif
+                      <label for="IsConCritical">
+                        Critical
                       </label>
                     </div>                   
                   </div>
                 </div>
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label for="ConOthers" class="col-form-label">Others</label>
+                    <textarea class="form-control" name="ConOthers" id="ConOthers">{{$docresult->ConOthers}}</textarea>
+                  </div>
+                </div>
               </div>
 
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="NoWhy" class="col-form-label">If No, Why?</label>
-                    <textarea class="form-control" name="NoWhy" id="NoWhy">{{$docresult->NoWhy}}</textarea>
+                    <label for="Notes" class="col-form-label">Notes</label>
+                    <textarea class="form-control" name="Notes" id="Notes">{{$docresult->Notes}}</textarea>
                   </div>
                 </div>
               </div>
@@ -288,19 +415,19 @@
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
-
+                      
                     </div>
                     <br/>
-                      @if(is_file(public_path($docresult->filelink)))
-                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
-                      @endif
+                    @if(is_file(public_path($docresult->filelink)))
+                    <a href="{{$docresult->filelink}}" target="_blank">Existing File..</a>
+                    @endif
                   </div>
                 </div>
               </div>
               
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('DiagHysteroscopy')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PostOpPostProcNotes')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
                 </div>
               </div>
             <!-- /.card-body -->
@@ -308,13 +435,11 @@
           <!-- /.card -->
         </div>
       </div>
-
     @endforeach
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 
 
   <!-- DataTables  & Plugins -->
@@ -354,24 +479,25 @@
 
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, 
-      "lengthChange": false, 
-      "searching": false,
-      "autoWidth": false,
-      "ordering": false,
-      "paging": false,
-      "info": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $("#example2").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-    $("#example4").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
     $('#example3').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true,
+    });
+    $('#example1').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
@@ -389,4 +515,5 @@ $(function () {
   bsCustomFileInput.init();
 });
 </script>
+
 @endsection

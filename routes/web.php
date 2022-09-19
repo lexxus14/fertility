@@ -198,6 +198,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/diaghyste/update','DiagnosticHysteController@update')->name('DiagHysteroscopyUpdate');
 /*Patient Diagnostic Hysteroscopy*/
 
+/*Patient PostOpPostNotes*/
+    // Route::get('/diaghyste','PostOpPostProcNotesController@index')->name('PostOpPostProcNotesIndex');
+    Route::get('/poppnotes/{PatientID?}','PostOpPostProcNotesController@PostOpPostProcNotes')->name('PostOpPostProcNotes');
+    Route::get('/poppnotes/add/{PatientID?}','PostOpPostProcNotesController@create')->name('PostOpPostProcNotesCreate');
+    Route::post('/poppnotes/add','PostOpPostProcNotesController@store')->name('PostOpPostProcNotesStore');
+
+    Route::get('/poppnotes/edit/{id?}','PostOpPostProcNotesController@edit')->name('PostOpPostProcNotesEdit');
+    Route::get('/poppnotes/view/{PatientID?}','PostOpPostProcNotesController@show')->name('PostOpPostProcNotesShow');
+    Route::post('/poppnotes/delete','PostOpPostProcNotesController@destroy')->name('PostOpPostProcNotesDelete');
+    Route::post('/poppnotes/update','PostOpPostProcNotesController@update')->name('PostOpPostProcNotesUpdate');
+/*Patient PostOpPostNotes*/
+
 /*Patient Doctor Diagnosis*/
 Route::get('/patientdoctordiagnosis','PatientDoctorDiagnosisController@index')->name('PatientDoctorDiagnosisIndex');
 Route::get('/patientdoctordiagnosis/{PatientID?}','PatientDoctorDiagnosisController@PatientDoctorDiagnosisSign')->name('PatientDoctorDiagnosisSign');

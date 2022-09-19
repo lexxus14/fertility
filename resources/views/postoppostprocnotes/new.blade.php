@@ -151,7 +151,7 @@
     <!-- /.content -->
 
   <section class="content">
-   <form action="{{route('DiagHysteroscopyStore')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
+   <form action="{{route('PostOpPostProcNotesStore')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
         {{ csrf_field() }}
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
       <div class="row">
@@ -167,7 +167,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Diagnostic Hysteroscopy</h3>
+              <h3 class="card-title">Post Operation/Procedure Notes</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -181,64 +181,139 @@
                     <label for="docdate" class="col-form-label">Date</label>
                     <input type="date" class="form-control" id="docdate" name="docdate"/>
                   </div>
+                  <div class="col-md-2">
+                    <label for="docTime" class="col-form-label">Time</label>
+                    <input type="time" class="form-control" id="docTime" name="docTime"/>
+                  </div>
               </div>
+
+              <div class="row">
+                <div class="form-group">
+                <div class="col-12">
+                  <input type="button" value="Add Pre Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
+                </div>
+                </div>
+              </div>   
               <div class="row">
                 <div class="col-12">
-                  <div class="form-group">
-                      <div class="form-group">
-                        <label>Diagnosis:</label>
-                        <textarea id="inputNoteLead-Edit" name="DiagHsyNote" class="form-control" rows="4"></textarea>
-                      </div>                      
-                    </div>
+                <!-- /.card-header -->
+                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                    <table  class="table table-bordered table-striped">
+                      <thead>                  
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Pre Diagnosis</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>                  
+                      </thead>
+                      <tbody id="tbody">
+                        
+                      
+        
+                      </tbody>                  
+                    </table>
+                <!-- /.card-body -->
+                  
                 </div>
               </div>
+
+              <div class="row">
+                <div class="form-group">
+                <div class="col-12">
+                  <input type="button" value="Add Procedure" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-procedure">
+                </div>
+                </div>
+              </div>   
+              <div class="row">
+                <div class="col-12">
+                <!-- /.card-header -->
+                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                    <table  class="table table-bordered table-striped">
+                      <thead>                  
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Procedure</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>                  
+                      </thead>
+                      <tbody id="tbody_pro">
+                        
+                      
+        
+                      </tbody>                  
+                    </table>
+                <!-- /.card-body -->
+                  
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                <div class="col-12">
+                  <input type="button" value="Add Findings/Post-Op Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-findings">
+                </div>
+                </div>
+              </div>   
+              <div class="row">
+                <div class="col-12">
+                <!-- /.card-header -->
+                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                    <table  class="table table-bordered table-striped">
+                      <thead>                  
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Findings/Post-Op Diagnosis</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>                  
+                      </thead>
+                      <tbody id="tbody_findings">
+                        
+                      
+        
+                      </tbody>                  
+                    </table>
+                <!-- /.card-body -->
+                  
+                </div>
+              </div>
+
               <div class="row">                
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="RtOvary" class="col-form-label">LT Ovary</label>
-                    <input type="text" class="form-control" id="RtOvary" name="LtOvary">  
+                    <label for="SurgeonPerformingMD" class="col-form-label">Surgeon/Performing MD</label>
+                    <input type="text" class="form-control" id="SurgeonPerformingMD" name="SurgeonPerformingMD">  
                   </div>                  
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="RtOvary" class="col-form-label">RT Ovary</label>
-                    <input type="text" class="form-control" id="RtOvary" name="RtOvary"> 
+                    <label for="Anesthesiologist" class="col-form-label">Anesthesiologist</label>
+                    <input type="text" class="form-control" id="Anesthesiologist" name="Anesthesiologist"> 
                   </div>                  
                 </div> 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="EndoStripe" class="col-form-label">Endo Stripe</label>
-                    <input type="text" class="form-control" id="EndoStripe" name="EndoStripe"> 
+                    <label for="AnesthesiaUsed" class="col-form-label">Anesthesia Used</label>
+                    <input type="text" class="form-control" id="AnesthesiaUsed" name="AnesthesiaUsed"> 
                   </div>                  
                 </div>               
               </div>
-
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="Fibroids" class="col-form-label">Fibroids</label>
-                    <input type="text" class="form-control" id="Fibroids" name="Fibroids">  
+                    <label for="Specimens" class="col-form-label">Specimens</label>
+                    <input type="text" class="form-control" id="Specimens" name="Specimens">  
                   </div>                  
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="Polyps" class="col-form-label">Polyps</label>
-                    <input type="text" class="form-control" id="Polyps" name="Polyps"> 
+                    <label for="Drains" class="col-form-label">Drains</label>
+                    <input type="text" class="form-control" id="Drains" name="Drains"> 
                   </div>                  
                 </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="FreeFluid" class="col-form-label">Free Fluid</label>
-                    <input type="text" class="form-control" id="FreeFluid" name="FreeFluid">  
-                  </div>                  
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="Hydrosalpinx" class="col-form-label">Hydrosalpinx</label>
-                    <input type="text" class="form-control" id="Hydrosalpinx" name="Hydrosalpinx"> 
+                    <label for="EstBloodLoss" class="col-form-label">Est. Blood Loss</label>
+                    <input type="text" class="form-control" id="EstBloodLoss" name="EstBloodLoss"> 
                   </div>                  
                 </div>
               </div>
@@ -246,30 +321,58 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="Comments" class="col-form-label">Comments</label>
-                    <textarea class="form-control" name="Comments" id="Comments"></textarea>
+                    <label for="Complications" class="col-form-label">Complications</label>
+                    <textarea class="form-control" name="Complications" id="Complications"></textarea>
                   </div>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-12">
+                  Conditions:
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
                   <div class="form-group">
                     <div class="icheck-success d-inline">
-                      <input type="checkbox" name="IsVFok" id="IsVFok">
-                      <label for="IsVFok">
-                        Ok to Proceed to IVF
+                      <input type="checkbox" name="IsConStable" id="IsConStable">
+                      <label for="IsConStable">
+                        Stable
+                      </label>
+                    </div>                   
+                  </div>
+                  <div class="form-group">
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsConGuarded" id="IsConGuarded">
+                      <label for="IsConGuarded">
+                        Guarded
+                      </label>
+                    </div>                   
+                  </div>
+                  <div class="form-group">
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsConCritical" id="IsConCritical">
+                      <label for="IsConCritical">
+                        Critical
                       </label>
                     </div>                   
                   </div>
                 </div>
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label for="ConOthers" class="col-form-label">Others</label>
+                    <textarea class="form-control" name="ConOthers" id="ConOthers"></textarea>
+                  </div>
+                </div>
               </div>
 
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="NoWhy" class="col-form-label">If No, Why?</label>
-                    <textarea class="form-control" name="NoWhy" id="NoWhy"></textarea>
+                    <label for="Notes" class="col-form-label">Notes</label>
+                    <textarea class="form-control" name="Notes" id="Notes"></textarea>
                   </div>
                 </div>
               </div>
@@ -291,7 +394,7 @@
               
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('DiagHysteroscopy')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PostOpPostProcNotes')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
                   <input type="submit" value="Save" class="btn btn-success float-right">
                 </div>
               </div>
@@ -308,6 +411,182 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <!-- Modal Medicine Treatement -->
+      <div class="modal fade" id="open-modal-medicine-treatment">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Diagnosis</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12">
+
+                  <table id="example3" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Description</th>
+                      <th style="width: 40px">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                      $intctr =0;
+                    ?>
+                    @foreach($DoctorDiagnosis as $DoctorDiagnosi)
+                    <?php
+                    $intctr++; 
+                    ?>
+                    <tr>
+                      <td>{{$intctr}}</td>
+                      <td>{{$DoctorDiagnosi->description}}</td>
+
+                      <td><button type="button" class="btn btn-success add-medicine-treatment" value="{{$DoctorDiagnosi->id}}">Add</button> </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>                                 
+                </div>
+
+              </div>
+
+            </div>
+            
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+  <!-- /.modal -->
+
+  <!-- Modal Procedure -->
+      <div class="modal fade" id="open-modal-procedure">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Procedure</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12">
+
+                  <table id="example2" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Description</th>
+                      <th style="width: 40px">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                      $intctr =0;
+                    ?>
+                    @foreach($Procedures as $Procedure)
+                    <?php
+                    $intctr++; 
+                    ?>
+                    <tr>
+                      <td>{{$intctr}}</td>
+                      <td>{{$Procedure->description}}</td>
+
+                      <td><button type="button" class="btn btn-success add-procedure" value="{{$Procedure->id}}">Add</button> </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>                                 
+                </div>
+
+              </div>
+
+            </div>
+            
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+  <!-- /.modal -->
+
+  <!-- Modal Procedure -->
+      <div class="modal fade" id="open-modal-findings">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Findings/Post-Op Diagnosis</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12">
+
+                  <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Description</th>
+                      <th style="width: 40px">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                      $intctr =0;
+                    ?>
+                    @foreach($DoctorDiagnosis as $DoctorDiagnosi)
+                    <?php
+                    $intctr++; 
+                    ?>
+                    <tr>
+                      <td>{{$intctr}}</td>
+                      <td>{{$DoctorDiagnosi->description}}</td>
+
+                      <td><button type="button" class="btn btn-success add-findings" value="{{$DoctorDiagnosi->id}}">Add</button> </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>                                 
+                </div>
+
+              </div>
+
+            </div>
+            
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+  <!-- /.modal -->
 
 
   <!-- DataTables  & Plugins -->
@@ -347,24 +626,25 @@
 
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, 
-      "lengthChange": false, 
-      "searching": false,
-      "autoWidth": false,
-      "ordering": false,
-      "paging": false,
-      "info": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $("#example2").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-    $("#example4").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
     $('#example3').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true,
+    });
+    $('#example1').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
@@ -382,4 +662,206 @@ $(function () {
   bsCustomFileInput.init();
 });
 </script>
+
+  <script >
+    $(document).ready(function(){
+
+    
+    var rowIdx = 0;          
+    var rowIdx_pro = 0;          
+    var rowIdx_finding = 0;          
+    
+    /* Price List */
+
+    $('.add-medicine-treatment').click(function(){
+
+      var med_id = $(this).val();
+      url = '{{route('DoctorDiagnosInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);
+            $('#tbody').append(`<tr id="R${++rowIdx}">
+              <td class="row-index text-center">
+              <input type="hidden" class="medid" name="PreDiagnosisId[]" value="${data.id}">
+                <p>${rowIdx}</p>
+              </td>
+              <td class="text-center">
+              ${data.description}
+              </td>
+              <td class="text-center">
+                <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
+                  </i>
+
+                </td>
+              </tr>`);
+      });
+
+    });
+
+    $('.add-procedure').click(function(){
+
+      var med_id = $(this).val();
+      url = '{{route('GetProcedureInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);
+            $('#tbody_pro').append(`<tr id="R${++rowIdx_pro}">
+              <td class="row-index text-center">
+              <input type="hidden" class="medid" name="ProcedureId[]" value="${data.id}">
+                <p>${rowIdx_pro}</p>
+              </td>
+              <td class="text-center">
+              ${data.description}
+              </td>
+              <td class="text-center">
+                <input type="button" class="btn btn-danger btn-sm remove-procedure float-right" value="Remove">
+                  </i>
+
+                </td>
+              </tr>`);
+      });
+
+    });
+
+    $('.add-findings').click(function(){
+
+      var med_id = $(this).val();
+      url = '{{route('DoctorDiagnosInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);
+            $('#tbody_findings').append(`<tr id="R${++rowIdx_finding}">
+              <td class="row-index text-center">
+              <input type="hidden" class="medid" name="FindingDiagnosisId[]" value="${data.id}">
+                <p>${rowIdx_finding}</p>
+              </td>
+              <td class="text-center">
+              ${data.description}
+              </td>
+              <td class="text-center">
+                <input type="button" class="btn btn-danger btn-sm remove-findings float-right" value="Remove">
+                  </i>
+
+                </td>
+              </tr>`);
+      });
+
+    });
+
+
+    // jQuery button click event to remove a row.
+    $('#tbody').on('click', '.remove-medicine-treatment', function () {
+
+      var med_value = 0;
+      var total_amount =0;
+      var totalPayableAmount = 0;
+
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // Iterating across all the rows
+      // obtained to change the index
+      child.each(function () {
+
+                  // Getting <tr> id.
+                  var id = $(this).attr('id');
+
+                  // Getting the <p> inside the .row-index class.
+                  var idx = $(this).children('.row-index').children('p');
+
+                  // Gets the row number from <tr> id.
+                  var dig = parseInt(id.substring(1));
+
+                  // Modifying row index.
+                  idx.html(`${dig - 1}`);
+
+                  // Modifying row id.
+                  $(this).attr('id', `R${dig - 1}`);
+      });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      rowIdx--;
+    });
+
+    // jQuery button click event to remove a row.
+    $('#tbody_pro').on('click', '.remove-procedure', function () {
+
+
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // Iterating across all the rows
+      // obtained to change the index
+      child.each(function () {
+
+                  // Getting <tr> id.
+                  var id = $(this).attr('id');
+
+                  // Getting the <p> inside the .row-index class.
+                  var idx = $(this).children('.row-index').children('p');
+
+                  // Gets the row number from <tr> id.
+                  var dig = parseInt(id.substring(1));
+
+                  // Modifying row index.
+                  idx.html(`${dig - 1}`);
+
+                  // Modifying row id.
+                  $(this).attr('id', `R${dig - 1}`);
+      });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      rowIdx_pro--;
+    });
+
+    // jQuery button click event to remove a row.
+    $('#tbody_findings').on('click', '.remove-findings', function () {
+
+
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // Iterating across all the rows
+      // obtained to change the index
+      child.each(function () {
+
+                  // Getting <tr> id.
+                  var id = $(this).attr('id');
+
+                  // Getting the <p> inside the .row-index class.
+                  var idx = $(this).children('.row-index').children('p');
+
+                  // Gets the row number from <tr> id.
+                  var dig = parseInt(id.substring(1));
+
+                  // Modifying row index.
+                  idx.html(`${dig - 1}`);
+
+                  // Modifying row id.
+                  $(this).attr('id', `R${dig - 1}`);
+      });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      rowIdx_finding--;
+    });
+
+
+    });
+
+/* Lead Assessement */
+
+
+  </script>
 @endsection

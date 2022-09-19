@@ -13,7 +13,7 @@ class CreatePostOpPostNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('PostOpPostNotes', function (Blueprint $table) {
+        Schema::create('PostOpPostProcNotes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('patientid');
             $table->bigInteger('createdbyid');
@@ -44,6 +44,6 @@ class CreatePostOpPostNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('PostOpPostNotes');
+        Schema::dropIfExists('PostOpPostProcNotes');
     }
 }

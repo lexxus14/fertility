@@ -215,6 +215,19 @@
                   <i class="fas fa-comment-medical"></i>Diag Hysteroscopy
                 </a>
 
+                <a href="{{route('PostOpPostProcNotes')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-danger">
+                    <?php $intTotalPostOpPostNote = 0; ?>
+                    @foreach($TotalPostOpPostNotes as $TotalPostOpPostNote)
+                    <?php
+                      $intTotalPostOpPostNote = $TotalPostOpPostNote->TotalPostOpPostNotes;
+                      ?>
+                    @endforeach
+                    {{$intTotalPostOpPostNote}}
+                  </span>
+                  <i class="fas fa-comment-medical"></i>Post-Op/Post Proc Notes
+                </a>
+
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php $intTotalEggCollected= 0 ; ?>

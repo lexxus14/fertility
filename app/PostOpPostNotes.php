@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class PostOpPostNotes extends Model
 {
     //
-    protected $table = 'PostOpPostNotes';
+    protected $table = 'PostOpPostProcNotes';
 }

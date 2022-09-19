@@ -15,9 +15,9 @@ class CreatePreOpDiagnosisTable extends Migration
     {
         Schema::create('PreOpDiagnosis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('PostOpPostNotesiD')->unsigned();
-            $table->foreign('PostOpPostNotesiD')->references('id')->on('PostOpPostNotes')->onDelete('cascade');
-            $table->bigInteger('DiagnosisId')->unsigned();
+            $table->bigInteger('PostOpPostProcNotesId')->unsigned();
+            $table->foreign('PostOpPostProcNotesId')->references('id')->on('PostOpPostProcNotes')->onDelete('cascade');
+            $table->bigInteger('PreDiagnosisId')->unsigned();
             $table->timestamps();
         });
     }
