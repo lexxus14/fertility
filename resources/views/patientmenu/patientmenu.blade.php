@@ -241,6 +241,19 @@
                   <i class="fas fa-comment-medical"></i>Pre-Op Checklist
                 </a>
 
+                <a href="{{route('OperativeReport')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-danger">
+                    <?php $intTotalPreOperaChecklist = 0; ?>
+                    @foreach($TotalPreOperaChecklists as $TotalPreOperaChecklist)
+                    <?php
+                      $intTotalPreOperaChecklist = $TotalPreOperaChecklist->TotalPreOperaChecklists;
+                      ?>
+                    @endforeach
+                    {{$intTotalPreOperaChecklist}}
+                  </span>
+                  <i class="fas fa-book-open"></i>Operative Report
+                </a>
+
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php $intTotalEggCollected= 0 ; ?>

@@ -223,6 +223,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/popcklst/update','PreOperaCheckListController@update')->name('PreOperaCheckListUpdate');
 /*Pre Operative Checklist*/
 
+/*Pre Operative Report*/
+    // Route::get('/diaghyste','PostOpPostProcNotesController@index')->name('PostOpPostProcNotesIndex');
+    Route::get('/opreport/{PatientID?}','OperativeReportController@PreOperaCheckList')->name('OperativeReport');
+    Route::get('/opreport/add/{PatientID?}','OperativeReportController@create')->name('OperativeReportCreate');
+    Route::post('/opreport/add','OperativeReportController@store')->name('OperativeReportStore');
+
+    Route::get('/opreport/edit/{id?}','OperativeReportController@edit')->name('OperativeReportEdit');
+    Route::get('/opreport/view/{PatientID?}','OperativeReportController@show')->name('OperativeReportShow');
+    Route::post('/opreport/delete','OperativeReportController@destroy')->name('OperativeReportDelete');
+    Route::post('/opreport/update','OperativeReportController@update')->name('OperativeReportUpdate');
+/*Pre Operative Report*/
+
 /*Patient Doctor Diagnosis*/
 Route::get('/patientdoctordiagnosis','PatientDoctorDiagnosisController@index')->name('PatientDoctorDiagnosisIndex');
 Route::get('/patientdoctordiagnosis/{PatientID?}','PatientDoctorDiagnosisController@PatientDoctorDiagnosisSign')->name('PatientDoctorDiagnosisSign');
