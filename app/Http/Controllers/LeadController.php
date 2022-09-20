@@ -198,6 +198,8 @@ class LeadController extends Controller
         $lead->Notes= $request->txtnote;
         $lead->FileLink= '/file/'.$imagepath;
         $lead->IsPatient= $isPatient;
+        $lead->IsWifePatient= $this->CheckCheckBox($request->IsWifePatient);
+        $lead->IsHusbandPatient= $this->CheckCheckBox($request->IsHusbandPatient);
         $lead->createdbyid= Auth::user()->id;
         $lead->save();
 
@@ -329,12 +331,16 @@ class LeadController extends Controller
                     where d.patientid=".$PatientId;
         $TotalPostOpPostNotes = DB::select($strsql);
 
+        $strsql ="select count(*) as TotalPreOperaChecklists from PreOperaChecklists as d
+                    where d.patientid=".$PatientId;
+        $TotalPreOperaChecklists = DB::select($strsql);
+
 
         $staffs = Staff::all();
         $reasons = Reason::all();
 
 
-        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalPatientProcedures','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes'));
+        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalPatientProcedures','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes','TotalPreOperaChecklists'));
     }
 
     /**
@@ -465,6 +471,8 @@ class LeadController extends Controller
         $lead->Notes= $request->txtnote;
         $lead->FileLink= $imagepath;
         $lead->IsPatient= $isPatient;
+        $lead->IsWifePatient= $this->CheckCheckBox($request->IsWifePatient);
+        $lead->IsHusbandPatient= $this->CheckCheckBox($request->IsHusbandPatient);
         $lead->save();
 
         $lead_id = $lead->id;
@@ -792,6 +800,19 @@ class LeadController extends Controller
             
 
         // return redirect()->to('/lead');   
+        }
+
+        public function CheckCheckBox($CheckBox)
+        {
+            //
+            if($CheckBox=='on')
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     
 }

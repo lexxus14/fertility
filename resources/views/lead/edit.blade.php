@@ -139,6 +139,21 @@
                             <input type="text" class="form-control" name="txtFileNo" value="{{$patient->FileNo}}" placeholder="Enter ...">
                           </div>
                         </div>
+                    </div>
+                    <div class="row"> 
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <div class="icheck-primary d-inline">
+                            @if($patient->IsWifePatient==1)
+                            <input type="checkbox" id="IsWifePatient" name="IsWifePatient" checked>
+                            @else
+                            <input type="checkbox" id="IsWifePatient" name="IsWifePatient">
+                            @endif
+                            <label for="IsWifePatient">Patient
+                            </label>
+                          </div>
+                        </div>
+                      </div> 
                     </div>                    
                       <div class="row">
                         <div class="col-sm-3">
@@ -298,7 +313,23 @@
 
                   <div class="bs-stepper-content">
 
-                    <!-- your steps content here -->                      
+                    <!-- your steps content here -->  
+                    <div class="row"> 
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <div class="icheck-primary d-inline">
+                            @if($patient->IsHusbandPatient==1)
+                            <input type="checkbox" id="IsHusbandPatient" name="IsHusbandPatient" checked>
+                            @else
+                            <input type="checkbox" id="IsHusbandPatient" name="IsHusbandPatient">
+                            @endif
+                            <label for="IsHusbandPatient">Patient
+                            </label>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+
                       <div class="row">
                         <div class="col-sm-3">
                           <!-- text input -->

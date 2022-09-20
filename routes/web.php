@@ -126,6 +126,7 @@ Route::post('/staff','StaffController@store')->name('StaffStore');
 Route::post('/staff/delete','StaffController@destroy')->name('StaffDelete');
 Route::get('/staff/edit/{id?}','StaffController@edit')->name('StaffEdit');
 Route::post('/staff/update','StaffController@update')->name('StaffUpdate');
+Route::get('/staff/getstaffinfo/{id?}','StaffController@GetStaffInfo')->name('GetStaffInfo');
 
 /*Patient*/
 Route::get('/patient','PatientController@index')->name('PatientIndex');
@@ -209,6 +210,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/poppnotes/delete','PostOpPostProcNotesController@destroy')->name('PostOpPostProcNotesDelete');
     Route::post('/poppnotes/update','PostOpPostProcNotesController@update')->name('PostOpPostProcNotesUpdate');
 /*Patient PostOpPostNotes*/
+
+/*Pre Operative Checklist*/
+    // Route::get('/diaghyste','PostOpPostProcNotesController@index')->name('PostOpPostProcNotesIndex');
+    Route::get('/popcklst/{PatientID?}','PreOperaCheckListController@PreOperaCheckList')->name('PreOperaCheckList');
+    Route::get('/popcklst/add/{PatientID?}','PreOperaCheckListController@create')->name('PreOperaCheckListCreate');
+    Route::post('/popcklst/add','PreOperaCheckListController@store')->name('PreOperaCheckListStore');
+
+    Route::get('/popcklst/edit/{id?}','PreOperaCheckListController@edit')->name('PreOperaCheckListEdit');
+    Route::get('/popcklst/view/{PatientID?}','PreOperaCheckListController@show')->name('PreOperaCheckListShow');
+    Route::post('/popcklst/delete','PreOperaCheckListController@destroy')->name('PreOperaCheckListDelete');
+    Route::post('/popcklst/update','PreOperaCheckListController@update')->name('PreOperaCheckListUpdate');
+/*Pre Operative Checklist*/
 
 /*Patient Doctor Diagnosis*/
 Route::get('/patientdoctordiagnosis','PatientDoctorDiagnosisController@index')->name('PatientDoctorDiagnosisIndex');

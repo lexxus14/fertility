@@ -120,6 +120,19 @@
                   <div class="bs-stepper-content">
                     
                     <!-- your steps content here -->  
+
+                    <div class="row"> 
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="IsWifePatient" name="IsWifePatient">
+                            <label for="IsWifePatient">Patient
+                            </label>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+
                     <div class="row">
                       <div class="col-sm-4">
                           <!-- text input -->
@@ -128,7 +141,8 @@
                             <input type="text" class="form-control" name="txtFileNo" placeholder="Enter ...">
                           </div>
                         </div>
-                    </div>                    
+                    </div>
+
                       <div class="row">
                         <div class="col-sm-3">
                           <!-- text input -->
@@ -269,8 +283,21 @@
 
                   <div class="bs-stepper-content">
 
-                    <!-- your steps content here -->                      
+                    <!-- your steps content here -->   
+                    <div class="row"> 
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="IsHusbandPatient" name="IsHusbandPatient">
+                            <label for="IsHusbandPatient">Patient
+                            </label>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+
                       <div class="row">
+
                         <div class="col-sm-4">
                           <!-- text input -->
                           <div class="form-group">

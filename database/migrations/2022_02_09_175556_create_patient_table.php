@@ -42,6 +42,8 @@ class CreatePatientTable extends Migration
             $table->string('IsPatient')->nullable();
             $table->integer('createdbyid')->nullable();
             $table->integer('LeadSourceId')->nullable();
+            $table->integer('IsWifePatient')->nullable();
+            $table->integer('IsHusbandPatient')->nullable();
             $table->timestamps();
         });
     }

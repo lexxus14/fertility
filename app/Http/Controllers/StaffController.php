@@ -174,4 +174,12 @@ class StaffController extends Controller
         $staff = Staff::destroy($request->del_id);
         return redirect()->to('/staff');
     }
+
+    public function GetStaffInfo($id)
+    {
+        $task = Staff::find($id);
+
+        return response()->json($task);
+
+    }
 }
