@@ -254,6 +254,19 @@
                   <i class="fas fa-book-open"></i>Operative Report
                 </a>
 
+                <a href="{{route('OVFReqForm')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-danger">
+                    <?php $intTotalIVFRequisistionForm = 0; ?>
+                    @foreach($TotalIVFRequisistionForms as $TotalIVFRequisistionForm)
+                    <?php
+                      $intTotalIVFRequisistionForm = $TotalIVFRequisistionForm->TotalIVFRequisistionForms;
+                      ?>
+                    @endforeach
+                    {{$intTotalIVFRequisistionForm}}
+                  </span>
+                  <i class="fas fa-book-open"></i>IVF Req Form
+                </a>
+
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php $intTotalEggCollected= 0 ; ?>

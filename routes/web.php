@@ -235,6 +235,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/opreport/update','OperativeReportController@update')->name('OperativeReportUpdate');
 /*Pre Operative Report*/
 
+/*IVF Requisition Form*/
+    // Route::get('/diaghyste','IVFReqFormController@index')->name('OVFReqFormIndex');
+    Route::get('/ivfreqform/{PatientID?}','IVFReqFormController@OVFReqForm')->name('OVFReqForm');
+    Route::get('/ivfreqform/add/{PatientID?}','IVFReqFormController@create')->name('OVFReqFormCreate');
+    Route::post('/ivfreqform/add','IVFReqFormController@store')->name('OVFReqFormStore');
+
+    Route::get('/ivfreqform/edit/{id?}','IVFReqFormController@edit')->name('OVFReqFormEdit');
+    Route::get('/ivfreqform/view/{PatientID?}','IVFReqFormController@show')->name('OVFReqFormShow');
+    Route::post('/ivfreqform/delete','IVFReqFormController@destroy')->name('OVFReqFormDelete');
+    Route::post('/ivfreqform/update','IVFReqFormController@update')->name('OVFReqFormUpdate');
+/*IVF Requisition Form*/
+
 /*Patient Doctor Diagnosis*/
 Route::get('/patientdoctordiagnosis','PatientDoctorDiagnosisController@index')->name('PatientDoctorDiagnosisIndex');
 Route::get('/patientdoctordiagnosis/{PatientID?}','PatientDoctorDiagnosisController@PatientDoctorDiagnosisSign')->name('PatientDoctorDiagnosisSign');
