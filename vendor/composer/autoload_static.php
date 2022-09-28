@@ -578,6 +578,7 @@ class ComposerStaticInit554763c944dacdc48ec58f96eea859e7
         'CreateMaledoctorconsultationTable' => __DIR__ . '/../..' . '/database/migrations/2022_08_03_071637_create_maledoctorconsultation_table.php',
         'CreateMedicineTable' => __DIR__ . '/../..' . '/database/migrations/2022_02_08_113402_create_medicine_table.php',
         'CreateMedicineunitTable' => __DIR__ . '/../..' . '/database/migrations/2022_08_18_094740_create_medicineunit_table.php',
+        'CreateMocEmbTraMeasTable' => __DIR__ . '/../..' . '/database/migrations/2022_09_24_092232_create_MocEmbTraMeas_table.php',
         'CreateNationalityTable' => __DIR__ . '/../..' . '/database/migrations/2022_02_09_174243_create_nationality_table.php',
         'CreateOperativeReportTable' => __DIR__ . '/../..' . '/database/migrations/2022_09_20_091914_create_OperativeReport_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/2014_10_12_100000_create_password_resets_table.php',

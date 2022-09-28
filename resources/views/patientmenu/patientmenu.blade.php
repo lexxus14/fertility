@@ -267,6 +267,19 @@
                   <i class="fas fa-book-open"></i>IVF Req Form
                 </a>
 
+                <a href="{{route('MocEmbTraMeas')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-danger">
+                    <?php $intTotalMocEmbTraMeas= 0; ?>
+                    @foreach($TotalMocEmbTraMeas as $TotalMocEmbTraMea)
+                    <?php
+                      $intTotalMocEmbTraMeas = $TotalMocEmbTraMea->TotalMocEmbTraMeas;
+                      ?>
+                    @endforeach
+                    {{$intTotalMocEmbTraMeas}}
+                  </span>
+                  <i class="fas fa-baby-carriage"></i>Mock Emb Trans
+                </a>
+
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php $intTotalEggCollected= 0 ; ?>

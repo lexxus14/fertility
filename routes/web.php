@@ -235,6 +235,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/opreport/update','OperativeReportController@update')->name('OperativeReportUpdate');
 /*Pre Operative Report*/
 
+/*Mock Embryo Transfer Measurements*/
+    // Route::get('/mockembtramea','MocEmbTraMeasController@index')->name('OVFReqFormIndex');
+    Route::get('/mockembtramea/{PatientID?}','MocEmbTraMeasController@MocEmbTraMeas')->name('MocEmbTraMeas');
+    Route::get('/mockembtramea/add/{PatientID?}','MocEmbTraMeasController@create')->name('MocEmbTraMeasCreate');
+    Route::post('/mockembtramea/add','MocEmbTraMeasController@store')->name('MocEmbTraMeasStore');
+
+    Route::get('/mockembtramea/edit/{id?}','MocEmbTraMeasController@edit')->name('MocEmbTraMeasEdit');
+    Route::get('/mockembtramea/view/{PatientID?}','MocEmbTraMeasController@show')->name('MocEmbTraMeasShow');
+    Route::post('/mockembtramea/delete','MocEmbTraMeasController@destroy')->name('MocEmbTraMeasDelete');
+    Route::post('/mockembtramea/update','MocEmbTraMeasController@update')->name('MocEmbTraMeasUpdate');
+/*Mock Embryo Transfer Measurements*/
+
 /*IVF Requisition Form*/
     // Route::get('/diaghyste','IVFReqFormController@index')->name('OVFReqFormIndex');
     Route::get('/ivfreqform/{PatientID?}','IVFReqFormController@OVFReqForm')->name('OVFReqForm');

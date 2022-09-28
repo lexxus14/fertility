@@ -1,6 +1,8 @@
 /node_modules
-/public/file
 /public/hot
+/public/cer/*
+/public/utpo/*
+/public/file/*
 /public/storage
 /storage/*.key
 /.idea
