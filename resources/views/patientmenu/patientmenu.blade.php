@@ -280,6 +280,19 @@
                   <i class="fas fa-baby-carriage"></i>Mock Emb Trans
                 </a>
 
+                <a href="{{route('PostAnesthesiaRecs')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalPostAnesthesiaRecs= 0; ?>
+                    @foreach($TotalPostAnesthesiaRecs as $TotalPostAnesthesiaRec)
+                    <?php
+                      $intTotalPostAnesthesiaRecs = $TotalPostAnesthesiaRec->TotalPostAnesthesiaRecs;
+                      ?>
+                    @endforeach
+                    {{$intTotalPostAnesthesiaRecs}}
+                  </span>
+                  <i class="fas fa-baby-carriage"></i>Post Anethesia Rec
+                </a>
+
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php $intTotalEggCollected= 0 ; ?>

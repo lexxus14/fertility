@@ -11,6 +11,7 @@ use App\PreOperaChkLstProc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class PreOperaCheckListController extends Controller
 {
@@ -253,7 +254,7 @@ class PreOperaCheckListController extends Controller
      */
     public function update(Request $request)
     {
-         $imagepath = "";
+        $imagepath = "";
 
         $strsql ="SELECT * from PreOperaChecklists where id=".$request->docId;
         $las = DB::select($strsql);
