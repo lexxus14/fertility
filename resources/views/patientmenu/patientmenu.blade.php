@@ -290,7 +290,20 @@
                     @endforeach
                     {{$intTotalPostAnesthesiaRecs}}
                   </span>
-                  <i class="fas fa-baby-carriage"></i>Post Anethesia Rec
+                  <i class="fas fa-procedures"></i>Post Anethesia Rec
+                </a>
+
+                <a href="{{route('PreAneCheRecs')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalPreAneCheRecs= 0; ?>
+                    @foreach($TotalPreAneCheRecs as $TotalPreAneCheRec)
+                    <?php
+                      $intTotalPreAneCheRecs = $TotalPreAneCheRec->TotalPreAneCheRecs;
+                      ?>
+                    @endforeach
+                    {{$intTotalPreAneCheRecs}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Pre Anethesia Rec
                 </a>
 
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">

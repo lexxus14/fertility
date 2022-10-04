@@ -259,6 +259,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/posanesrecs/update','PostAnesthesiaRecsController@update')->name('PostAnesthesiaRecsUpdate');
 /*Post Anesthesia Records*/
 
+/*Pre Anestheisa Check Records*/
+    // Route::get('/preanecherecs','PreAneCheRecController@index')->name('OVFReqFormIndex');
+    Route::get('/preanecherecs/{PatientID?}','PreAneCheRecController@PreAneCheRecs')->name('PreAneCheRecs');
+    Route::get('/preanecherecs/add/{PatientID?}','PreAneCheRecController@create')->name('PreAneCheRecsCreate');
+    Route::post('/preanecherecs/add','PreAneCheRecController@store')->name('PreAneCheRecsStore');
+
+    Route::get('/preanecherecs/edit/{id?}','PreAneCheRecController@edit')->name('PreAneCheRecsEdit');
+    Route::get('/preanecherecs/view/{PatientID?}','PreAneCheRecController@show')->name('PreAneCheRecsShow');
+    Route::post('/preanecherecs/delete','PreAneCheRecController@destroy')->name('PreAneCheRecsDelete');
+    Route::post('/preanecherecs/update','PreAneCheRecController@update')->name('PreAneCheRecsUpdate');
+/*Pre Anestheisa Check Records*/
+
 /*IVF Requisition Form*/
     // Route::get('/diaghyste','IVFReqFormController@index')->name('OVFReqFormIndex');
     Route::get('/ivfreqform/{PatientID?}','IVFReqFormController@OVFReqForm')->name('OVFReqForm');

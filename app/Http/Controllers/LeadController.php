@@ -351,12 +351,16 @@ class LeadController extends Controller
                     where d.patientid=".$PatientId;
         $TotalPostAnesthesiaRecs = DB::select($strsql);
 
+        $strsql ="select count(*) as TotalPreAneCheRecs from PreAneCheRecs as d
+                    where d.patientid=".$PatientId;
+        $TotalPreAneCheRecs = DB::select($strsql);
+
 
         $staffs = Staff::all();
         $reasons = Reason::all();
 
 
-        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalPatientProcedures','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes','TotalPreOperaChecklists','TotalOperativeReports','TotalIVFRequisistionForms','TotalMocEmbTraMeas','TotalPostAnesthesiaRecs'));
+        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalPatientProcedures','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes','TotalPreOperaChecklists','TotalOperativeReports','TotalIVFRequisistionForms','TotalMocEmbTraMeas','TotalPostAnesthesiaRecs','TotalPreAneCheRecs'));
     }
 
     /**
