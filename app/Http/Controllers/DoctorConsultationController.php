@@ -47,7 +47,27 @@ class DoctorConsultationController extends Controller
                   where patientid =".$PatientId;
         $docresultmale = DB::select($strsql);
 
-        return view('doctorconsultation.patientindex',compact('docresult','patients','docresultmale'));
+        $strsql ="select count(*) as Totalpatientdoctordiagnosis from patientdoctordiagnosis as d
+                    where d.patientid=".$PatientId;
+        $Totalpatientdoctordiagnosis = DB::select($strsql);
+
+        $strsql ="select count(*) as Totalpatientdoctorsplans from patientdoctorsplan as d
+                    where d.patientid=".$PatientId;
+        $Totalpatientdoctorsplans = DB::select($strsql);
+
+        $strsql ="select count(*) as Totalpatient_medications from patient_medications as d
+                    where d.patientid=".$PatientId;
+        $Totalpatient_medications = DB::select($strsql);
+
+        $strsql ="select count(*) as Totalpatientdoctorslabs from patientdoctorslabs as d
+                    where d.patientid=".$PatientId;
+        $Totalpatientdoctorslabs = DB::select($strsql);
+
+        $strsql ="select count(*) as TotalPatientProcedure from patient_procedures as d
+                    where d.patientid=".$PatientId;
+        $TotalPatientProcedures = DB::select($strsql);
+
+        return view('doctorconsultation.patientindex',compact('docresult','patients','docresultmale','Totalpatientdoctordiagnosis','Totalpatientdoctorsplans','Totalpatient_medications','Totalpatientdoctorslabs','TotalPatientProcedures'));
     }
 
     /**

@@ -46,6 +46,68 @@
                 <a href="{{route('LeadView')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">                  
                   <i class="fas fa-user-plus"></i> Info
                 </a>
+                <a href="{{route('PatientDoctorDiagnosisSign')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    @foreach($Totalpatientdoctordiagnosis as $Totalpatientdoctordiagnosi)
+                    <?php
+                      $intTotalPatientResult =$Totalpatientdoctordiagnosi->Totalpatientdoctordiagnosis;
+                    ?>
+                    @endforeach
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-comment-medical"></i> Doctor's Diagnosis
+                </a>
+                <a href="{{route('PatientDoctorsPlanSign')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    @foreach($Totalpatientdoctorsplans as $Totalpatientdoctorsplan)
+                    <?php
+                      $intTotalPatientResult =$Totalpatientdoctorsplan->Totalpatientdoctorsplans;
+                    ?>
+                    @endforeach
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-pencil-alt"></i> Doctor's Plan
+                </a>
+                <a href="{{route('PatientMedication')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-info">
+                    <?php $intTotalPatientMedication = 0; ?>
+                    @foreach($Totalpatient_medications  as $Totalpatient_medication)
+                    <?php
+                      $intTotalPatientMedication = $Totalpatient_medication->Totalpatient_medications;
+                      ?>
+                    @endforeach
+                    {{$intTotalPatientMedication}}</span>
+                  <i class="fas fa-file-prescription"></i>Patient Medication
+                </a>
+                <a href="{{route('PatientDoctorsLab')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    @foreach($Totalpatientdoctorslabs as $Totalpatientdoctorslab)
+                    <?php
+                      $intTotalPatientResult =$Totalpatientdoctorslab->Totalpatientdoctorslabs;
+                    ?>
+                    @endforeach
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-pencil-alt"></i> Doctor's Lab Test
+                </a>
+                <a href="{{route('PatientProcedure')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-danger">
+                    <?php $intTotalPatientProcedure = 0; ?>
+                    @foreach($TotalPatientProcedures as $TotalPatientProcedure)
+                    <?php
+                      $intTotalPatientProcedure = $TotalPatientProcedure->TotalPatientProcedure;
+                      ?>
+                    @endforeach
+                    {{$intTotalPatientProcedure}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Patient Procedure
+                </a>
               </div>
               <!-- /.card-body -->
             </div>

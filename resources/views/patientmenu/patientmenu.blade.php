@@ -9,6 +9,19 @@
               </div>
               <div class="card-body">               
                 <!-- <p>Application Buttons with Custom Colors</p> -->
+                <a href="{{route('PatientBookingIndex')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
+                  <span class="badge bg-teal">
+                    <?php
+                      $intTotalPatientResult =0;
+                    ?>
+                    @foreach($TotalPatientResults as $TotalPatientResult)
+                    <?php
+                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
+                    ?>
+                    @endforeach
+                    {{$intTotalPatientResult}}</span>
+                  <i class="fas fa-pencil-alt"></i> Patient Booking
+                </a>
                 <a href="{{route('PatientDocument')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                      @foreach($TotalRecDocs as $TotalRecDoc)
@@ -119,89 +132,8 @@
                     @endforeach
                     {{$intTotalPatientResult}}</span>
                   <i class="fas fa-file"></i> Calendar
-                </a>
-
-                <a href="{{route('PatientDoctorDiagnosisSign')}}/{{$intPatientId}}" class="btn btn-app bg-success">
-                  <span class="badge bg-teal">
-                    <?php
-                      $intTotalPatientResult =0;
-                    ?>
-                    @foreach($TotalPatientResults as $TotalPatientResult)
-                    <?php
-                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
-                    ?>
-                    @endforeach
-                    {{$intTotalPatientResult}}</span>
-                  <i class="fas fa-comment-medical"></i> Doctor's Diagnosis
-                </a>
-                
-                <a href="{{route('PatientDoctorsPlanSign')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
-                  <span class="badge bg-teal">
-                    <?php
-                      $intTotalPatientResult =0;
-                    ?>
-                    @foreach($TotalPatientResults as $TotalPatientResult)
-                    <?php
-                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
-                    ?>
-                    @endforeach
-                    {{$intTotalPatientResult}}</span>
-                  <i class="fas fa-pencil-alt"></i> Doctor's Plan
-                </a>
-
-                <a href="{{route('PatientDoctorsLab')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
-                  <span class="badge bg-teal">
-                    <?php
-                      $intTotalPatientResult =0;
-                    ?>
-                    @foreach($TotalPatientResults as $TotalPatientResult)
-                    <?php
-                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
-                    ?>
-                    @endforeach
-                    {{$intTotalPatientResult}}</span>
-                  <i class="fas fa-pencil-alt"></i> Doctor's Lab Test
-                </a>
-
-                <a href="{{route('PatientBookingIndex')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
-                  <span class="badge bg-teal">
-                    <?php
-                      $intTotalPatientResult =0;
-                    ?>
-                    @foreach($TotalPatientResults as $TotalPatientResult)
-                    <?php
-                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
-                    ?>
-                    @endforeach
-                    {{$intTotalPatientResult}}</span>
-                  <i class="fas fa-pencil-alt"></i> Patient Booking
-                </a>
-
-                <a href="{{route('PatientMedication')}}/{{$intPatientId}}" class="btn btn-app bg-success">
-                  <span class="badge bg-info">
-                    <?php $intTotalPatientMedication = 0; ?>
-                    @foreach($TotalPatientMedications  as $TotalPatientResult)
-                    <?php
-                      $intTotalPatientMedication = $TotalPatientResult->TotalPatientResult;
-                      ?>
-                    @endforeach
-                    {{$intTotalPatientMedication}}</span>
-                  <i class="fas fa-file-prescription"></i>Patient Medication
-                </a>
-
-                <a href="{{route('PatientProcedure')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
-                  <span class="badge bg-danger">
-                    <?php $intTotalPatientProcedure = 0; ?>
-                    @foreach($TotalPatientProcedures as $TotalPatientProcedure)
-                    <?php
-                      $intTotalPatientProcedure = $TotalPatientProcedure->TotalPatientProcedure;
-                      ?>
-                    @endforeach
-                    {{$intTotalPatientProcedure}}
-                  </span>
-                  <i class="fas fa-procedures"></i>Patient Procedure
-                </a>
-
+                </a>              
+               
                 <a href="{{route('DiagHysteroscopy')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
                   <span class="badge bg-danger">
                     <?php $intTotalPatientProcedure = 0; ?>
@@ -317,17 +249,6 @@
                     {{$intTotalConOfAnesthesia}}
                   </span>
                   <i class="fas fa-procedures"></i>Anesthesia Consent
-                </a>
-
-                <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
-                  <span class="badge bg-success">
-                    <?php $intTotalEggCollected= 0 ; ?>
-                   @foreach($TotalEggCollecteds as $TotalEggCollected)
-                    <?php  $intTotalEggCollected = $TotalEggCollected->TotalEggCollected; ?>
-                   @endforeach
-                   {{$intTotalEggCollected}}
-                  </span>
-                  <i class="fas fa-egg"></i> Eggs Collected
                 </a>
 
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
