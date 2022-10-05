@@ -306,6 +306,19 @@
                   <i class="fas fa-procedures"></i>Pre Anethesia Rec
                 </a>
 
+                <a href="{{route('ConOfAnesthesia')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalConOfAnesthesia= 0; ?>
+                    @foreach($TotalConOfAnesthesias as $TotalConOfAnesthesia)
+                    <?php
+                      $intTotalConOfAnesthesia = $TotalConOfAnesthesia->TotalConOfAnesthesias;
+                      ?>
+                    @endforeach
+                    {{$intTotalConOfAnesthesia}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Anesthesia Consent
+                </a>
+
                 <a href="{{route('PatientEggCollected')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php $intTotalEggCollected= 0 ; ?>
@@ -317,54 +330,6 @@
                   <i class="fas fa-egg"></i> Eggs Collected
                 </a>
 
-                <a href="{{route('PatientEggFertilized')}}/{{$intPatientId}}" class="btn btn-app bg-success">
-                  <span class="badge bg-purple">
-                  @foreach($TotalEggFertizeds as $TotalEggFertized)
-                  <?php
-                    $intTotalEggFertized = $TotalEggFertized->TotalEggFertized;
-                  ?>
-                  @endforeach
-                  {{$intTotalEggFertized}}
-                  </span>
-                  <i class="fas fa-egg"></i> Eggs Fertilized
-                </a>
-                <a href="{{route('PatientGoodEmbryo')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
-                  <span class="badge bg-teal">
-                    @foreach($TotalGoodEmbryos as $TotalGoodEmbryo)
-                    <?php 
-                    $intTotalGoodEmbryo = $TotalGoodEmbryo->TotalGoodEmbryo;
-                    ?>
-                    @endforeach
-                    {{$intTotalGoodEmbryo}}
-                  </span>
-                  <i class="fas fa-baby"></i> Good Embryo
-                </a>
-                <a href="{{route('PatientTransferredEmbryo')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
-                  <span class="badge bg-info">
-                    <?php
-                      $intTotalTransferredEmbryos =0;
-                    ?>
-                    @foreach($TotalTransferredEmbryos as $TotalTransferredEmbryo)
-                    <?php
-                      $intTotalTransferredEmbryos =$TotalTransferredEmbryo->TotalTransferredEmbryo;
-                    ?>
-                    @endforeach
-                    {{$intTotalTransferredEmbryos}}
-                  </span>
-                  <i class="fas fa-baby-carriage"></i> Transferred Embryo
-                </a>
-                <a href="{{route('PatientFrozenEmbryo')}}/{{$intPatientId}}" class="btn btn-app bg-info">
-                  <span class="badge bg-danger">
-                    @foreach($TotalFrozens as $TotalFrozen)
-                    <?php
-                      $intTotalFrozen =$TotalFrozen->TotalFrozenEmbryo;
-                    ?>
-                    @endforeach
-                    {{$intTotalFrozen}}
-                  </span>
-                  <i class="fas fa-igloo">                
-                  </i> Frozen Embryo
-                </a>
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php
