@@ -177,21 +177,15 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="col-2">
+                <div class="col-sm-2">
                     <div class="form-group">
-                      <label>Date</label>
-                      <div class="input-group date" id="lead-date" data-target-input="nearest">
-                          <input type="text" id="lead-date-input" class="form-control datetimepicker-input" name="txtDocDate" data-target="#lead-date"/>
-
-                          <div class="input-group-append" data-target="#lead-date" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                      </div>
+                      <label for="txtDocDate">Date</label>
+                          <input type="date" id="lead-date-input" class="form-control" name="txtDocDate"/>
                     </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-sm-4">
                     <div class="form-group">
                       <label>Description</label>
                       <input type="text" name="txtdescription" class="form-control">
@@ -201,13 +195,13 @@
               </div>
               <div class="row">
                 <div class="form-group">
-                <div class="col-12">
+                <div class="col-sm-12">
                   <input type="button" value="Add Vital Sign" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
                 </div>
                 </div>
               </div>   
               <div class="row">
-                <div class="col-12">
+                <div class="col-sm-12">
                 <!-- /.card-header -->
                     <!-- <table id="example1" class="table table-bordered table-striped"> -->
                     <table  class="table table-bordered table-striped">
@@ -230,7 +224,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-sm-4">
                   <div class="form-group">
                       <div class="form-group">
                         <label>Note</label>
@@ -476,54 +470,12 @@
       rowIdx--;
     });
 
-    $('.open-modal-lead-assessment').click(function(data){
-      var id = $(this).val();
-      $('#patient_id').val(id);
-    });
-
-    //display modal form for task editing
-    $('.open-modal-lead-assessment-edit').click(function(){
-        var task_id = $(this).val();
-        // alert(task_id);
-        $.get(url  + task_id, function (data) {
-            //success data
-            console.log(data);
-            $('#LeadAssUpdateId').val(data[0].id);
-
-            const d = new Date(data[0].date);
-            let text = d.toLocaleDateString();
-            $('#lead-date-update-ass').val(text);
-            $("#cmbStaff").append("<option value='"+data[0].staffid+"'selected>"+data[0].name +"</option>");
-            $("#cmbReason").append("<option value='"+data[0].reasonid+"'selected>"+data[0].description +"</option>");
-            $('#inputNoteLead-Edit').text(data[0].notes);
-            // $('#task').val(data.task);
-            // $('#description').val(data.description);
-            // $('#btn-save').val("update");
-
-            // $('#myModal').modal('show');
-        }) 
-
-        // $.get(url + '/' + task_id, function (data) {
-        //     //success data
-        //     var i = 0
-        //     for (i = 0, len = data.length; i < len; i++) {
-        //         console.log(data[i]);
-        //     }
-            //console.log(data[1]);
-
-            // $('#task_id').val(data.id);
-            // $('#task').val(data.task);
-            // $('#description').val(data.description);
-            // $('#btn-save').val("update");
-
-            $('#modal-lead-assessment-edit').modal('show');
-        })
-    });
+  });
 
 /* Lead Assessement */
 
 
-  </script>
+</script>
 
 <script>
 $(function () {
