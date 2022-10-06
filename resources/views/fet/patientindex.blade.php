@@ -446,7 +446,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <label>No. of Cycle</label>
+                    <label>CD No</label>
                   </div>
                 </div>
                 <div class="col-2">
@@ -531,7 +531,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <label>No. of Cycle</label>
+                    <label>CD No.</label>
                   </div>
                 </div>
                 <div class="col-2">
@@ -594,7 +594,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <label>No. of Cycle</label>
+                    <label>CD No.</label>
                   </div>
                 </div>
                 <div class="col-2">
