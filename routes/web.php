@@ -247,6 +247,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/mockembtramea/update','MocEmbTraMeasController@update')->name('MocEmbTraMeasUpdate');
 /*Mock Embryo Transfer Measurements*/
 
+/*Intra Operative Anesthesia Records*/
+    // Route::get('/intraoperaanesrec','IntraOperaAnesRecsController@index')->name('OVFReqFormIndex');
+    Route::get('/intraoperaanesrec/{PatientID?}','IntraOperaAnesRecsController@IntraOperAnesRecs')->name('IntraOperAnesRecs');
+    Route::get('/intraoperaanesrec/add/{PatientID?}','IntraOperaAnesRecsController@create')->name('IntraOperAnesRecsCreate');
+    Route::post('/intraoperaanesrec/add','IntraOperaAnesRecsController@store')->name('IntraOperAnesRecsStore');
+
+    Route::get('/intraoperaanesrec/edit/{id?}','IntraOperaAnesRecsController@edit')->name('IntraOperAnesRecsEdit');
+    Route::get('/intraoperaanesrec/view/{PatientID?}','IntraOperaAnesRecsController@show')->name('IntraOperAnesRecsShow');
+    Route::post('/intraoperaanesrec/delete','IntraOperaAnesRecsController@destroy')->name('IntraOperAnesRecsDelete');
+    Route::post('/intraoperaanesrec/update','IntraOperaAnesRecsController@update')->name('IntraOperAnesRecsUpdate');
+/*Intra Operative Anesthesia Records*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');

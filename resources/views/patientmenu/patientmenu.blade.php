@@ -238,6 +238,19 @@
                   <i class="fas fa-procedures"></i>Pre Anethesia Rec
                 </a>
 
+                <a href="{{route('IntraOperAnesRecs')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalIntraOperAnesRecs= 0; ?>
+                    @foreach($TotalIntraOperAnesRecs as $TotalIntraOperAnesRec)
+                    <?php
+                      $intTotalIntraOperAnesRecs = $TotalIntraOperAnesRec->TotalIntraOperAnesRecs;
+                      ?>
+                    @endforeach
+                    {{$intTotalIntraOperAnesRecs}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Inter-Opera Anes Rec
+                </a>
+
                 <a href="{{route('ConOfAnesthesia')}}/{{$intPatientId}}" class="btn btn-app bg-success">
                   <span class="badge bg-danger">
                     <?php $intTotalConOfAnesthesia= 0; ?>
