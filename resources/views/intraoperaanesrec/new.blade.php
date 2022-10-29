@@ -607,7 +607,7 @@
               ${data.description}
               </td>
               <td>
-                <select name="UnitId" class="form-control">
+                <select name="UnitId[]" class="form-control">
                   <?php foreach($MedicineUnits as $MedicineUnit){ ?>
                   <option value="<?php echo $MedicineUnit->id; ?>"><?php echo $MedicineUnit->ShortSymbol; ?></option>
                   <?php } ?>
