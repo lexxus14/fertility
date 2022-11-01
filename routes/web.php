@@ -259,6 +259,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/intraoperaanesrec/update','IntraOperaAnesRecsController@update')->name('IntraOperAnesRecsUpdate');
 /*Intra Operative Anesthesia Records*/
 
+/*IVF Embryo Transfer Data Sheet*/
+    // Route::get('/ivfembratransdatasheet','IVFEmbryoTransDataSheetController@index')->name('IVFEmbryoTransDataSheetIndex');
+    Route::get('/ivfembratransdatasheet/{PatientID?}','IVFEmbryoTransDataSheetController@IVFEmbryoTransDataSheet')->name('IVFEmbryoTransDataSheet');
+    Route::get('/ivfembratransdatasheet/add/{PatientID?}','IVFEmbryoTransDataSheetController@create')->name('IVFEmbryoTransDataSheetCreate');
+    Route::post('/ivfembratransdatasheet/add','IVFEmbryoTransDataSheetController@store')->name('IVFEmbryoTransDataSheetStore');
+
+    Route::get('/ivfembratransdatasheet/edit/{id?}','IVFEmbryoTransDataSheetController@edit')->name('IVFEmbryoTransDataSheetEdit');
+    Route::get('/ivfembratransdatasheet/view/{PatientID?}','IVFEmbryoTransDataSheetController@show')->name('IVFEmbryoTransDataSheetShow');
+    Route::post('/ivfembratransdatasheet/delete','IVFEmbryoTransDataSheetController@destroy')->name('IVFEmbryoTransDataSheetDelete');
+    Route::post('/ivfembratransdatasheet/update','IVFEmbryoTransDataSheetController@update')->name('IVFEmbryoTransDataSheetUpdate');
+/*IVF Embryo Transfer Data Sheet*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');

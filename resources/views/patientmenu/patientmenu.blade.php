@@ -264,6 +264,19 @@
                   <i class="fas fa-procedures"></i>Anesthesia Consent
                 </a>
 
+                <a href="{{route('IVFEmbryoTransDataSheet')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalIVFEmbryoTransDataSheet= 0; ?>
+                    @foreach($TotalIVFEmbryoTransDataSheets as $TotalIVFEmbryoTransDataSheet)
+                    <?php
+                      $intTotalIVFEmbryoTransDataSheet = $TotalIVFEmbryoTransDataSheet->TotalIVFEmbryoTransDataSheet;
+                      ?>
+                    @endforeach
+                    {{$intTotalIVFEmbryoTransDataSheet}}
+                  </span>
+                  <i class="fas fa-procedures"></i>IVF/Emb Trans Data Sheet
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php

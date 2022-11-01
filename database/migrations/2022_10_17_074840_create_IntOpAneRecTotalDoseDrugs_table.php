@@ -6,6 +6,18 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateIntOpAneRecTotalDoseDrugsTable extends Migration
 {
+    protected $redirectTo = '/home'; 
+    private $DocTransName = "Preoperative Checklist";
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Run the migrations.
      *
