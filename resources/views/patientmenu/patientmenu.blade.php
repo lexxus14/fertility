@@ -316,6 +316,19 @@
                   <i class="fas fa-procedures"></i>Semen Analysis
                 </a>
 
+                <a href="{{route('OOcyteRetReport')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalOOcyteRetReports= 0; ?>
+                    @foreach($TotalOOcyteRetReports as $TotalOOcyteRetReport)
+                    <?php
+                      $intTotalSemenAnalysis = $TotalOOcyteRetReport->TotalOOcyteRetReports;
+                      ?>
+                    @endforeach
+                    {{$intTotalOOcyteRetReports}}
+                  </span>
+                  <i class="fas fa-procedures"></i>OOcyte Retrieval
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php

@@ -308,6 +308,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/semenanalysis/update','SemenAnalysisController@update')->name('SemenAnalysisUpdate');
 /*Semen Analysis*/
 
+/*OOcyte Retrieval Report*/
+    // Route::get('/oocyteretreport','OOcyteRetrievalReportController@index')->name('OOcyteRetReportIndex');
+    Route::get('/oocyteretreport/{PatientID?}','OOcyteRetrievalReportController@OOcyteRetReport')->name('OOcyteRetReport');
+    Route::get('/oocyteretreport/add/{PatientID?}','OOcyteRetrievalReportController@create')->name('OOcyteRetReportCreate');
+    Route::post('/oocyteretreport/add','OOcyteRetrievalReportController@store')->name('OOcyteRetReportStore');
+
+    Route::get('/oocyteretreport/edit/{id?}','OOcyteRetrievalReportController@edit')->name('OOcyteRetReportEdit');
+    Route::get('/oocyteretreport/view/{PatientID?}','OOcyteRetrievalReportController@show')->name('OOcyteRetReportShow');
+    Route::post('/oocyteretreport/delete','OOcyteRetrievalReportController@destroy')->name('OOcyteRetReportDelete');
+    Route::post('/oocyteretreport/update','OOcyteRetrievalReportController@update')->name('OOcyteRetReportUpdate');
+/*OOcyte Retrieval Report*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');
