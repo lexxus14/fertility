@@ -367,12 +367,16 @@ class LeadController extends Controller
                     where d.patientid=".$PatientId;
         $TotalSpermFreezings = DB::select($strsql);
 
+        $strsql ="select count(*) as TotalSpermThawings from SpermThawings as d
+                    where d.patientid=".$PatientId;
+        $TotalSpermThawings = DB::select($strsql);
+
 
         $staffs = Staff::all();
         $reasons = Reason::all();
 
 
-        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes','TotalPreOperaChecklists','TotalOperativeReports','TotalIVFRequisistionForms','TotalMocEmbTraMeas','TotalPostAnesthesiaRecs','TotalPreAneCheRecs','TotalConOfAnesthesias','TotalIntraOperAnesRecs','TotalIVFEmbryoTransDataSheets','TotalSpermFreezings'));
+        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes','TotalPreOperaChecklists','TotalOperativeReports','TotalIVFRequisistionForms','TotalMocEmbTraMeas','TotalPostAnesthesiaRecs','TotalPreAneCheRecs','TotalConOfAnesthesias','TotalIntraOperAnesRecs','TotalIVFEmbryoTransDataSheets','TotalSpermFreezings','TotalSpermThawings'));
     }
 
     /**

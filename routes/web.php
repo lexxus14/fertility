@@ -283,6 +283,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/spermfreezing/update','SpermFreezingController@update')->name('SpermFreezingUpdate');
 /*Sperm Freezing*/
 
+/*Sperm Thawing*/
+    // Route::get('/spermthawing','SpermThawingController@index')->name('SpermThawingIndex');
+    Route::get('/spermthawing/{PatientID?}','SpermThawingController@SpermThawing')->name('SpermThawing');
+    Route::get('/spermthawing/add/{PatientID?}','SpermThawingController@create')->name('SpermThawingCreate');
+    Route::post('/spermthawing/add','SpermThawingController@store')->name('SpermThawingStore');
+
+    Route::get('/spermthawing/edit/{id?}','SpermThawingController@edit')->name('SpermThawingEdit');
+    Route::get('/spermthawing/view/{PatientID?}','SpermThawingController@show')->name('SpermThawingShow');
+    Route::post('/spermthawing/delete','SpermThawingController@destroy')->name('SpermThawingDelete');
+    Route::post('/spermthawing/update','SpermThawingController@update')->name('SpermThawingUpdate');
+/*Sperm Thawing*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');
