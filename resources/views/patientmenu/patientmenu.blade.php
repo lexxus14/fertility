@@ -303,6 +303,19 @@
                   <i class="fas fa-procedures"></i>Sperm Thawing
                 </a>
 
+                <a href="{{route('SemenAnalysis')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalSemenAnalysis= 0; ?>
+                    @foreach($TotalSemenAnalysis as $TotalSemenAnalysi)
+                    <?php
+                      $intTotalSemenAnalysis = $TotalSemenAnalysi->TotalSemenAnalysis;
+                      ?>
+                    @endforeach
+                    {{$intTotalSemenAnalysis}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Semen Analysis
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php

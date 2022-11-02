@@ -295,6 +295,19 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/spermthawing/update','SpermThawingController@update')->name('SpermThawingUpdate');
 /*Sperm Thawing*/
 
+
+/*Semen Analysis*/
+    // Route::get('/semenanalysis','SemenAnalysisController@index')->name('SemenAnalysisIndex');
+    Route::get('/semenanalysis/{PatientID?}','SemenAnalysisController@SemenAnalysis')->name('SemenAnalysis');
+    Route::get('/semenanalysis/add/{PatientID?}','SemenAnalysisController@create')->name('SemenAnalysisCreate');
+    Route::post('/semenanalysis/add','SemenAnalysisController@store')->name('SemenAnalysisStore');
+
+    Route::get('/semenanalysis/edit/{id?}','SemenAnalysisController@edit')->name('SemenAnalysisEdit');
+    Route::get('/semenanalysis/view/{PatientID?}','SemenAnalysisController@show')->name('SemenAnalysisShow');
+    Route::post('/semenanalysis/delete','SemenAnalysisController@destroy')->name('SemenAnalysisDelete');
+    Route::post('/semenanalysis/update','SemenAnalysisController@update')->name('SemenAnalysisUpdate');
+/*Semen Analysis*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');
