@@ -277,6 +277,19 @@
                   <i class="fas fa-procedures"></i>IVF/Emb Trans Data Sheet
                 </a>
 
+                <a href="{{route('SpermFreezing')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalSpermFreezing= 0; ?>
+                    @foreach($TotalSpermFreezings as $TotalSpermFreezing)
+                    <?php
+                      $intTotalSpermFreezing = $TotalSpermFreezing->TotalSpermFreezings;
+                      ?>
+                    @endforeach
+                    {{$intTotalSpermFreezing}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Sperm Freezing
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php

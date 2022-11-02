@@ -271,6 +271,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/ivfembratransdatasheet/update','IVFEmbryoTransDataSheetController@update')->name('IVFEmbryoTransDataSheetUpdate');
 /*IVF Embryo Transfer Data Sheet*/
 
+/*Sperm Freezing*/
+    // Route::get('/spermfreezing','SpermFreezingController@index')->name('IVFEmbryoTransDataSheetIndex');
+    Route::get('/spermfreezing/{PatientID?}','SpermFreezingController@SpermFreezing')->name('SpermFreezing');
+    Route::get('/spermfreezing/add/{PatientID?}','SpermFreezingController@create')->name('SpermFreezingCreate');
+    Route::post('/spermfreezing/add','SpermFreezingController@store')->name('SpermFreezingStore');
+
+    Route::get('/spermfreezing/edit/{id?}','SpermFreezingController@edit')->name('SpermFreezingEdit');
+    Route::get('/spermfreezing/view/{PatientID?}','SpermFreezingController@show')->name('SpermFreezingShow');
+    Route::post('/spermfreezing/delete','SpermFreezingController@destroy')->name('SpermFreezingDelete');
+    Route::post('/spermfreezing/update','SpermFreezingController@update')->name('SpermFreezingUpdate');
+/*Sperm Freezing*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');
