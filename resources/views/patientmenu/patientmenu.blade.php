@@ -329,6 +329,19 @@
                   <i class="fas fa-procedures"></i>OOcyte Retrieval
                 </a>
 
+                <a href="{{route('IUI')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalIUIs= 0; ?>
+                    @foreach($TotalIUIs as $TotalIUI)
+                    <?php
+                      $intTotalSemenAnalysis = $TotalIUI->TotalIUIs;
+                      ?>
+                    @endforeach
+                    {{$intTotalIUIs}}
+                  </span>
+                  <i class="fas fa-procedures"></i>IUI
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php

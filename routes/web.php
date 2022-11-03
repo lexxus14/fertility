@@ -320,6 +320,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/oocyteretreport/update','OOcyteRetrievalReportController@update')->name('OOcyteRetReportUpdate');
 /*OOcyte Retrieval Report*/
 
+/*IUI*/
+    // Route::get('/iui','IUIController@index')->name('IUIIndex');
+    Route::get('/iui/{PatientID?}','IUIController@IUI')->name('IUI');
+    Route::get('/iui/add/{PatientID?}','IUIController@create')->name('IUICreate');
+    Route::post('/iui/add','IUIController@store')->name('IUIStore');
+
+    Route::get('/iui/edit/{id?}','IUIController@edit')->name('IUIEdit');
+    Route::get('/iui/view/{PatientID?}','IUIController@show')->name('IUIShow');
+    Route::post('/iui/delete','IUIController@destroy')->name('IUIDelete');
+    Route::post('/iui/update','IUIController@update')->name('IUIUpdate');
+/*IUI*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');
