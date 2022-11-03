@@ -342,6 +342,19 @@
                   <i class="fas fa-procedures"></i>IUI
                 </a>
 
+                <a href="{{route('OOctyeFreezeThawTrans')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalOOcyteFreezeThawTransRecs= 0; ?>
+                    @foreach($TotalOOcyteFreezeThawTransRecs as $TotalOOcyteFreezeThawTransRec)
+                    <?php
+                      $intTotalOOcyteFreezeThawTransRecs = $TotalOOcyteFreezeThawTransRec->TotalOOcyteFreezeThawTransRecs;
+                      ?>
+                    @endforeach
+                    {{$intTotalOOcyteFreezeThawTransRecs}}
+                  </span>
+                  <i class="fas fa-procedures"></i>OOcyte Freeze Thaw
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php

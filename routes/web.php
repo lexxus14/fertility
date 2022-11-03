@@ -320,6 +320,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/oocyteretreport/update','OOcyteRetrievalReportController@update')->name('OOcyteRetReportUpdate');
 /*OOcyte Retrieval Report*/
 
+/*OOcyte Freeze Thaw Tran Rec*/
+    // Route::get('/oofrethatranrec','OOctyeFreezeThawTransRecController@index')->name('OOctyeFreezeThawTransIndex');
+    Route::get('/oofrethatranrec/{PatientID?}','OOctyeFreezeThawTransRecController@OOctyeFreezeThawTrans')->name('OOctyeFreezeThawTrans');
+    Route::get('/oofrethatranrec/add/{PatientID?}','OOctyeFreezeThawTransRecController@create')->name('OOctyeFreezeThawTransCreate');
+    Route::post('/oofrethatranrec/add','OOctyeFreezeThawTransRecController@store')->name('OOctyeFreezeThawTransStore');
+
+    Route::get('/oofrethatranrec/edit/{id?}','OOctyeFreezeThawTransRecController@edit')->name('OOctyeFreezeThawTransEdit');
+    Route::get('/oofrethatranrec/view/{PatientID?}','OOctyeFreezeThawTransRecController@show')->name('OOctyeFreezeThawTransShow');
+    Route::post('/oofrethatranrec/delete','OOctyeFreezeThawTransRecController@destroy')->name('OOctyeFreezeThawTransDelete');
+    Route::post('/oofrethatranrec/update','OOctyeFreezeThawTransRecController@update')->name('OOctyeFreezeThawTransUpdate');
+/*OOcyte Freeze Thaw Tran Rec*/
+
 /*IUI*/
     // Route::get('/iui','IUIController@index')->name('IUIIndex');
     Route::get('/iui/{PatientID?}','IUIController@IUI')->name('IUI');
