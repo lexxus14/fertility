@@ -355,6 +355,19 @@
                   <i class="fas fa-procedures"></i>OOcyte Freeze Thaw
                 </a>
 
+                <a href="{{route('EmbryologyRecordI')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalTotalEmbryologyRecordIs= 0; ?>
+                    @foreach($TotalEmbryologyRecordIs as $TotalEmbryologyRecordI)
+                    <?php
+                      $intTotalTotalEmbryologyRecordIs = $TotalEmbryologyRecordI->TotalEmbryologyRecordIs;
+                      ?>
+                    @endforeach
+                    {{$intTotalTotalEmbryologyRecordIs}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Embryology Rec I
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php
