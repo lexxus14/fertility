@@ -162,11 +162,9 @@
     <!-- /.content -->
 
   <section class="content">
-    @foreach($docresults as $docresult)
    <form action="{{route('OOctyeFreezeThawTransUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
         {{ csrf_field() }}
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="docId" value="{{$docId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
@@ -217,68 +215,18 @@
                       </tr>                
                       </thead>
                       <tbody id="tbody">
-                        
-                      <?php $intctr=1; ?>
-                        @foreach($OOcyteSubs as $OOcyteSub)
-                        <tr id="R${++rowIdx}">
-                          <td class="row-index text-center">                
-                            <input type="text" class="form-control" name="StrawNo[]" value="{{$OOcyteSub->StrawNo}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="OoctyeNo[]" value="{{$OOcyteSub->OoctyeNo}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="Maturation[]" value="{{$OOcyteSub->Maturation}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="StageGrade[]" value="{{$OOcyteSub->StageGrade}}">
-                          </td>
-                          <td class="text-left">
-                              <div class="form-group">
-                              <input type="hidden" name="IsThawYes[]"  id="IsThawYesVal{{$intctr}}" value="{{$OOcyteSub->IsThawYes}}">
-                                <div class="icheck-success d-inline">          
-                                  @if($OOcyteSub->IsThawYes)        
-                                  <input type="checkbox" id="F{{$intctr}}" checked class="IsThawYes">
-                                  @else
-                                  <input type="checkbox" id="F{{$intctr}}" class="IsThawYes">
-                                  @endif
-                                  <label for="F{{$intctr}}">
-                                    Yes
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                              <input type="hidden" name="IsThawNo[]"  id="IsThawNoVal{{$intctr}}" value="{{$OOcyteSub->IsThawYes}}">
-                                <div class="icheck-success d-inline">
-                                  @if($OOcyteSub->IsThawNo)
-                                  <input type="checkbox"  id="T{{$intctr}}" checked class="IsThawNo">
-                                  @else
-                                  <input type="checkbox"  id="T{{$intctr}}" class="IsThawNo">
-                                  @endif
-                                  <label for="T{{$intctr}}">
-                                    No
-                                  </label>
-                                </div>
-                              </div>                  
-                          </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                          </td>
-                        </tr> 
-                        <?php $intctr++; ?>
-                        @endforeach 
-        
+                                           
                       </tbody>  
                       <tfoot>
                         <tr>
                           <td>Date/Time</td>
-                          <td colspan="2"> <input type="date" name="FreezingDate" class="form-control" value="{{$docresult->FreezingDate}}"><input type="time" name="FreezingTime" class="form-control" value="{{$docresult->FreezingTime}}"> </td>
-                          <td colspan="2"> <input type="date" name="ThawingDate" class="form-control" value="{{$docresult->ThawingDate}}"><input type="time" name="ThawingTime" class="form-control" value="{{$docresult->ThawingTime}}"> </td>
+                          <td colspan="2"> <input type="date" name="FreezingDate" class="form-control" ><input type="time" name="FreezingTime" class="form-control" > </td>
+                          <td colspan="2"> <input type="date" name="ThawingDate" class="form-control" ><input type="time" name="ThawingTime" class="form-control" > </td>
                         </tr>
                         <tr>
                           <td>Location</td>
-                          <td colspan="2"> <input type="text" name="FreezingLocation" class="form-control" value="{{$docresult->FreezingLocation}}"></td>
-                          <td colspan="2"> <input type="text" name="ThawingLocation" class="form-control" value="{{$docresult->ThawingLocation}}"></td>
+                          <td colspan="2"> <input type="text" name="FreezingLocation" class="form-control" ></td>
+                          <td colspan="2"> <input type="text" name="ThawingLocation" class="form-control" ></td>
                         </tr>
                         <tr>
                           <td>Embryologist</td>
@@ -288,8 +236,8 @@
                                 <input type="button" value="Emb:" class="btn btn-success float-right" data-toggle="modal" id="FreezingEmbStaffName" data-target="#open-modal-staff">
                               </div>
                               <!-- /btn-group -->
-                              <input type="hidden" class="form-control" name="FreezingEmbStaffId" id="FreezingEmbStaffId" value="{{$docresult->FreezingEmbStaffId}}">
-                              <input type="text" class="form-control" id="FreezingEmbName" value="{{$docresult->FreezingEmbStaffName}}">
+                              <input type="hidden" class="form-control" name="FreezingEmbStaffId" id="FreezingEmbStaffId" value="0">
+                              <input type="text" class="form-control" id="FreezingEmbName">
                             </div>  
                           </td>
                           <td colspan="2"> 
@@ -298,8 +246,8 @@
                                 <input type="button" value="Emb:" class="btn btn-success float-right" data-toggle="modal" id="ThawingEmbStaffName" data-target="#open-modal-staff">
                               </div>
                               <!-- /btn-group -->
-                              <input type="hidden" class="form-control" name="ThawingEmbStaffId" id="ThawingEmbStaffId" value="{{$docresult->ThawingEmbStaffId}}">
-                              <input type="text" class="form-control" id="ThawingEmbName" value="{{$docresult->ThawingEmbStaffName}}">
+                              <input type="hidden" class="form-control" name="ThawingEmbStaffId" id="ThawingEmbStaffId" value="0">
+                              <input type="text" class="form-control" id="ThawingEmbName">
                             </div>
                           </td>
                         </tr>
@@ -312,40 +260,32 @@
               <div class="form-group row">
                 <div class="col-md-3">
                   <label for="docdate" class="col-form-label">Transfer Date</label>
-                  <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}"/>
+                  <input type="date" class="form-control" id="docdate" name="docdate"/>
                 </div>
                 <div class="col-md-3">
                   <label for="TransferTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="TransferTime" name="TransferTime" value="{{$docresult->TransferTime}}"/>
+                  <input type="time" class="form-control" id="TransferTime" name="TransferTime"/>
                 </div>
                 <div class="col-md-3">
                   <label for="NoOfEmbTrans" class="col-form-label">No Of Embryo Trans</label>
-                  <input type="text" class="form-control" id="NoOfEmbTrans" name="NoOfEmbTrans" value="{{$docresult->NoOfEmbTrans}}"/>
+                  <input type="text" class="form-control" id="NoOfEmbTrans" name="NoOfEmbTrans"/>
                 </div>
                 <div class="col-md-3">
                   <label for="NoOfAttempts" class="col-form-label">No Of Attempts</label>
-                  <input type="text" class="form-control" id="NoOfAttempts" name="NoOfAttempts" value="{{$docresult->NoOfAttempts}}"/>
+                  <input type="text" class="form-control" id="NoOfAttempts" name="NoOfAttempts"/>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-4">
                     <label>AH: &nbsp</label>
-                    <div class="icheck-success d-inline">        
-                    @if($docresult->IsAHYes)         
-                      <input type="checkbox" id="IsAHYes" checked class="IsAHYes" name="IsAHYes">
-                      @else
+                    <div class="icheck-success d-inline">                  
                       <input type="checkbox" id="IsAHYes" class="IsAHYes" name="IsAHYes">
-                      @endif
                       <label for="IsAHYes">
                         Yes
                       </label>
                     </div>
-                    <div class="icheck-success d-inline">   
-                    @if($docresult->IsAHNo)               
-                      <input type="checkbox" id="IsAHNo" checked class="IsAHNo" name="IsAHNo">
-                      @else
+                    <div class="icheck-success d-inline">                  
                       <input type="checkbox" id="IsAHNo" class="IsAHNo" name="IsAHNo">
-                      @endif
                       <label for="IsAHNo">
                         No
                       </label>
@@ -353,7 +293,7 @@
                   </div>
                   <div class="col-md-8">
                     <label for="CathLoading" class="col-form-label">Catheter Loading</label>                 
-                      <input type="text" id="IsCathLoadingAHYes" class="form-control" name="CathLoading" value="{{$docresult->CathLoading}}">                      
+                      <input type="text" id="IsCathLoadingAHYes" class="form-control" name="CathLoading">                      
                   </div>
               </div>
               <div class="form-group row">
@@ -363,8 +303,8 @@
                       <input type="button" value="Physician:" class="btn btn-success float-right" data-toggle="modal" id="PhysicianStaffName" data-target="#open-modal-staff">
                     </div>
                     <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="PhysicianStaffId" id="PhysicianStaffId" value="{{$docresult->PhysicianStaffId}}">
-                    <input type="text" class="form-control" id="PhysicianName" value="{{$docresult->PhysicianStaffName}}">
+                    <input type="hidden" class="form-control" name="PhysicianStaffId" id="PhysicianStaffId" value="0">
+                    <input type="text" class="form-control" id="PhysicianName">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -373,8 +313,8 @@
                       <input type="button" value="Embryologist:" class="btn btn-success float-right" data-toggle="modal" id="EmbryologistStaffName" data-target="#open-modal-staff">
                     </div>
                     <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="EmbryologistStaffId" id="EmbryologistStaffId" value="{{$docresult->EmbryologistStaffId}}">
-                    <input type="text" class="form-control" id="EmbryologistName" value="{{$docresult->EmbryologistStaffName}}">
+                    <input type="hidden" class="form-control" name="EmbryologistStaffId" id="EmbryologistStaffId" value="0">
+                    <input type="text" class="form-control" id="EmbryologistName">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -383,8 +323,8 @@
                       <input type="button" value="Nurse:" class="btn btn-success float-right" data-toggle="modal" id="NurseStaffName" data-target="#open-modal-staff">
                     </div>
                     <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="NurseStaffId" id="NurseStaffId" value="{{$docresult->NurseStaffId}}">
-                    <input type="text" class="form-control" id="NurseName" value="{{$docresult->NurseStaffName}}">
+                    <input type="hidden" class="form-control" name="NurseStaffId" id="NurseStaffId" value="0">
+                    <input type="text" class="form-control" id="NurseName">
                   </div>
                 </div>
               </div>
@@ -393,7 +333,7 @@
                   <label for="Notes">
                     Notes
                   </label>
-                  <textarea class="form-control" name="Notes" rows="4">{{$docresult->Notes}}</textarea>
+                  <textarea class="form-control" name="Notes" rows="4"></textarea>
                 </div>
               </div>
               <div class="row">
@@ -407,9 +347,6 @@
                       </div>
                       
                     </div>
-                    @if(is_file(public_path($docresult->filelink)))
-                    <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
-                    @endif
                   </div>
                 </div>
               </div>
@@ -428,7 +365,6 @@
       
 
     </form>
-    @endforeach
     </section>
     <!-- /.content -->
   </div>
@@ -553,7 +489,7 @@ $(function () {
     $(document).ready(function(){
 
     
-    var rowIdx = {{$intctr}};                 
+    var rowIdx = 0;                 
     
     /* Price List */
 
@@ -574,7 +510,7 @@ $(function () {
               </td>
               <td class="text-left">
                   <div class="form-group">
-                  <input type="hidden" value="0" name="IsThawYes[]"  id="IsThawYesVal${rowIdx}">
+                  <input type="hidden" value="0" name="IsThawYes[]"  id="IsThawYes${rowIdx}">
                     <div class="icheck-success d-inline">                  
                       <input type="checkbox" id="F${rowIdx}" class="IsThawYes">
                       <label for="F${rowIdx}">
@@ -583,7 +519,7 @@ $(function () {
                     </div>
                   </div>
                   <div class="form-group">
-                  <input type="hidden" value="0" name="IsThawNo[]"  id="IsThawNoVal${rowIdx}">
+                  <input type="hidden" value="0" name="IsThawNo[]"  id="IsThawNo${rowIdx}">
                     <div class="icheck-success d-inline">
                       <input type="checkbox"  id="T${rowIdx}" class="IsThawNo">
                       <label for="T${rowIdx}">
@@ -678,14 +614,14 @@ $(function () {
       var id = $(this).attr('id');
       var dig = parseInt(id.substring(1));
 
-      var curval = $('#IsThawYesVal'+dig).val();
+      var curval = $('#IsThawYes'+dig).val();
       if(curval==0)
       {
-        $('#IsThawYesVal'+dig).val(1);
+        $('#IsThawYes'+dig).val(1);
       }
       else
       {
-         $('#IsThawYesVal'+dig).val(0);
+         $('#IsThawYes'+dig).val(0);
       }
 
     });
@@ -695,14 +631,14 @@ $(function () {
       var id = $(this).attr('id');
       var dig = parseInt(id.substring(1));
 
-      var curval = $('#IsThawNoVal'+dig).val();
+      var curval = $('#IsThawNo'+dig).val();
       if(curval==0)
       {
-        $('#IsThawNoVal'+dig).val(1);
+        $('#IsThawNo'+dig).val(1);
       }
       else
       {
-         $('#IsThawNoVal'+dig).val(0);
+         $('#IsThawNo'+dig).val(0);
       }
 
     });

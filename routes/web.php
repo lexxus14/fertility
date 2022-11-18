@@ -356,6 +356,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/embryoreci/update','EmbryologyRecordController@update')->name('EmbryologyRecordIUpdate');
 /*Embryology Record I*/
 
+/*Embryology Record II*/
+    // Route::get('/embryorecii','EmbryoRecordIIController@index')->name('EmbryologyRecordIIIndex');
+    Route::get('/embryorecii/{PatientID?}','EmbryoRecordIIController@EmbryologyRecordII')->name('EmbryologyRecordII');
+    Route::get('/embryorecii/add/{PatientID?}','EmbryoRecordIIController@create')->name('EmbryologyRecordIICreate');
+    Route::post('/embryorecii/add','EmbryoRecordIIController@store')->name('EmbryologyRecordIIStore');
+
+    Route::get('/embryorecii/edit/{id?}','EmbryoRecordIIController@edit')->name('EmbryologyRecordIIEdit');
+    Route::get('/embryorecii/view/{PatientID?}','EmbryoRecordIIController@show')->name('EmbryologyRecordIIShow');
+    Route::post('/embryorecii/delete','EmbryoRecordIIController@destroy')->name('EmbryologyRecordIIDelete');
+    Route::post('/embryorecii/update','EmbryoRecordIIController@update')->name('EmbryologyRecordIIUpdate');
+/*Embryology Record II*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');
