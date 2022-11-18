@@ -368,6 +368,18 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::post('/embryorecii/update','EmbryoRecordIIController@update')->name('EmbryologyRecordIIUpdate');
 /*Embryology Record II*/
 
+/*embryo transfer froozen emb*/
+    // Route::get('/embtrafroemb','EmbTraFroEmbController@index')->name('EmbTraFroEmbIndex');
+    Route::get('/embtrafroemb/{PatientID?}','EmbTraFroEmbController@EmbTraFroEmb')->name('EmbTraFroEmb');
+    Route::get('/embtrafroemb/add/{PatientID?}','EmbTraFroEmbController@create')->name('EmbTraFroEmbCreate');
+    Route::post('/embtrafroemb/add','EmbTraFroEmbController@store')->name('EmbTraFroEmbStore');
+
+    Route::get('/embtrafroemb/edit/{id?}','EmbTraFroEmbController@edit')->name('EmbTraFroEmbEdit');
+    Route::get('/embtrafroemb/view/{PatientID?}','EmbTraFroEmbController@show')->name('EmbTraFroEmbShow');
+    Route::post('/embtrafroemb/delete','EmbTraFroEmbController@destroy')->name('EmbTraFroEmbDelete');
+    Route::post('/embtrafroemb/update','EmbTraFroEmbController@update')->name('EmbTraFroEmbUpdate');
+/*embryo transfer froozen emb*/
+
 /*Post Anesthesia Records*/
     // Route::get('/posanesrecs','PostAnesthesiaRecsController@index')->name('OVFReqFormIndex');
     Route::get('/posanesrecs/{PatientID?}','PostAnesthesiaRecsController@PostAnesthesiaRecs')->name('PostAnesthesiaRecs');

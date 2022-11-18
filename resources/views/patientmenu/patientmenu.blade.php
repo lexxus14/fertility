@@ -381,6 +381,19 @@
                   <i class="fas fa-procedures"></i>Embryology Rec II
                 </a>
 
+                <a href="{{route('EmbTraFroEmb')}}/{{$intPatientId}}" class="btn btn-app bg-success">
+                  <span class="badge bg-danger">
+                    <?php $intTotalTotalEmbTraEmbFroEmbs= 0; ?>
+                    @foreach($TotalEmbTraEmbFroEmbs as $TotalEmbTraEmbFroEmb)
+                    <?php
+                      $intTotalTotalEmbTraEmbFroEmbs = $TotalEmbTraEmbFroEmb->TotalEmbTraEmbFroEmbs;
+                      ?>
+                    @endforeach
+                    {{$intTotalTotalEmbTraEmbFroEmbs}}
+                  </span>
+                  <i class="fas fa-procedures"></i>Embryo Trans/Frozen
+                </a>
+
                  <a href="{{route('PatientBiopsyStudy')}}/{{$intPatientId}}" class="btn btn-app bg-secondary">
                   <span class="badge bg-success">
                     <?php
