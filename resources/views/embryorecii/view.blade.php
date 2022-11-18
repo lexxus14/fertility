@@ -163,8 +163,6 @@
 
   <section class="content">
     @foreach($docresults as $docresult)
-      <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="docId" value="{{$docId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
@@ -178,7 +176,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Preoperative Checklist</h3>
+              <h3 class="card-title">Embryology Record II</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -187,241 +185,470 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="form-group row">
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Given by:" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-staff">
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="GivenByStaffid" id="GivenByStaffid" value="{{$docresult->GivenByStaffid}}">
-                    <input type="text" class="form-control" id="GivenByStaffName" value="{{$docresult->StaffName}}">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="PreOperaDate" class="col-form-label">Date</label>
-                  <input type="date" class="form-control" id="PreOperaDate" name="PreOperaDate" value="{{$docresult->PreOperaDate}}"/>
-                </div>
-                <div class="col-md-2">
-                  <label for="PreOperaTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="PreOperaTime" name="PreOperaTime" value="{{$docresult->PreOperaTime}}"/>
-                </div>
-              </div>
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="PSurgeryDate" class="col-form-label">Surgery Date</label>
-                  <input type="date" class="form-control" id="PSurgeryDate" name="PSurgeryDate" value="{{$docresult->PSurgeryDate}}"/>
-                </div>
-                <div class="col-md-2">
-                  <label for="SurgeryTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="SurgeryTime" name="SurgeryTime" value="{{$docresult->SurgeryTime}}"/>
-                </div>
-              </div>
 
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="ArrivalTime" class="col-form-label">Time to arrive</label>
-                  <input type="time" class="form-control" id="ArrivalTime" name="ArrivalTime" value="{{$docresult->ArrivalTime}}"/>
-                </div>
-                <div class="col-md-10">
-                  <label for="NPOInstruction" class="col-form-label">NPO Instruction</label>
-                  <input type="text" class="form-control" id="NPOInstruction" name="NPOInstruction" value="{{$docresult->NPOInstruction}}"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2">
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoJewelry==1)
-                      <input type="checkbox" name="IsNoJewelry" id="IsNoJewelry" checked>
-                      @else
-                      <input type="checkbox" name="IsNoJewelry" id="IsNoJewelry">
-                      @endif
-                      <label for="IsNoJewelry">
-                        No Jewelry
-                      </label>
-                    </div>                   
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoMakeup==1)
-                      <input type="checkbox" name="IsNoMakeup" id="IsNoMakeup" checked>
-                      @else
-                      <input type="checkbox" name="IsNoMakeup" id="IsNoMakeup">
-                      @endif
-                      <label for="IsNoMakeup">
-                        No Makeup
-                      </label>
-                    </div>                   
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoNailPolish==1)
-                      <input type="checkbox" name="IsNoNailPolish" id="IsNoNailPolish" checked>
-                      @else
-                      <input type="checkbox" name="IsNoNailPolish" id="IsNoNailPolish">
-                      @endif
-                      <label for="IsNoNailPolish">
-                        No Nail Polish
-                      </label>
-                    </div>                   
-                  </div>
-                </div>
-                <div class="col-md-10">
-                  <div class="form-group">
-                    <label for="Others" class="col-form-label">Others</label>
-                    <textarea class="form-control" name="Others" id="Others">{{$docresult->Others}}</textarea>
-                  </div>
-                </div>
-              </div>
+            <div class="form-group row">
+              <div class="col-md-3">
+                <label for="docdate" class="col-form-label">Date</label>
+                <input type="date" class="form-control" id="docdate" name="docdate"/>
+              </div>  
+              <div class="col-md-3">
+                <label for="RecordNo" class="col-form-label">Record No</label>
+                <input type="text" class="form-control" id="RecordNo" name="RecordNo"/>
+              </div> 
+              <div class="col-md-3">
+                <label for="CycleNo" class="col-form-label">Cycle No</label>
+                <input type="text" class="form-control" id="CycleNo" name="CycleNo"/>
+              </div> 
+                            
+            </div>
+            <hr>
 
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <h3>UPON ADMISSION: NURSING ASSESSMENT</h3>
-                  </div>
+            <div class="row">
+              <div class="form-group">
+                <div class="col-12">
+                  <input type="button" value="Add" class="btn btn-success float-right" id="AddProcessedSperm">
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <h3>Patient Identification:&nbsp{{$strPatientName}}</h3>
-                  </div>
-                </div>
-              </div>
-   
-              <div class="row">
+            </div>
+
+            <div class="row">
                 <div class="col-12">
                 <!-- /.card-header -->
                     <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped">
                       <thead>                  
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Vital Sign</th>
-                        <th>Result</th>
-                        <th style="width: 40px">Action</th>
-                      </tr>                  
+                        <th colspan="3" class="text-left">
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Date 0:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="date" name="Day0Date" class="form-control" value="{{$docresult->Day0Date}}">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day0Time" class="form-control" value="{{$docresult->Day0Time}}">
+                            </div>
+                          </div>
+                          
+
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <input type="button" value="Embryologist:" class="btn btn-success float-right" data-toggle="modal" id="Day0EmbryologistStaffName" data-target="#open-modal-staff">
+                              </div>
+                              <!-- /btn-group -->
+                              <input type="hidden" class="form-control" name="Day0EmbryologistStaffId" id="Day0EmbryologistStaffId" value="{{$docresult->Day0EmbryologistStaffId}}">
+                              <input type="text" class="form-control" id="Day0EmbryologistName" value="{{$docresult->Day0EmbryologistName}}">
+                            </div>
+                          
+                        </th>    
+                        <th colspan="3" class="text-left">
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Date 1:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="date" name="Day1Date" class="form-control" value="{{$docresult->Day1Date}}">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day1Time" class="form-control" value="{{$docresult->Day1Time}}">
+                            </div>
+                          </div>
+
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <input type="button" value="Embryologist:" class="btn btn-success float-right" data-toggle="modal" id="Day1EmbryologistStaffName" data-target="#open-modal-staff">
+                              </div>
+                              <!-- /btn-group -->
+                              <input type="hidden" class="form-control" name="Day1EmbryologistStaffId" id="Day1EmbryologistStaffId" value="{{$docresult->Day1EmbryologistStaffId}}">
+                              <input type="text" class="form-control" id="Day1EmbryologistName" value="{{$docresult->Day1EmbryologistName}}">
+                            </div>
+
+                        </th>  
+                        <th  class="text-left">
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Date 3:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="date" name="Day3Date" class="form-control" value="{{$docresult->Day3Date}}">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day3Time" class="form-control" value="{{$docresult->Day3Time}}">
+                            </div>
+                          </div>                     
+
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <input type="button" value="Emb:" class="btn btn-success float-right" data-toggle="modal" id="Day3EmbryologistStaffName" data-target="#open-modal-staff">
+                              </div>
+                              <!-- /btn-group -->
+                              <input type="hidden" class="form-control" name="Day3EmbryologistStaffId" id="Day3EmbryologistStaffId" value="{{$docresult->Day3EmbryologistStaffId}}">
+                              <input type="text" class="form-control" id="Day3EmbryologistName" value="{{$docresult->Day3EmbryologistName}}">
+                            </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>AH Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day3AhTime" class="form-control" value="{{$docresult->Day3AhTime}}">
+                            </div>
+                          </div> 
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>AH Tec:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" name="Day3AhTech" class="form-control" value="{{$docresult->Day3AhTech}}">
+                            </div>
+                          </div> 
+
+                        </th>    
+                        <th class="text-left">
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Date 5:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="date" name="Day5Date" class="form-control" value="{{$docresult->Day5Date}}">
+                            </div>
+                          </div> 
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day5Time" class="form-control" value="{{$docresult->Day5Time}}">
+                            </div>
+                          </div> 
+
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <input type="button" value="Emb:" class="btn btn-success float-right" data-toggle="modal" id="Day5EmbryologistStaffName" data-target="#open-modal-staff">
+                              </div>
+                              <!-- /btn-group -->
+                              <input type="hidden" class="form-control" name="Day5EmbryologistStaffId" id="Day5EmbryologistStaffId" value="{{$docresult->Day5EmbryologistStaffId}}">
+                              <input type="text" class="form-control" id="Day5EmbryologistName" value="{{$docresult->Day5EmbryologistName}}">
+                            </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>AH Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day5AhTime" class="form-control" value="{{$docresult->Day5AhTime}}">
+                            </div>
+                          </div> 
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>AH Tec:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" name="Day5AhTech" class="form-control"  value="{{$docresult->Day5AhTech}}">
+                            </div>
+                          </div>
+
+                        </th>     
+                        <th class="text-left">
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Date 6:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="date" name="Day6Date" class="form-control" value="{{$docresult->Day6Date}}">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day6Time" class="form-control" value="{{$docresult->Day6Time}}">
+                            </div>
+                          </div>
+                          
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <input type="button" value="Emb:" class="btn btn-success float-right" data-toggle="modal" id="Day6EmbryologistStaffName" data-target="#open-modal-staff">
+                              </div>
+                              <!-- /btn-group -->
+                              <input type="hidden" class="form-control" name="Day6EmbryologistStaffId" id="Day6EmbryologistStaffId" value="{{$docresult->Day6EmbryologistStaffId}}">
+                              <input type="text" class="form-control" id="Day6EmbryologistName" value="{{$docresult->Day6EmbryologistName}}">
+                            </div>
+
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>AH Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="time" name="Day6AhTime" class="form-control" value="{{$docresult->Day6AhTime}}">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-4">
+                              <label>AH Tec:</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" name="Day6AhTech" class="form-control" value="{{$docresult->Day6AhTech}}">
+                            </div>
+                          </div>
+                          
+                        </th>   
+                        <th class="text-left">
+                          <label>Disposition</label>
+                          <label>ET-Transfer</label>
+                          <label>C-egg Cyro</label>
+                          <label>D-Discard</label>
+                        </th>         
+                        <th></th>
+                      </tr>  
+                        <tr>
+                          <th>Maturity</th>
+                          <th>Remarks</th>
+                          <th>ICSI</th>
+                          <th>PB</th>
+                          <th>PN</th>    
+                          <th>Remarks</th>    
+                          <th></th>    
+                          <th></th>    
+                          <th></th>    
+                          <th></th>    
+                          <th></th>                    
+                        </tr>                
                       </thead>
                       <tbody id="tbody">
-                        <?php $intctrVS=1 ?>
-                        @foreach($PreOpeChkLstVitalSigns as $PreOpeChkLstVitalSign)
-                        <tr id="R{{$intctrVS}}">
-                          <td class="row-index text-center">
-                            <input type="hidden" class="medid" name="VitalSignId[]" value="{{$PreOpeChkLstVitalSign->id}}">
-                            <p>{{$intctrVS}}</p>
+                        <?php $intctr=1; ?>
+                        @foreach($EmbryologyRecordIISubs as $EmbryologyRecordIISub)
+                        <tr id="R{{$intctr}}">
+                          <td class="row-index text-center">                
+                            <input type="text" class="form-control" name="maturity[]" value="{{$EmbryologyRecordIISub->maturity}}">
                           </td>
                           <td class="text-center">
-                            {{$PreOpeChkLstVitalSign->description}}
+                            <input type="text" class="form-control" name="Day0remarks[]" value="{{$EmbryologyRecordIISub->Day0remarks}}">
                           </td>
                           <td class="text-center">
-                            <input type="text" class="form-control" name="VitalSignRes[]" value="{{$PreOpeChkLstVitalSign->VitalSignRes}}">
+                            <input type="text" class="form-control" name="icsi[]" value="{{$EmbryologyRecordIISub->icsi}}">
                           </td>
+
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="PB[]" value="{{$EmbryologyRecordIISub->PB}}">
+                          </td>
+
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="PN[]" value="{{$EmbryologyRecordIISub->PN}}">
+                          </td>
+
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="Day1remarks[]" value="{{$EmbryologyRecordIISub->Day1remarks}}">
+                          </td>
+
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="Day3remarks[]" value="{{$EmbryologyRecordIISub->Day3remarks}}">
+                          </td>
+                          
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="Day5remarks[]" value="{{$EmbryologyRecordIISub->Day5remarks}}">
+                          </td>
+
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="Day6remarks[]" value="{{$EmbryologyRecordIISub->Day6remarks}}">
+                          </td>
+
+                          <td class="text-center">
+                            <input type="text" class="form-control" name="Dispositionremarks[]" value="{{$EmbryologyRecordIISub->Dispositionremarks}}">
+                          </td>
+
                           <td class="text-center">
                             <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                          </td>
-                        </tr> 
-                        <?php $intctrVS++; ?>
-                        @endforeach                      
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="NpoStatus" class="col-form-label">NPO Status</label>
-                    <input type="text" class="form-control" id="NpoStatus" name="NpoStatus" value="{{$docresult->NpoStatus}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="Allergy" class="col-form-label">Allergy</label>
-                    <input type="text" class="form-control" id="Allergy" name="Allergy" value="{{$docresult->Allergy}}"> 
-                  </div>                  
-                </div>              
-              </div>
-   
-              <div class="row">
-                <div class="col-12">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Procedure</th>
-                        <th style="width: 40px">Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody_pro">
-                        <?php $intctrP=1;?>
-                        @foreach($PreOpProcedures as $PreOpProcedure)
-                       <tr id="R{{$intctrP}}">
-                        <td class="row-index text-center">
-                          <input type="hidden" class="medid" name="ProcedureId[]" value="{{$PreOpProcedure->id}}">
-                          <p>{{$intctrP}}</p>
-                        </td>
-                        <td class="text-center">
-                          {{$PreOpProcedure->description}}
-                        </td>
-                        <td class="text-center">
-                          <input type="button" class="btn btn-danger btn-sm remove-procedure float-right" value="Remove">
-                          </td>
-                        </tr>
-                        <?php $intctrP++; ?>
-                        @endforeach 
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="HisAndPhy" class="col-form-label">History and Physical</label>
-                    <input type="text" class="form-control" id="HisAndPhy" name="HisAndPhy" value="{{$docresult->HisAndPhy}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="InfoConforSur" class="col-form-label">Informed Consent for Surgery</label>
-                    <input type="text" class="form-control" id="InfoConforSur" name="InfoConforSur" value="{{$docresult->InfoConforSur}}"> 
-                  </div>                  
-                </div> 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="AnesCons" class="col-form-label">Anesthesia Consent</label>
-                    <input type="text" class="form-control" id="AnesCons" name="AnesCons" value="{{$docresult->AnesCons}}">
-                  </div>                  
-                </div>               
-              </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="LabReport" class="col-form-label">Lab Reports</label>
-                    <input type="text" class="form-control" id="LabReport" name="LabReport" value="{{$docresult->LabReport}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="PreOpMed" class="col-form-label">Pre-Op Medications</label>
-                    <input type="text" class="form-control" id="PreOpMed" name="PreOpMed" value="{{$docresult->PreOpMed}}"> 
-                  </div>                  
-                </div> 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="VoidedFreely" class="col-form-label">Voided Freely</label>
-                    <input type="text" class="form-control" id="VoidedFreely" name="VoidedFreely" value="{{$docresult->VoidedFreely}}"> 
-                  </div>                  
-                </div>               
-              </div>            
 
+                          </td>
+                        </tr>  
+                        <?php $intctr++; ?>
+                        @endforeach                 
+                                            
+                      </tbody>  
+                      <tfoot>
+                        <tr>
+                           
+                        <th colspan="3" class="text-left">
+                         
+                        </th>  
+                        <th colspan="3"   class="text-left">
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              <label>PT Cal:</label>
+                              <input type="text" name="Day1PtCall" class="form-control" value="{{$docresult->Day1PtCall}}">
+                            </div>
+                            <div class="col-sm-6">
+                              <label>Initial:</label>
+                              <input type="text" name="Day1Initial" class="form-control" value="{{$docresult->Day1Initial}}">
+                            </div>
+                          </div>
+                          
+                        </th>
+                        <th  class="text-left">
+                            <div class="form-group row">
+                            <div class="col-sm-6">
+                              <label>PT Cal:</label>
+                              <input type="text" name="Day3PtCall" class="form-control"  value="{{$docresult->Day3PtCall}}">
+                            </div>
+                            <div class="col-sm-6">
+                              <label>Initial:</label>
+                              <input type="text" name="Day3Initial" class="form-control" value="{{$docresult->Day3Initial}}">
+                            </div>
+                          </div>
+                          
+                        </th>    
+                        <th class="text-left">
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              <label>PT Cal:</label>
+                              <input type="text" name="Day5PtCall" class="form-control" value="{{$docresult->Day5PtCall}}">
+                            </div>
+                            <div class="col-sm-6">
+                              <label>Initial:</label>
+                              <input type="text" name="Day5Initial" class="form-control" value="{{$docresult->Day5Initial}}">
+                            </div>
+                          </div>
+                        </th>     
+                        <th class="text-left">
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              <label>PT Cal:</label>
+                              <input type="text" name="Day6PtCall" class="form-control"  value="{{$docresult->Day6PtCall}}">
+                            </div>
+                            <div class="col-sm-6">
+                              <label>Initial:</label>
+                              <input type="text" name="Day6Initial" class="form-control" value="{{$docresult->Day6Initial}}">
+                            </div>
+                          </div>
+                        </th>   
+                        <th class="text-left">
+                        </th>         
+                        <th></th>
+                      </tr>                        
+                      </tfoot>                
+                    </table>
+                <!-- /.card-body -->
+                  
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="card col-12">
+                  <div class="card-header">
+                    Lot Numbers
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row">
+                      <div class="col-md-2">
+                        <label for="AspLotNo">ASP Lot #</label>
+                        <input type="text" name="AspLotNo" class="form-control" id="AspLotNo" value="{{$docresult->AspLotNo}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="AspExpDate">ASP Date</label>
+                        <input type="date" name="AspExpDate" class="form-control" id="AspExpDate" value="{{$docresult->AspExpDate}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="ProteinSSSLot">Protein SSS Lot</label>
+                        <input type="text" name="ProteinSSSLot" class="form-control" id="ProteinSSSLot" value="{{$docresult->ProteinSSSLot}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="ProteinSSSExpDate">Protein SSS Exp Date</label>
+                        <input type="date" name="ProteinSSSExpDate" class="form-control" id="ProteinSSSExpDate" value="{{$docresult->ProteinSSSExpDate}}">
+                      </div>
+                      <div class="col-md-4">
+                        <label>Others</label>
+                        <input type="text" name="AspOthers" class="form-control" value="{{$docresult->AspOthers}}">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-2">
+                        <label for="GlobalLotNo">Global Lot #</label>
+                        <input type="text" name="GlobalLotNo" class="form-control" id="GlobalLotNo" value="{{$docresult->GlobalLotNo}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="GlobalExpDate">Global Date</label>
+                        <input type="date" name="GlobalExpDate" class="form-control" id="GlobalExpDate" value="{{$docresult->GlobalExpDate}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="mHTFLotNo">mHTF Lot #</label>
+                        <input type="text" name="mHTFLotNo" class="form-control" id="mHTFLotNo" value="{{$docresult->mHTFLotNo}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="mHTFExpDate">mHT FExp Date</label>
+                        <input type="date" name="mHTFExpDate" class="form-control" id="mHTFExpDate" value="{{$docresult->mHTFExpDate}}">
+                      </div>
+                      <div class="col-md-4">
+                        <label>Others</label>
+                        <input type="text" name="GlobalOther" class="form-control" value="{{$docresult->GlobalOther}}">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-2">
+                        <label for="HyluronidaseLogNo">Hyluronidase Log #</label>
+                        <input type="text" name="HyluronidaseLogNo" class="form-control" id="HyluronidaseLogNo" value="{{$docresult->HyluronidaseLogNo}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="HyluronidaseExpDate">Hyluronidase Exp Date</label>
+                        <input type="date" name="HyluronidaseExpDate" class="form-control" id="HyluronidaseExpDate" value="{{$docresult->HyluronidaseExpDate}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="OilLotNo">Oil Lot No</label>
+                        <input type="text" name="OilLotNo" class="form-control" id="OilLotNo" value="{{$docresult->OilLotNo}}">
+                      </div>
+                      <div class="col-md-2">
+                        <label for="OilExpDate">Oil Exp Date</label>
+                        <input type="date" name="OilExpDate" class="form-control" id="OilExpDate" value="{{$docresult->OilExpDate}}">
+                      </div>
+                      <div class="col-md-4">
+                        <label>Others</label>
+                        <input type="text" name="GlobalOthers" class="form-control" value="{{$docresult->GlobalOthers}}">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <label for="Notes">Notes</label>
+                  <textarea class="form-control" id="Notes" name="Notes"> {{$docresult->Notes}}</textarea>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
@@ -430,20 +657,18 @@
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>                      
-                    </div>
-                    <br/>
+                      </div>
                       @if(is_file(public_path($docresult->filelink)))
-                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File..</a>
+                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
                       @endif
+                    </div>
                   </div>
-
                 </div>
               </div>
               
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('PreOperaCheckList')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('EmbryologyRecordII')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
                 </div>
               </div>
             <!-- /.card-body -->
@@ -451,12 +676,12 @@
           <!-- /.card -->
         </div>
       </div>
+      
     @endforeach
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -472,26 +697,6 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
-
- <script type="text/javascript">
-    $(function () { 
-       //Date picker
-    $('#lead-date').datetimepicker({
-        format: 'L'
-    });
-
-    $('#lead-date-update').datetimepicker({
-        format: 'L'
-    });
-    $('#marrieddate').datetimepicker({
-        format: 'L'
-    });    
-    $('#husbandbirthdate').datetimepicker({
-        format: 'L'
-    });
-
-  })
- </script> 
 
 <script>
   $(function () {
