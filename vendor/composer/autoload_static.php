@@ -110,6 +110,7 @@ class ComposerStaticInit554763c944dacdc48ec58f96eea859e7
         'C' => 
         array (
             'Cron\\' => 5,
+            'Codedge\\Fpdf\\' => 13,
         ),
         'A' => 
         array (
@@ -283,6 +284,10 @@ class ComposerStaticInit554763c944dacdc48ec58f96eea859e7
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
+        ),
+        'Codedge\\Fpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codedge/laravel-fpdf/src',
         ),
         'App\\' => 
         array (
@@ -554,6 +559,9 @@ class ComposerStaticInit554763c944dacdc48ec58f96eea859e7
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Carbon\\Upgrade' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Upgrade.php',
+        'Codedge\\Fpdf\\Facades\\Fpdf' => __DIR__ . '/..' . '/codedge/laravel-fpdf/src/Facades/Fpdf.php',
+        'Codedge\\Fpdf\\FpdfServiceProvider' => __DIR__ . '/..' . '/codedge/laravel-fpdf/src/FpdfServiceProvider.php',
+        'Codedge\\Fpdf\\Fpdf\\Fpdf' => __DIR__ . '/..' . '/codedge/laravel-fpdf/src/Fpdf/Fpdf.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'CreatDocnotesTable' => __DIR__ . '/../..' . '/database/migrations/2022_03_03_211057_creat_docnotes_table.php',
         'CreatPosAneMonRecSubTable' => __DIR__ . '/../..' . '/database/migrations/2022_09_29_074511_creat_PosAneMonRecSub_table.php',

@@ -15,10 +15,12 @@ use App\ImpTempTable;
 use App\LeadToPatientList;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 use App\Http\Controllers\SystemFunctionController;
 
 use Illuminate\Http\Request;
+use Codedge\Fpdf\Fpdf\Fpdf;
 
 class LeadController extends Controller
 {
@@ -427,6 +429,31 @@ class LeadController extends Controller
         $patients = DB::select($strsql);
 
         return view('lead.edit',compact('patients','nationalities','leadsources'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function LeadPrint($id)
+    {
+        //
+
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    left JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    left JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    left join nationalities as hn on hn.id = p.HusbandNationalityId
+                    WHERE p.id =".$id;
+        $patients = DB::select($strsql);
+    $fpdf =new Fpdf();
+    $fpdf->AddPage();
+    $fpdf->SetFont('Courier', 'B', 18);
+    $fpdf->Cell(50, 25, 'Hello World!');
+    $fpdf->Output();
+    exit;
+        // return Redirect::to('/',compact('patients'));
     }
 
     /**
@@ -878,5 +905,7 @@ class LeadController extends Controller
                 return 0;
             }
         }
+
+
     
 }

@@ -142,9 +142,9 @@
                   <a href="{{route('LeadEdit')}}/{{$intPatientId}}" rel="noopener" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Edit</a>
                   <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
                   <a href="{{route('GenerateSummary')}}/{{$intPatientId}}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Generate Summary</a>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                  <a href="{{route('LeadPrint')}}/{{$intPatientId}}" rel="noopener" target="_blank" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF
-                  </button>
+                  </a>
                 </div>
 
               </div>

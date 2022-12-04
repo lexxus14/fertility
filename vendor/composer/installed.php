@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5ebbc2354cdb358e4139e07246afe5a834af613f',
+        'reference' => '405453e03946d6535920d31378e56e7640883637',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
     'versions' => array(
+        'codedge/laravel-fpdf' => array(
+            'pretty_version' => '1.5',
+            'version' => '1.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../codedge/laravel-fpdf',
+            'aliases' => array(),
+            'reference' => '6596b7be2de7f143abbe1de6472bbb5a8d22672f',
+            'dev_requirement' => false,
+        ),
         'cordoval/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -316,7 +325,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5ebbc2354cdb358e4139e07246afe5a834af613f',
+            'reference' => '405453e03946d6535920d31378e56e7640883637',
             'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
