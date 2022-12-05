@@ -153,12 +153,31 @@ class PatientDoctorDiagnosisController extends Controller
 
         $patientdoctorsdiagnosissubs = DB::select($strsql);
 
-        $strsql ="select * from femaledoctorsconsultation 
+        return view('patientdoctordiagnosis.view',compact('docresults','patients','patientdoctorsdiagnosissubs'));
+    }
+
+    public function PrintDiagnosis($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join patientdoctordiagnosis as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from patientdoctordiagnosis 
                   where id =".$docId;;
         $docresults = DB::select($strsql);
 
+        $strsql ="select pdds.*,dd.description from patientdoctordiagnosissub pdds
+                    INNER JOIN patientdoctordiagnosis pdd on pdd.id=pdds.patientdoctordiagnosisId
+                    INNER JOIN doctordiagnosis dd on dd.id = pdds.doctordiagnosisId
+                    WHERE pdd.id = ".$docId." ORDER BY dd.description ASC";   
 
-        return view('patientdoctordiagnosis.view',compact('docresults','patients'));
+        $patientdoctorsdiagnosissubs = DB::select($strsql);
+
+        return view('patientdoctordiagnosis.print',compact('docresults','patients','patientdoctorsdiagnosissubs'));
     }
 
     /**

@@ -442,6 +442,8 @@ Route::get('/patientdoctordiagnosis/view/{PatientID?}','PatientDoctorDiagnosisCo
 Route::post('/patientdoctordiagnosis/delete','PatientDoctorDiagnosisController@destroy')->name('PatientDoctorDiagnosisDelete');
 Route::post('/patientdoctordiagnosis/update','PatientDoctorDiagnosisController@update')->name('PatientDoctorDiagnosisUpdate');
 
+Route::get('/patientdoctordiagnosis/print/{PatientID?}','PatientDoctorDiagnosisController@PrintDiagnosis')->name('PatientDoctorDiagnosisPrint');
+
 /*Patient Doctor Plan*/
 Route::get('/patientdoctorsplan','PatientDoctorsPlanController@index')->name('PatientDoctorsPlanIndex');
 Route::get('/patientdoctorsplan/{PatientID?}','PatientDoctorsPlanController@PatientDoctorsPlanSign')->name('PatientDoctorsPlanSign');

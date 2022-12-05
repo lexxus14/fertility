@@ -215,7 +215,7 @@
                       <thead>                  
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Vital Sign</th>
+                        <th>Doctor's Diagnosis</th>
                         <th >Note</th>
                       </tr>                  
                       </thead>
@@ -271,6 +271,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('PatientDoctorDiagnosisSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PatientDoctorDiagnosisPrint')}}/{{$docresult->id}}" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->
