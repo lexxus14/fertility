@@ -147,15 +147,6 @@ Route::get('/lead/view/{id?}','LeadController@show')->name('LeadView');
 Route::post('/lead/update','LeadController@update')->name('LeadUpdate');
 
 Route::get('/lead/print/{id?}','LeadController@LeadPrint')->name('LeadPrint');
-// Route::get('/lead/print/{id?}', function (Codedge\Fpdf\Fpdf\Fpdf $fpdf) {
-
-//     $fpdf->AddPage();
-//     $fpdf->SetFont('Courier', 'B', 18);
-//     $fpdf->Cell(50, 25, 'Hello World!');
-//     $fpdf->Output();
-//     exit;
-
-// })->name('LeadPrint');
 
 Route::get('/lead/import','LeadController@ImportLead')->name('ImportLead');
 // Route::post('/lead/import','LeadController@ImportLeadSave')->name('ImportLeadSave');

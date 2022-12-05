@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\SystemFunctionController;
 
 use Illuminate\Http\Request;
-use Codedge\Fpdf\Fpdf\Fpdf;
+
 
 class LeadController extends Controller
 {
@@ -447,13 +447,8 @@ class LeadController extends Controller
                     left join nationalities as hn on hn.id = p.HusbandNationalityId
                     WHERE p.id =".$id;
         $patients = DB::select($strsql);
-    $fpdf =new Fpdf();
-    $fpdf->AddPage();
-    $fpdf->SetFont('Courier', 'B', 18);
-    $fpdf->Cell(50, 25, 'Hello World!');
-    $fpdf->Output();
-    exit;
-        // return Redirect::to('/',compact('patients'));
+
+        return view('lead.print',compact('patients'));
     }
 
     /**
