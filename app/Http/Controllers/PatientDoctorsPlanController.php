@@ -155,6 +155,31 @@ class PatientDoctorsPlanController extends Controller
         return view('patientdoctorsplan.view',compact('docresults','patients','patientdoctorsplansubs'));
     }
 
+    public function PrintDoctorsPlan($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join patientdoctorsplan as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from patientdoctorsplan 
+                  where id =".$docId;;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select pdps.*,dp.description from patientdoctorsplansub pdps
+                    INNER JOIN patientdoctorsplan pdd on pdd.id=pdps.patientdoctorplanId
+                    INNER JOIN doctorsplans dp on dp.id = pdps.doctorplanId 
+                    WHERE pdd.id = ".$docId." ORDER BY pdps.id ASC";   
+
+        $patientdoctorsplansubs = DB::select($strsql);
+
+
+        return view('patientdoctorsplan.print',compact('docresults','patients','patientdoctorsplansubs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

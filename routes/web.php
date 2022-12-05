@@ -454,6 +454,7 @@ Route::get('/patientdoctorsplan/edit/{id?}','PatientDoctorsPlanController@edit')
 Route::get('/patientdoctorsplan/view/{PatientID?}','PatientDoctorsPlanController@show')->name('PatientDoctorsPlanShow');
 Route::post('/patientdoctorsplan/delete','PatientDoctorsPlanController@destroy')->name('PatientDoctorsPlanDelete');
 Route::post('/patientdoctorsplan/update','PatientDoctorsPlanController@update')->name('PatientDoctorsPlanUpdate');
+Route::get('/patientdoctorsplan/print/{PatientID?}','PatientDoctorsPlanController@PrintDoctorsPlan')->name('PatientDoctorsPlanPrint');
 
 /*Patient Booking*/
 Route::get('/patientbooking/{PatientID?}','PatientBookingController@PatientBookingIndex')->name('PatientBookingIndex');

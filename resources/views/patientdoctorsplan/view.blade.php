@@ -215,7 +215,7 @@
                       <thead>                  
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Vital Sign</th>
+                        <th>Doctor's Plan</th>
                         <th >Note</th>
                       </tr>                  
                       </thead>
@@ -224,13 +224,13 @@
                       <?php 
                       $intctr = 0;
                       ?>
-                      @foreach($patientdoctorsdiagnosissubs as $patientdoctorsdiagnosissub)
+                      @foreach($patientdoctorsplansubs as $patientdoctorsdiagnosissub)
                       <?php 
                       $intctr++;
                       ?>
                       <tr id="R{{$intctr}}">
                         <td class="row-index text-center">
-                        <input type="hidden" class="medid" name="txtdoctordiagnosisId[]" value="{{$patientdoctorsdiagnosissub->doctordiagnosisId}}">
+                        <input type="hidden" class="medid" name="txtdoctordiagnosisId[]" value="{{$patientdoctorsdiagnosissub->patientdoctorplanId}}">
                           <p>{{$intctr}}</p>
                         </td>
                         <td class="text-center">
@@ -270,7 +270,8 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('PatientDoctorDiagnosisSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PatientDoctorsPlanSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PatientDoctorsPlanPrint')}}/{{$docresult->id}}" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

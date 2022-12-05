@@ -76,7 +76,7 @@
         // Data
         $fill = false;
         $intCtr=0;
-        foreach($patientdoctorsdiagnosissubs as $item)
+        foreach($patientdoctorsplansubs as $item)
         {
           $cellWidth=$w[2];//wrapped cell width
           $cellHeight=5;//normal one-line cell height
