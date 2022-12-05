@@ -187,6 +187,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
     Route::get('/patientvitalsign/view/{PatientID?}','PatientVitalSignController@show')->name('PatientVitalSignShow');
     Route::post('/patientvitalsign/delete','PatientVitalSignController@destroy')->name('PatientVitalSignDelete');
     Route::post('/patientvitalsign/update','PatientVitalSignController@update')->name('PatientVitalSignUpdate');
+    Route::get('/patientvitalsign/print/{PatientID?}','PatientVitalSignController@PrintVitalSign')->name('PatientVitalSignPrint');
 /*Patient Vital Sign*/
 
 /*Patient Diagnostic Hysteroscopy*/

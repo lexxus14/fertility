@@ -272,6 +272,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('PatientPatientVitalSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PatientVitalSignPrint')}}/{{$docresult->id}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

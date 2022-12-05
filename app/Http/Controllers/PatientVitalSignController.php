@@ -159,6 +159,31 @@ class PatientVitalSignController extends Controller
         return view('patientvitalsign.view',compact('docresults','patients','patientvitalsignssubs'));
     }
 
+    public function PrintVitalSign($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    left JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    left JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    left join nationalities as hn on hn.id = p.HusbandNationalityId
+                    left join patientvitalsigns as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from patientvitalsigns 
+                  where id =".$docId;;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select pvss.*,vs.description from patientvitalsignsub pvss
+                    inner join patientvitalsigns pvs on pvs.id = pvss.patientvitalsignId
+                    inner join vitalsigns vs on vs.id = pvss.vitalsignId
+                    where pvs.id = ".$docId." order by vs.description ASC";                   
+
+        $patientvitalsignssubs = DB::select($strsql);
+
+
+        return view('patientvitalsign.print',compact('docresults','patients','patientvitalsignssubs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
