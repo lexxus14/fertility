@@ -477,6 +477,8 @@ Route::get('/patientdoctorslab/view/{PatientID?}','PatientDoctrosLabController@s
 Route::post('/patientdoctorslab/delete','PatientDoctrosLabController@destroy')->name('PatientDoctorsLabDelete');
 Route::post('/patientdoctorslab/update','PatientDoctrosLabController@update')->name('PatientDoctorsLabUpdate');
 
+Route::get('/patientdoctorslab/print/{PatientID?}','PatientDoctrosLabController@PrintPatientDoctorsLab')->name('PatientDoctorsLabPrint');
+
 /*Doctor Consultation*/
 Route::get('/doctorconsultation/{PatientID?}','DoctorConsultationController@DoctorConsultation')->name('DoctorConsultation');
 Route::get('/doctorconsultation/add/female/{PatientID?}','DoctorConsultationController@createfemale')->name('DoctorConsultationCreateFemale');
