@@ -216,7 +216,6 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Medication</th>
-                        <th style="width: 200px">Time</th>
                         <th >Notes</th>
                       </tr>                  
                       </thead>
@@ -236,14 +235,6 @@
                         </td>
                         <td class="text-center">
                         {{$patientmedicationsub->description}}
-                        </td>     
-                        <td style="width: 200px">
-                          <div class="form-group">
-                                <div class="input-group date" data-target-input="nearest">
-                                    <input type="text" class="form-control" value="{{$patientmedicationsub->med_time}}" name="txtMedicineTime[]" />
-                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
-                                </div>
-                              </div>
                         </td>                   
                         <td class="text-center">
                           <textarea class="form-control" name="txtnote[]">{{$patientmedicationsub->notes}}</textarea>
@@ -280,6 +271,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('PatientMedication')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PatientMedicationPrint')}}/{{$docresult->id}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                   
                 </div>
               </div>

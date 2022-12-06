@@ -704,6 +704,7 @@ Route::get('/patientmedication/view/{ID?}','PatientMedicationController@show')->
 Route::get('/patientmedication/edit/{ID?}','PatientMedicationController@edit')->name('PatientMedicationEdit');
 Route::post('/patientmedication/update','PatientMedicationController@update')->name('PatientMedicationUpdate');
 Route::post('/patientmedication/delete','PatientMedicationController@destroy')->name('PatientMedicationDelete');
+Route::get('/patientmedication/print/{ID?}','PatientMedicationController@PrintPatientMedication')->name('PatientMedicationPrint');
 
 Route::get('/patientmedication/getmedinfo/{id?}','PatientMedicationController@GetMedInfo')->name('GetMedInfo');
 

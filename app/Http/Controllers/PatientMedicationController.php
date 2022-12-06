@@ -172,6 +172,30 @@ class PatientMedicationController extends Controller
         return view('patientmedication.view',compact('docresults','patients','patientmedicationsubs','medicines'));
     }
 
+    public function PrintPatientMedication($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join patient_medications as px on px.patientid = p.id
+                    WHERE px.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from patient_medications 
+                  where id =".$docId;;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select pms.*,m.description from patient_medication_subs pms
+            inner join medicines m on m.id = pms.medicineid
+            inner join patient_medications pm on pm.id = pms.patientmedicationid
+            where pm.id=".$docId." order by pms.id asc";
+        $patientmedicationsubs = DB::select($strsql);
+
+
+        return view('patientmedication.print',compact('docresults','patients','patientmedicationsubs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

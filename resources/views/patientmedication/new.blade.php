@@ -215,7 +215,6 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Medication</th>
-                        <th style="width: 200px">Time</th>
                         <th >Notes</th>
                         <th style="width: 40px">Action</th>
                       </tr>                  
@@ -424,14 +423,6 @@
               </td>
               <td class="text-center">
               ${data.description}
-              </td>
-              <td style="width: 200px">
-                <div class="form-group">
-                      <div class="input-group date" data-target-input="nearest">
-                          <input type="text" class="form-control" name="txtMedicineTime[]" />
-                              <div class="input-group-text"><i class="fa fa-clock"></i></div>
-                      </div>
-                    </div>
               </td>
               <td class="text-center">
                 <textarea class="form-control" name="txtnote[]"></textarea>
