@@ -155,6 +155,29 @@ class PatientProcedureController extends Controller
         return view('patientprocedure.view',compact('docresults','patients','procedures','patientproceduresubs'));
     }
 
+    public function PrintPatientProcedure($docId)
+    {
+         $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join patient_procedures as px on px.patientid = p.id
+                    WHERE px.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from patient_procedures 
+                  where id =".$docId;;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select pps.*,p.description as procedures from patient_procedures pp 
+                inner join patient_procedure_subs pps on pps.patientprocedureid = pp.id
+                inner join procedures p on p.id = pps.procedureId
+            where pp.id=".$docId." order by pps.id asc";
+        $patientproceduresubs = DB::select($strsql);
+
+        return view('patientprocedure.print',compact('docresults','patients','patientproceduresubs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

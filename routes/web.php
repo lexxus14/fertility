@@ -720,7 +720,7 @@ Route::get('/patientprocedure/view/{ID?}','PatientProcedureController@show')->na
 Route::get('/patientprocedure/edit/{ID?}','PatientProcedureController@edit')->name('PatientProcedureEdit');
 Route::post('/patientprocedure/update','PatientProcedureController@update')->name('PatientProcedureUpdate');
 Route::post('/patientprocedure/delete','PatientProcedureController@destroy')->name('PatientProcedureDelete');
-Route::get('/patientprocedure/view/{ID?}','PatientProcedureController@PrintPatientProcedure')->name('PatientProcedurePrint');
+Route::get('/patientprocedure/print/{ID?}','PatientProcedureController@PrintPatientProcedure')->name('PatientProcedurePrint');
 
 Route::get('/patientmedication/procedureinfo/{id?}','PatientProcedureController@GetProcedureInfo')->name('GetProcedureInfo');
 
