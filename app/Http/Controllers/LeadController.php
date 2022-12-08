@@ -53,6 +53,7 @@ class LeadController extends Controller
             // $this->updateLeadToInpatient();
             // $this->InsertLeadAssessment();
             // $this->UpdateLeadAssessmentStaff();
+            // $this->UpDuplicateCurrenLeadAssessment();
 
        return view('lead.index',compact('leads'));
     }  
@@ -614,14 +615,19 @@ class LeadController extends Controller
 
     public function updateLeadToInpatient()
     {
-        $strsql ="SELECT * from imptemptable where id>=5106";
+        $strsql ="SELECT * from imptemptable where id  > 7836";
         $imptemptables = DB::select($strsql);
 
         foreach($imptemptables as $imptemptable){
-            $search=$imptemptable->Field2;
-            $search2=$imptemptable->Field3;
+            $search=$imptemptable->Field3;
+            $search2=$imptemptable->Field1;
             $email=$imptemptable->Field5;
             $PatientMainContact = $imptemptable->Field1;
+
+            $wifeName=$imptemptable->Field1;
+            $WifeContactNo=$imptemptable->Field5;
+            $husbandName=$imptemptable->Field2;
+            $HusbandContactNo=$imptemptable->Field4;
             // echo $search.'<br>';
             //  $strsql ="SELECT * from patients where MainContactNo  '".$search."'";
 
@@ -631,7 +637,19 @@ class LeadController extends Controller
             // where 
             // (Field2  IN (select MainContactNo from patients) or Field2  IN (select wifeContactNo from patients))  
             // ORDER BY `imptemptable`.`id` ASC
-            if(!empty($search)){
+
+            if(!empty($imptemptable->Field3))
+            {
+                $search=$imptemptable->Field3;
+            }
+            else if(!empty($imptemptable->Field4)){
+                $search=$imptemptable->Field4;
+            }
+            else{
+                $search=$imptemptable->Field5;
+            }
+            if(!empty($search))
+            {
                 $p =DB::table('patients')
                 ->select('patients.*')
                 ->where('IsPatient','=','0')
@@ -649,21 +667,45 @@ class LeadController extends Controller
                 $intctr=1;
                 $intExist=0;
                 foreach($p as $lead){
-                    if($intctr==1)
-                    {
-                        // echo $search.'&nbsp'.$lead->id.'<br>';
+                    if($intExist==0)            
+                    { 
+                        $intExist++;
+                        // echo $search.' ID'.$lead->id.'<br>';
                         $lea = Patient::find($lead->id);
                         $lea->IsPatient = '1';
                         $lea->MainContactPerson = $PatientMainContact;
                         $lea->MainEmail = $email;
                         $lea->save();
                     }
-                    $intctr++;
-                    $intExist++;
+                    
                 }
                 if($intExist==0){
-                    echo $search.'<br>';
+
+                    // echo $search.'<br>';
+                    $lead = new Patient;
+                    // $lead->FileNo = $
+                    $lead->MainContactNo = $search;
+                    $lead->MainContactPerson= $PatientMainContact;
+                    $lead->WifeName= $wifeName;
+                    $lead->WifeContactNo = $WifeContactNo;
+                    $lead->HusbandName= $husbandName;
+                    $lead->HusbandContactNo=  $HusbandContactNo;
+                    $lead->IsPatient = '1';
+                    $lead->save();
                 }
+            }
+            else{
+                echo $search.'<br>';
+                $lead = new Patient;
+                // $lead->FileNo = $
+                $lead->MainContactNo = $search;
+                $lead->MainContactPerson= $PatientMainContact;
+                $lead->WifeName= $wifeName;
+                $lead->WifeContactNo = $WifeContactNo;
+                $lead->HusbandName= $husbandName;
+                $lead->HusbandContactNo=  $HusbandContactNo;
+                $lead->IsPatient = '1';
+                $lead->save();
             }
 
         }     
@@ -685,16 +727,49 @@ class LeadController extends Controller
         }
 
     }
+    public function UpDuplicateCurrenLeadAssessment()
+    {
+        $strsql = "select distinct l1.id, l1.patientid from lead_assessments l1
+                    inner join(
+                    select l.patientid,leadtotal from lead_assessments as l
+                    inner join (select count(patientid) leadtotal,patientid from lead_assessments group by patientid)x on x.patientid = l.patientid
+                    where x.leadtotal >= 2)l on l.patientid = l1.patientid
+                    where l1.iscurrent = 1
+                    order by id";
+        $imptemptables = DB::select($strsql);
+
+        
+        foreach($imptemptables as $imptemptable){
+            $strsql="select id from lead_assessments where patientid =".$imptemptable->patientid." order by id";
+            $imp = DB::select($strsql);
+            $inctr=1;
+            foreach($imp as $im)
+            {
+                if( $inctr<=1)
+                {
+                DB::table('lead_assessments')
+                            ->where('id', $im->id)
+                            ->update(['IsCurrent' =>'0']);
+                             $inctr++;
+                }
+           }
+
+           
+        }       
+        // code...
+    }
     public function InsertLeadAssessment()
     {
-        $strsql ="SELECT * from imptemptable where id > 596";
+        $strsql ="SELECT * from imptemptable where  id > 7299 and id <= 7836 ";
         $imptemptables = DB::select($strsql);
 
         foreach($imptemptables as $imptemptable){
             $search=$imptemptable->Field4;
-            $note=$imptemptable->Field6;
+            $note=$imptemptable->Field9;
             $date=$imptemptable->Field1;
             $leadname=$imptemptable->Field3;
+            $StaffName=$imptemptable->Field2;
+            $InPatient=$imptemptable->Field10;
             
             // echo $search.'<br>';
             //  $strsql ="SELECT * from patients where MainContactNo  '".$search."'";
@@ -705,7 +780,17 @@ class LeadController extends Controller
             // where 
             // (Field2  IN (select MainContactNo from patients) or Field2  IN (select wifeContactNo from patients))  
             // ORDER BY `imptemptable`.`id` ASC
-            if(!empty($search)){
+
+            if(!empty($imptemptable->Field4))
+            {
+                $search=$imptemptable->Field4;
+            }
+            else{
+                $search=$imptemptable->Field5;
+            }
+
+            if(!empty($search))
+            {
                 $p =DB::table('patients')
                 ->select('patients.*')
                 ->Where(function ($query) use ($search) {
@@ -721,16 +806,28 @@ class LeadController extends Controller
 
                 $intctr=1;
                 $intExist=0;
-                foreach($p as $lead){
-                    if($intctr==1)
-                    {
-                        // echo $search.'&nbsp'.$lead->id.'<br>';
+                $staffId=5;
+                foreach($p as $lead)
+                { 
+                    if($intExist==0)            
+                    {       
+                        $intExist++;
                         $lea = new LeadAssessment;
                         $lea->assessmentrate = '3';
                         $lea->date = $date;
                         $lea->iscurrent = 1;
                         $lea->reasonid = 1;
-                        $lea->staffid = 2;
+
+                        $staffs =DB::select("select * from staff where name like '%".$StaffName."%'" );
+                        foreach($staffs as $staff){
+                            if(!empty($staff->id))
+                            {
+                                $staffId= $staff->id;
+                            }
+                        }
+
+                        $lea->staffid = $staffId;
+                        
                         $lea->patientid = $lead->id;
                         $lea->notes = $note;
                         $lea->save();
@@ -738,13 +835,25 @@ class LeadController extends Controller
                         $lea =  Patient::find($lead->id);
                         $lea->MainContactPerson= $leadname;
                         $lea->save();
+
+                        if($InPatient=='1'){
+                            DB::table('leadtopatientlist')
+                            ->where('PatientId', $lead->id)
+                            ->update(['DateInPatient' => $date,'IsLeadInPatient'=>'1']);
+                        }
+                        // echo $search.' ID:'.$lead->id.'<br>';
                     }
-                    $intctr++;
-                    $intExist++;
                 }
-                if($intExist==0){
+                if($intExist==0)
+                {
                     echo $search.'<br>';
+                    $lead = new Patient;
+                    // $lead->FileNo = $
+                    $lead->MainContactNo = $search;
+                    $lead->MainContactPerson= $leadname;
+                    $lead->save();
                 }
+                
             }
 
         }     
@@ -752,7 +861,7 @@ class LeadController extends Controller
 
     public function UpdateLeadAssessmentStaff()
     {
-        $strsql ="SELECT * from imptemptable where id > 596";
+        $strsql ="SELECT * from imptemptable where id >7299 and id <=7836";
         $imptemptables = DB::select($strsql);
 
         foreach($imptemptables as $imptemptable){
@@ -804,6 +913,8 @@ class LeadController extends Controller
 
         }     
     }
+
+    
     public function ImportLeadSave(Request $request){
 
         if ($files = $request->file('inputFile')) 
@@ -858,7 +969,7 @@ class LeadController extends Controller
                             $lead->Field3 = $csv[2];                          
                             $lead->Field4 = $csv[3];                          
                             $lead->Field5 = $csv[4];                          
-                            // $lead->Field6 = $csv[5];                          
+                            $lead->Field6 = $csv[5];                          
                             // $lead->Field7 = $csv[6];                          
                             // $lead->Field8 = $csv[7];                          
                             // $lead->Field9 = $csv[8];                          

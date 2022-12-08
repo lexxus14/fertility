@@ -305,7 +305,7 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <a href="#" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('LeadView')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
                   <input type="submit" value="Save" class="btn btn-success float-right">
                 </div>
               </div>
