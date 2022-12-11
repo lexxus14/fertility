@@ -389,6 +389,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('FETpage2')}}/{{$PhaseId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintFETpage2')}}/{{$PhaseId}}/{{$DocId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->
@@ -454,6 +455,7 @@
             
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                
               </div>
 
 

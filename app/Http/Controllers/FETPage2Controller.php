@@ -206,6 +206,36 @@ class FETPage2Controller extends Controller
         return view('fetpage2.view',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','FETPage2DiagnosisSubs','FETPage2CDSubs'));
     }
 
+    public function PrintFETpage2($PhaseId,$DocId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="SELECT * from fetpage2s
+                    WHERE id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from FETPage2DiagnosisSubs
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = FETPage2DiagnosisSubs.DiagnosisID
+                    WHERE FETPage2sId =".$DocId;
+        $FETPage2DiagnosisSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from FETPage2CDSubs
+                    WHERE FETPage2sId =".$DocId;
+        $FETPage2CDSubs = DB::select($strsql);
+
+
+        $doctorDiagnosis = DoctorDiagnosis::all();
+
+        return view('fetpage2.print',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','FETPage2DiagnosisSubs','FETPage2CDSubs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
