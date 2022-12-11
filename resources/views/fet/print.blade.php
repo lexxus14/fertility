@@ -143,7 +143,7 @@ $htmlTable=$htmlTable.$strAddOtherMed."</td>
     $htmlTable = $htmlTable."</table>";
     $w = array(10, 40, 40,40, 60);
     $pdf->WriteHTMLTable("$htmlTable",$w);
-
+$pdf->Cell(0,4,'Others',0,0);
 $htmlTable="<table>
 <tr>
 <td>Date</td>
