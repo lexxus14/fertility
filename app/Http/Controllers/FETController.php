@@ -90,6 +90,54 @@ class FETController extends Controller
         return view('fet.patientindex',compact('docresult','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers','TotalFETPage2s'));
     }
 
+    public function Printfet($DocId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join fetphases as st on st.patientid = p.id
+                    WHERE st.id =".$DocId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from fets 
+                  where  FETPhaseID =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetBCPS 
+                  where  FETPhaseID =".$DocId;
+        $docresultBCPS  = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetexpdates 
+                  where  FETPhaseID =".$DocId;
+        $docresultExpDate  = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetothers 
+                  where  FETPhaseID =".$DocId;
+        $docresultFETothers  = DB::select($strsql);
+
+        $strsql ="select *
+                    from fetphases 
+                  where  id =".$DocId;
+        $docresultheaders = DB::select($strsql);
+
+        $strsql ="select COUNT(*) AS TotalFETPage2
+                    from FETPage2s 
+                    inner join fets on fets.id =  FETPage2s.FETiD
+                  where  FETPhaseID =".$DocId;
+        $TotalFETPage2s = DB::select($strsql);
+
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all(); 
+        return view('fet.print',compact('docresults','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers','TotalFETPage2s'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

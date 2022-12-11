@@ -185,7 +185,8 @@
                   </button> 
                   <button class="btn btn-success float-right open-modal-lead-assessment" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
                     <i class="fas fa-pencil-alt"></i> New Cycle
-                  </button>      
+                  </button>   
+                  <a href="{{route('PrintFET')}}/{{$DocId}}" target="_blank" class="btn btn-secondary float-right" style="margin-right: 5px;">Print</a>   
 	              </div>
 	              <!-- /.card-header -->
 	              <div class="card-body">                  

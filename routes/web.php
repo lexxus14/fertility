@@ -534,6 +534,7 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/fet/store','FETController@store')->name('FetStore');
     Route::post('/fet/otherstore','FETController@store_other')->name('FetOtherStore');
     Route::post('/fet/expectedstore','FETController@store_expected')->name('FetExpectedStore');
+    Route::get('/fet/print/{StiPhaseId?}','FETController@Printfet')->name('PrintFET');
 
     Route::get('/fet/view/{PhaseId?}/{id?}','FETController@view')->name('FetView');
     Route::get('/fet/viewbcp/{PhaseId?}/{id?}','FETController@viewbcp')->name('FetViewBCP');
