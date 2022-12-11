@@ -442,7 +442,7 @@
                           <label for="txtStartMensPer">
                             What age did you start with your first menstrual period?
                           </label>
-                          <input type="text" class="form-control" name="AgeStartPeriod" id="txtStartMensPer">
+                          <input type="number" class="form-control" name="AgeStartPeriod" id="txtStartMensPer">
                         </div>
                     </div>
 

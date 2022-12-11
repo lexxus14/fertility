@@ -38,7 +38,7 @@ class CreateFemaledoctorsconsultationTable extends Migration
             $table->string('LastMenstualPeriodSpecify')->nullable();
             $table->integer('PregnantYes')->nullable();
             $table->integer('PregnantNo')->nullable();
-            $table->integer('PregnantSpecify')->nullable();
+            $table->string('PregnantSpecify')->nullable();
             $table->integer('BreastFeedingYes')->nullable();
             $table->integer('BreastFeedingNo')->nullable();
             $table->integer('AgeStartPeriod')->nullable();

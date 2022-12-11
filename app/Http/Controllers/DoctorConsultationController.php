@@ -464,7 +464,7 @@ class DoctorConsultationController extends Controller
             $imagepath = $laLinkFile;
        }
 
-       $docfiles = FemaleDoctorConsulatation::find($request->txtMaleDoctorConsultationId);
+       $docfiles = FemaleDoctorConsulatation::find($request->txtFemaleDoctorConsultationId);
        $date = date_create($request->txtDocDate);
         $docfiles->docdate= $date->format('Y-m-d');
 
