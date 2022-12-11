@@ -157,19 +157,21 @@
 	          <div class="col-md-12">
 	            <div class="card">
 	              <div class="card-header">
-	                <h3 class="card-title"><b>Stimulating Medicine</b></h3>
-	                <button class="btn btn-success float-right open-modal-lead-assessment" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
+	                <h3 class="card-title"><b>Stimulating Medicine</b></h3><br>
+	                <button class="btn btn-success float-left open-modal-lead-assessment" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
 	                  <i class="fas fa-pencil-alt"></i> New
 	                </button>
+                  <a href="{{route('PrintStimulatingMedicine')}}/{{$StiPhaseId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
 	              </div>
 	              <!-- /.card-header -->
 	              <div class="card-body">
-	                <table id="example1" class="table table-bordered table-striped">
+	                <table id="example2" class="table table-bordered table-striped">
 	                  <thead>                  
 	                  <tr>
 	                    <th>Cycle Day</th>
                       <th>Stimulating Medications</th>
 	                    <th>Date</th>
+                      <th>Day</th>
 	                    <th>Breakfast</th>
                       <th>Lunch</th>
                       <th>Dinner</th>
@@ -192,6 +194,7 @@
                           <br/>PM&nbsp{{$result->MedDosePM}}{{$result->MuPMSymbol}}&nbsp{{$result->MedPm}}
                         </td>
                         <td>{{$result->docdate}}</td>
+                        <td>{{date('l', strtotime($result->docdate))}}</td> 
 		                    <td>{{$result->Breakfast}}</td>
                         <td>{{$result->Lunch}}</td>
                         <td>{{$result->Dinner}}</td>

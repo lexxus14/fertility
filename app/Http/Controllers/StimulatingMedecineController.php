@@ -60,6 +60,31 @@ class StimulatingMedecineController extends Controller
         return view('stimulatingmedicine.patientindex',compact('docresult','patients','StiPhaseId','medicines','medicinesunits'));
     }
 
+    public function PrintStimulatingMedicine($StiPhaseId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join stimulatingphases as st on st.patientid = p.id
+                    WHERE st.id =".$StiPhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select StiMeds.*,mu.ShortSymbol as 'MuAMSymbol',mupm.ShortSymbol as 'MuPMSymbol', 
+                    m_am.description as 'MedAm',m_pm.description as 'MedPm'
+                    from StiMeds 
+                    INNER JOIN MedicineUnits mu on mu.id = StiMeds.UnitIdAM
+                    INNER JOIN MedicineUnits mupm on mupm.id = StiMeds.UnitIdPM
+                    LEFT JOIN medicines m_am on m_am.id = StiMeds.MedIdAM
+                    LEFT JOIN medicines m_pm on m_pm.id = StiMeds.MedIdPM
+                  where  StimulatingPhasesId =".$StiPhaseId;
+        $docresults = DB::select($strsql);
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        return view('stimulatingmedicine.print',compact('docresults','patients','StiPhaseId','medicines','medicinesunits'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

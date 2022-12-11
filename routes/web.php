@@ -525,6 +525,8 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/stimulatingmedicine/update','StimulatingMedecineController@update')->name('StimulatingMedicineUpdate');
     Route::get('/stimulatingmedicine/view/{StiPhaseId?}/{id?}','StimulatingMedecineController@show')->name('StimulatingMedicineShow');
     Route::post('/stimulatingmedicine/delete','StimulatingMedecineController@destroy')->name('StimulatingMedicineDelete');
+
+    Route::get('/stimulatingmedicine/print/{StiPhaseId?}','StimulatingMedecineController@PrintStimulatingMedicine')->name('PrintStimulatingMedicine');
 /*Stimulating Medecine*/
 
 /*FET*/
