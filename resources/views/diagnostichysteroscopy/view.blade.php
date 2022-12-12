@@ -248,7 +248,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="Comments" class="col-form-label">Comments</label>
-                    <textarea class="form-control" name="Comments" id="Comments">{{$docresult->Hydrosalpinx}}</textarea>
+                    <textarea class="form-control" name="Comments" id="Comments">{{$docresult->Comments}}</textarea>
                   </div>
                 </div>
               </div>
@@ -301,6 +301,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('DiagHysteroscopy')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintDiagHysteroscopy')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

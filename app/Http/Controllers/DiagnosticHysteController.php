@@ -155,7 +155,7 @@ class DiagnosticHysteController extends Controller
                   where id =".$docId;;
         $docresults = DB::select($strsql);
 
-        return view('diagnostichysteroscopy.view',compact('patients','docresults','docId'));
+        return view('diagnostichysteroscopy.print',compact('patients','docresults','docId'));
     }
 
     /**
