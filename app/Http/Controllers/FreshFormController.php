@@ -51,6 +51,55 @@ class FreshFormController extends Controller
         //
     }
 
+    public function PrintFreshForm($DocId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join FreshPhases as st on st.patientid = p.id
+                    WHERE st.id =".$DocId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select *
+                    from FreshForms 
+                  where  FreshPhaseID =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select *
+                    from FreshFormBCPs 
+                  where  FreshPhaseID =".$DocId;
+        $docresultBCPS  = DB::select($strsql);
+
+        $strsql ="select *
+                    from FreshFormExpDates 
+                  where  FreshPhaseID =".$DocId;
+        $docresultExpDate  = DB::select($strsql);
+
+        $strsql ="select *
+                    from FreshPhases 
+                  where  id =".$DocId;
+        $docresultheaders = DB::select($strsql);
+
+        $strsql ="select COUNT(*) AS TotalFETPage2
+                    from FreshFormCyclePage2s 
+                    inner join FreshPhases on FreshPhases.id =  FreshFormCyclePage2s.freshphasesiD
+                  where  freshphasesiD =".$DocId;
+        $TotalFETPage2s = DB::select($strsql);
+
+        $strsql ="select COUNT(*) AS TotalFreshLongPro
+                    from FreshFormLongPros 
+                    inner join FreshPhases on FreshPhases.id =  FreshFormLongPros.freshphasesiD
+                  where  freshphasesiD =".$DocId;
+        $TotalFreshLongPros = DB::select($strsql);
+
+
+        $medicines = Medicine::all(); 
+        $medicinesunits = MedicineUnit::all(); 
+        $dayshifts = DayShfts::all(); 
+        return view('fresh.print',compact('docresults','patients','DocId','medicines','medicinesunits','dayshifts','docresultheaders','docresultBCPS','docresultExpDate','docresultFETothers','TotalFETPage2s','TotalFreshLongPros'));
+    }
+
     public function FreshForm($DocId)
     {
         $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 

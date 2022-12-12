@@ -580,6 +580,7 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
 
 /*Fresh Form*/
     Route::get('/freshform/{StiPhaseId?}','FreshFormController@FreshForm')->name('FreshForm');
+    Route::get('/freshform/print/{StiPhaseId?}','FreshFormController@PrintFreshForm')->name('PrintFreshForm');
     Route::post('/freshform/store','FreshFormController@store')->name('FreshFormStore');
     Route::post('/freshform/expectedstore','FreshFormController@store_expected')->name('FreshFormExpectedStore');
 
