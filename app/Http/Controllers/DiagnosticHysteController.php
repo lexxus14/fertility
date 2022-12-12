@@ -141,6 +141,23 @@ class DiagnosticHysteController extends Controller
         return view('diagnostichysteroscopy.view',compact('patients','docresults','docId'));
     }
 
+    public function PrintDiagHysteroscopy($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join DiagnosticyHysteroscopy as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from DiagnosticyHysteroscopy 
+                  where id =".$docId;;
+        $docresults = DB::select($strsql);
+
+        return view('diagnostichysteroscopy.view',compact('patients','docresults','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

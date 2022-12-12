@@ -198,6 +198,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/diaghyste/edit/{id?}','DiagnosticHysteController@edit')->name('DiagHysteroscopyEdit');
     Route::get('/diaghyste/view/{PatientID?}','DiagnosticHysteController@show')->name('DiagHysteroscopyShow');
+    Route::get('/diaghyste/print/{PatientID?}','DiagnosticHysteController@PrintDiagHysteroscopy')->name('PrintDiagHysteroscopy');
     Route::post('/diaghyste/delete','DiagnosticHysteController@destroy')->name('DiagHysteroscopyDelete');
     Route::post('/diaghyste/update','DiagnosticHysteController@update')->name('DiagHysteroscopyUpdate');
 /*Patient Diagnostic Hysteroscopy*/
