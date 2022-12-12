@@ -629,6 +629,7 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::get('/clomidcycle/edit/{id?}','ClomidCycleController@edit')->name('ClomidCycleEdit');
     Route::post('/clomidcycle/update','ClomidCycleController@update')->name('ClomidCycleUpdate');
     Route::get('/clomidcycle/view/{id?}','ClomidCycleController@show')->name('ClomidCycleShow');
+    Route::get('/clomidcycle/print/{id?}','ClomidCycleController@PrintClomidCycle')->name('PrintClomidCycle');
     Route::post('/clomidcycle/delete','ClomidCycleController@destroy')->name('ClomidCycleDelete');
 /*Clomid Cycle*/
 

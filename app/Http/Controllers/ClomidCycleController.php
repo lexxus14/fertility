@@ -240,6 +240,42 @@ class ClomidCycleController extends Controller
         return view('clomidcycle.view',compact('patients','docresults','doctorDiagnosis','DocId','DiagnosisSubs','ClomidCycleNos','ClomidCycleSubs','ClomidCycleObus'));
     }
 
+    public function PrintClomidCycle($DocId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join ClomidCycles as cc on cc.patientid = p.id
+                    WHERE cc.id =".$DocId;
+        $patients = DB::select($strsql);
+
+        $doctorDiagnosis = DoctorDiagnosis::all();
+
+        $strsql ="SELECT * from ClomidCycles
+                    WHERE id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from ClomidCyleDiags
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = ClomidCyleDiags.DiagnosisId
+                    WHERE ClomidCyclesiD =".$DocId;
+        $DiagnosisSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from ClomidCycleNo
+                    WHERE ClomidCyclesiD =".$DocId;
+        $ClomidCycleNos = DB::select($strsql);
+
+        $strsql ="SELECT * from ClomidCycleSubs
+                    WHERE ClomidCyclesiD =".$DocId;
+        $ClomidCycleSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from ClomidCycleObus
+                    WHERE ClomidCyclesiD =".$DocId;
+        $ClomidCycleObus = DB::select($strsql);
+
+        return view('clomidcycle.print',compact('patients','docresults','doctorDiagnosis','DocId','DiagnosisSubs','ClomidCycleNos','ClomidCycleSubs','ClomidCycleObus'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
