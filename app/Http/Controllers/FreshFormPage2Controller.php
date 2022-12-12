@@ -195,6 +195,36 @@ class FreshFormPage2Controller extends Controller
         return view('freshpage2.view',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','FETPage2DiagnosisSubs','FETPage2CDSubs'));
     }
 
+    public function PrintFreshFormPage2($PhaseId,$DocId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join FreshPhases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="SELECT * from FreshFormCyclePage2s
+                    WHERE id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from FreshFormCycleFerDias
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = FreshFormCycleFerDias.FertilityDiagnosisId
+                    WHERE FreshFormCyclePage2siD =".$DocId;
+        $FETPage2DiagnosisSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from FreshFormCyclePage2Subs
+                    WHERE FreshFormCyclePage2siD =".$DocId;
+        $FETPage2CDSubs = DB::select($strsql);
+
+
+        $doctorDiagnosis = DoctorDiagnosis::all();
+
+        return view('freshpage2.print',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','FETPage2DiagnosisSubs','FETPage2CDSubs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

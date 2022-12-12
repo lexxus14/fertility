@@ -423,7 +423,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('FreshFormPage2')}}/{{$PhaseId}}" class="btn btn-secondary">Cancel</a>
-                
+                  <a href="{{route('FreshFormPage2Print')}}/{{$PhaseId}}/{{$DocId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

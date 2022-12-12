@@ -608,6 +608,7 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::get('/freshshortprotocol/edit/{PhaseId?}/{id?}','FreshFormPage2Controller@edit')->name('FreshFormPage2Edit');
     Route::post('/freshshortprotocol/update','FreshFormPage2Controller@update')->name('FreshFormPage2Update');
     Route::get('/freshshortprotocol/view/{PhaseId?}/{id?}','FreshFormPage2Controller@show')->name('FreshFormPage2Show');
+    Route::get('/freshshortprotocol/print/{PhaseId?}/{id?}','FreshFormPage2Controller@PrintFreshFormPage2')->name('FreshFormPage2Print');
     Route::post('/freshshortprotocol/delete','FreshFormPage2Controller@destroy')->name('FreshFormPage2Delete');
 /*Fresh Form Page2*/
 
