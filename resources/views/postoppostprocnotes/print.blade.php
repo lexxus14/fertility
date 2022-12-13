@@ -150,6 +150,24 @@ $pdf->AliasNbPages();
   $pdf->Cell(100,6,'NOTES: ',0,1);
   $pdf->Write(6,$docresult->Notes);
 
+  $pdf->Cell(0,6,'',0,1);
+  $pdf->Cell(0,6,'',0,1);
+  $pdf->Cell(40,6,'Physician Signagure: ',0,0);
+  $pdf->Cell(80,6,'','B',0);
+
+  $pdf->Cell(30,6,'Dictation #: ',0,0);
+  $pdf->Cell(0,6,'','B',1);
+  $pdf->Cell(0,6,'',0,1);
+  $pdf->Cell(0,6,'',0,1);
+  $pdf->Cell(30,6,'Doctor Stamp: ',0,0);
+  $pdf->Cell(70,6,'',0,0);
+
+  $pdf->Cell(10,6,'Date: ',0,0);
+  $pdf->Cell(30,6,'      /      /   ','B',0);
+
+  $pdf->Cell(15,6,'  Time:',0,0);
+  $pdf->Cell(0,6,'','B',0);
+
   if(is_file(public_path($docresult->filelink)))                   
       {
         $file= asset($docresult->filelink);
