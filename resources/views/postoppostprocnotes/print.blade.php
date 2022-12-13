@@ -83,7 +83,7 @@ $pdf->AliasNbPages();
 
   $pdf->Cell(0,6,'SURGEON/PERFORMING MD: ','T',1);
   $pdf->Cell(100,6,'    '.$docresult->SurgeonPerformingMD,0,1);
-  $pdf->Cell(0,6,'ANESTHESIOLOGIST: ',0,1);
+  $pdf->Cell(0,6,'ANESTHESIOLOGIST: ','T',1);
   $pdf->Cell(00,6,'   '.$docresult->Anesthesiologist,0,1);
   $pdf->Cell(0,6,'ANESTHESIA USED: ','T',1);
   $pdf->Cell(100,6,'   '.$docresult->AnesthesiaUsed,0,1);
