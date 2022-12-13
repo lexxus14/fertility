@@ -175,13 +175,13 @@
 
                 <a href="{{route('OperativeReport')}}/{{$intPatientId}}" class="btn btn-app bg-warning">
                   <span class="badge bg-danger">
-                    <?php $intTotalPreOperaChecklist = 0; ?>
-                    @foreach($TotalPreOperaChecklists as $TotalPreOperaChecklist)
+                    <?php $intTotalOperativeReport = 0; ?>
+                    @foreach($TotalOperativeReports as $TotalOperativeReport)
                     <?php
-                      $intTotalPreOperaChecklist = $TotalPreOperaChecklist->TotalPreOperaChecklists;
+                      $intTotalOperativeReport = $TotalOperativeReport->TotalOperativeReports;
                       ?>
                     @endforeach
-                    {{$intTotalPreOperaChecklist}}
+                    {{$intTotalOperativeReport}}
                   </span>
                   <i class="fas fa-book-open"></i>Operative Report
                 </a>

@@ -237,6 +237,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/opreport/edit/{id?}','OperativeReportController@edit')->name('OperativeReportEdit');
     Route::get('/opreport/view/{PatientID?}','OperativeReportController@show')->name('OperativeReportShow');
+    Route::get('/opreport/print/{PatientID?}','OperativeReportController@PrintOperativeReport')->name('PrintOperativeReport');
     Route::post('/opreport/delete','OperativeReportController@destroy')->name('OperativeReportDelete');
     Route::post('/opreport/update','OperativeReportController@update')->name('OperativeReportUpdate');
 /*Pre Operative Report*/

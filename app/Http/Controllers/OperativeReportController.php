@@ -33,7 +33,7 @@ class OperativeReportController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select OperativeReports.*,s.name as StaffName from OperativeReports
-                    inner join staff as s on s.id = OperativeReports.SurgeonId
+                    left join staff as s on s.id = OperativeReports.SurgeonId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 
@@ -132,13 +132,33 @@ class OperativeReportController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select OperativeReports.*,s.name as StaffName from OperativeReports
-                    inner join staff as s on s.id = OperativeReports.SurgeonId
+                    left join staff as s on s.id = OperativeReports.SurgeonId
                   where OperativeReports.id =".$docId;
         $docresults = DB::select($strsql);
 
         $Staffs = Staff::all();
 
         return view('operativereport.view',compact('docresults','patients','Staffs','docId'));
+    }
+
+    public function PrintOperativeReport($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join OperativeReports as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select OperativeReports.*,s.name as StaffName from OperativeReports
+                    left join staff as s on s.id = OperativeReports.SurgeonId
+                  where OperativeReports.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('operativereport.print',compact('docresults','patients','Staffs','docId'));
     }
 
     /**
@@ -158,7 +178,7 @@ class OperativeReportController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select OperativeReports.*,s.name as StaffName from OperativeReports
-                    inner join staff as s on s.id = OperativeReports.SurgeonId
+                    left join staff as s on s.id = OperativeReports.SurgeonId
                   where OperativeReports.id =".$docId;
         $docresults = DB::select($strsql);
 
