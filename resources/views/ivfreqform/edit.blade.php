@@ -471,6 +471,53 @@
                   
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="icheck-success d-inline">
+                      @if($docresult->IsICSI==1)
+                      <input type="checkbox" name="IsICSI" id="IsICSI" checked>
+                      @else
+                      <input type="checkbox" name="IsICSI" id="IsICSI">
+                      @endif
+                      <label for="IsICSI">
+                        ICSI
+                      </label>
+                    </div>
+                    <div class="icheck-success d-inline">
+                      @if($docresult->IsAssHatching==1)
+                      <input type="checkbox" name="IsAssHatching" id="IsAssHatching" checked>
+                      @else
+                      <input type="checkbox" name="IsAssHatching" id="IsAssHatching">
+                      @endif
+                      <label for="IsAssHatching">
+                        Assissted Hatching
+                      </label>
+                    </div> 
+                    <div class="icheck-success d-inline">
+                      @if($docresult->IsEmbBxFSH==1)
+                      <input type="checkbox" name="IsEmbBxFSH" id="IsEmbBxFSH" checked>
+                      @else
+                      <input type="checkbox" name="IsEmbBxFSH" id="IsEmbBxFSH">
+                      @endif
+                      <label for="IsEmbBxFSH">
+                        Embryo Bx for FSH
+                      </label>
+                    </div>  
+                    <div class="icheck-success d-inline">
+                      @if($docresult->IsEmbBxAcgh==1)
+                      <input type="checkbox" name="IsEmbBxAcgh" id="IsEmbBxAcgh" checked>
+                      @else
+                      <input type="checkbox" name="IsEmbBxAcgh" id="IsEmbBxAcgh">
+                      @endif
+                      <label for="IsEmbBxAcgh">
+                        Embryo Bx for Acgh
+                      </label>
+                    </div>                 
+                  </div>                  
+                </div>
+              </div>
               <hr>
               <h3>OV. STM./Retrieval Info</h3>
               <div class="row">
@@ -520,7 +567,7 @@
                       </label>
                     </div>
                     <div class="icheck-success d-inline">
-                      @if($docresult->IsPGTM==1)
+                      @if($docresult->IsGenderSel==1)
                       <input type="checkbox" name="IsGenderSel" id="IsGenderSel" checked>
                       @else
                       <input type="checkbox" name="IsGenderSel" id="IsGenderSel">

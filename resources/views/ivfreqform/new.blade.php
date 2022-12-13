@@ -409,6 +409,36 @@
                   
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsICSI" id="IsICSI" >                      
+                      <label for="IsICSI">
+                        ICSI
+                      </label>
+                    </div>
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsAssHatching" id="IsAssHatching">
+                      <label for="IsAssHatching">
+                        Assissted Hatching
+                      </label>
+                    </div> 
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsEmbBxFSH" id="IsEmbBxFSH">
+                      <label for="IsEmbBxFSH">
+                        Embryo Bx for FSH
+                      </label>
+                    </div>  
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" name="IsEmbBxAcgh" id="IsEmbBxAcgh">
+                      <label for="IsEmbBxAcgh">
+                        Embryo Bx for Acgh
+                      </label>
+                    </div>                 
+                  </div>                  
+                </div>
+              </div>
               <hr>
               <h3>OV. STM./Retrieval Info</h3>
               <div class="row">

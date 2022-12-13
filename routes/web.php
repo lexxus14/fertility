@@ -431,6 +431,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/ivfreqform/edit/{id?}','IVFReqFormController@edit')->name('OVFReqFormEdit');
     Route::get('/ivfreqform/view/{PatientID?}','IVFReqFormController@show')->name('OVFReqFormShow');
+    Route::get('/ivfreqform/print/{PatientID?}','IVFReqFormController@PrintIVFReqForm')->name('PrintOVFReqForm');
     Route::post('/ivfreqform/delete','IVFReqFormController@destroy')->name('OVFReqFormDelete');
     Route::post('/ivfreqform/update','IVFReqFormController@update')->name('OVFReqFormUpdate');
 /*IVF Requisition Form*/

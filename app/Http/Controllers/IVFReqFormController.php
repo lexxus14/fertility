@@ -38,7 +38,7 @@ class IVFReqFormController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IVFRequisistionForms.*,p.name StaffName from IVFRequisistionForms 
-                    inner join staff as p on p.id = IVFRequisistionForms.PhysicianId
+                    left join staff as p on p.id = IVFRequisistionForms.PhysicianId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 
@@ -115,6 +115,10 @@ class IVFReqFormController extends Controller
         $docfiles->IsFresh= $this->CheckCheckBox($request->IsFresh);
         $docfiles->IsFrozen= $this->CheckCheckBox($request->IsFrozen);
         $docfiles->IsTESE= $this->CheckCheckBox($request->IsTESE);
+        $docfiles->IsICSI= $this->CheckCheckBox($request->IsICSI);
+        $docfiles->IsAssHatching= $this->CheckCheckBox($request->IsAssHatching);
+        $docfiles->IsEmbBxFSH= $this->CheckCheckBox($request->IsEmbBxFSH);
+        $docfiles->IsEmbBxAcgh= $this->CheckCheckBox($request->IsEmbBxAcgh);
         $docfiles->SpermSourceValid= $request->SpermSourceValid;
         $docfiles->Dx= $request->Dx;
         $docfiles->G= $request->G;
@@ -204,7 +208,7 @@ class IVFReqFormController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IVFRequisistionForms.*,p.name StaffName from IVFRequisistionForms 
-                    inner join staff as p on p.id = IVFRequisistionForms.PhysicianId
+                    left join staff as p on p.id = IVFRequisistionForms.PhysicianId
                   where IVFRequisistionForms.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -228,6 +232,41 @@ class IVFReqFormController extends Controller
         return view('ivfreqform.view',compact('patients','Medicines','MedicineUnits','Procedures','Staffs','docresults','IVFReqFormMeds','IVFProcOrds','docId'));
     }
 
+    public function PrintIVFReqForm($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join IVFRequisistionForms as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select IVFRequisistionForms.*,p.name StaffName from IVFRequisistionForms 
+                    inner join staff as p on p.id = IVFRequisistionForms.PhysicianId
+                  where IVFRequisistionForms.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description,mu.ShortSymbol,MedDosage,MedUnitId from IVFReqFormMeds 
+                    inner join medicines dd on dd.id = IVFReqFormMeds.MedId
+                    inner join MedicineUnits mu on mu.id = IVFReqFormMeds.MedUnitId
+                    where IVFReqFormMeds.IVFRequisistionFormsId=".$docId;
+        $IVFReqFormMeds = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description from IVFProcOrds 
+                    inner join procedures dd on dd.id = IVFProcOrds.ProcedureId
+                    where IVFProcOrds.IVFRequisistionFormsId=".$docId;
+        $IVFProcOrds = DB::select($strsql);
+
+
+        $Medicines = Medicine::all();
+        $MedicineUnits = MedicineUnit::all();
+        $Procedures = Procedure::all();
+        $Staffs = Staff::all();
+
+        return view('ivfreqform.print',compact('patients','Medicines','MedicineUnits','Procedures','Staffs','docresults','IVFReqFormMeds','IVFProcOrds','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -245,7 +284,7 @@ class IVFReqFormController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IVFRequisistionForms.*,p.name StaffName from IVFRequisistionForms 
-                    inner join staff as p on p.id = IVFRequisistionForms.PhysicianId
+                    left join staff as p on p.id = IVFRequisistionForms.PhysicianId
                   where IVFRequisistionForms.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -325,6 +364,10 @@ class IVFReqFormController extends Controller
         $docfiles->IsFresh= $this->CheckCheckBox($request->IsFresh);
         $docfiles->IsFrozen= $this->CheckCheckBox($request->IsFrozen);
         $docfiles->IsTESE= $this->CheckCheckBox($request->IsTESE);
+        $docfiles->IsICSI= $this->CheckCheckBox($request->IsICSI);
+        $docfiles->IsAssHatching= $this->CheckCheckBox($request->IsAssHatching);
+        $docfiles->IsEmbBxFSH= $this->CheckCheckBox($request->IsEmbBxFSH);
+        $docfiles->IsEmbBxAcgh= $this->CheckCheckBox($request->IsEmbBxAcgh);
         $docfiles->SpermSourceValid= $request->SpermSourceValid;
         $docfiles->Dx= $request->Dx;
         $docfiles->G= $request->G;

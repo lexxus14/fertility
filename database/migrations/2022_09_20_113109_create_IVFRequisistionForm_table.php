@@ -29,6 +29,10 @@ class CreateIVFRequisistionFormTable extends Migration
             $table->integer('IsFresh')->nullable();
             $table->integer('IsFrozen')->nullable();
             $table->integer('IsTESE')->nullable();
+            $table->integer('IsICSI')->nullable();
+            $table->integer('IsAssHatching')->nullable();
+            $table->integer('IsEmbBxFSH')->nullable();
+            $table->integer('IsEmbBxAcgh')->nullable();
             $table->string('SpermSourceValid')->nullable();
             $table->string('Dx')->nullable();
             $table->string('G')->nullable();
