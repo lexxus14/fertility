@@ -205,7 +205,7 @@
                     <input type="text" class="form-control" id="PostOpDiagnosis" name="PostOpDiagnosis" value="Status Post Controlled Ovarian Hyperstimulation" />
                 </div>
                 <div class="col-md-4">
-                    <label for="Procedure" class="col-form-label">Post-op Diagnosis</label>
+                    <label for="Procedure" class="col-form-label">Procedure</label>
                     <input type="text" class="form-control" id="Procedure" name="Procedure" value="Ultrasound Guided Trans-vaginal Oocyte Retrieval" />
                 </div>
               </div>

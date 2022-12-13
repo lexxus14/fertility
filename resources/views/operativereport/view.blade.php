@@ -203,7 +203,7 @@
                     <input type="text" class="form-control" id="PostOpDiagnosis" name="PostOpDiagnosis" value="{{$docresult->PostOpDiagnosis}}"/>
                 </div>
                 <div class="col-md-4">
-                    <label for="Procedure" class="col-form-label">Post-op Diagnosis</label>
+                    <label for="Procedure" class="col-form-label">Procedure</label>
                     <input type="text" class="form-control" id="Procedure" name="Procedure" value="{{$docresult->Procedure}}"/>
                 </div>
               </div>
