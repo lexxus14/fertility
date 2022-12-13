@@ -187,6 +187,12 @@
               </div>
             </div>
             <div class="card-body">
+              <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="PreoperativeInstruction" class="col-form-label">Preoperative Instruction:</label>
+                    <textarea class="form-control" name="PreoperativeInstruction" id="PreoperativeInstruction">{{$docresult->PreoperativeInstruction}}</textarea>
+                  </div>
+                </div>
               <div class="form-group row">
                 <div class="col-md-4">
                   <div class="input-group">
@@ -444,6 +450,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('PreOperaCheckList')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintPreOperaCheckList')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

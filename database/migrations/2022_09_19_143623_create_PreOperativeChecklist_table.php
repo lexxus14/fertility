@@ -19,6 +19,7 @@ class CreatePreOperativeChecklistTable extends Migration
             $table->bigInteger('createdbyid');
             $table->bigInteger('GivenByStaffid');
             $table->string('filelink')->nullable();
+            $table->string('PreoperativeInstruction')->nullable();
             $table->date('PreOperaDate')->nullable();
             $table->time('PreOperaTime')->nullable();
             $table->date('PSurgeryDate')->nullable();

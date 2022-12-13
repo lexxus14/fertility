@@ -224,6 +224,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/popcklst/edit/{id?}','PreOperaCheckListController@edit')->name('PreOperaCheckListEdit');
     Route::get('/popcklst/view/{PatientID?}','PreOperaCheckListController@show')->name('PreOperaCheckListShow');
+    Route::get('/popcklst/print/{PatientID?}','PreOperaCheckListController@PrintPreOperaCheckList')->name('PrintPreOperaCheckList');
     Route::post('/popcklst/delete','PreOperaCheckListController@destroy')->name('PreOperaCheckListDelete');
     Route::post('/popcklst/update','PreOperaCheckListController@update')->name('PreOperaCheckListUpdate');
 /*Pre Operative Checklist*/

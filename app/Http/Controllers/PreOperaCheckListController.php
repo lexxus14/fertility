@@ -111,6 +111,7 @@ class PreOperaCheckListController extends Controller
         $docfiles->SurgeryTime=$request->SurgeryTime;
         $docfiles->ArrivalTime=$request->ArrivalTime;
         $docfiles->NPOInstruction=$request->NPOInstruction;
+        $docfiles->PreoperativeInstruction=$request->PreoperativeInstruction;
 
         $docfiles->IsNoJewelry=$this->CheckCheckBox($request->IsNoJewelry);
         $docfiles->IsNoMakeup=$this->CheckCheckBox($request->IsNoMakeup);
@@ -202,6 +203,41 @@ class PreOperaCheckListController extends Controller
         $Staffs = Staff::all();
 
         return view('preperachklst.view',compact('docresults','patients','VitalSigns','Procedures','PreOpeChkLstVitalSigns','Staffs','PreOpProcedures','docId'));
+    }
+
+    public function PrintPreOperaCheckList($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join PreOperaChecklists as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select PreOperaChecklists.*,p.name StaffName from PreOperaChecklists 
+                    inner join staff as p on p.id = PreOperaChecklists.GivenByStaffid
+                  where PreOperaChecklists.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description,VitalSignRes from PreOpeChkLstVitalSigns 
+            inner join VitalSigns dd on dd.id = PreOpeChkLstVitalSigns.VitalSignId
+            where PreOpeChkLstVitalSigns.PreOperaChecklistsId=".$docId;
+
+        $PreOpeChkLstVitalSigns = DB::select($strsql);
+
+
+        $strsql ="select dd.id,dd.description from PreOperaChkLstProcs 
+                    inner join procedures dd on dd.id = PreOperaChkLstProcs.ProcedureId
+                    where PreOperaChkLstProcs.PreOperaChecklistsId=".$docId;
+
+        $PreOpProcedures = DB::select($strsql);
+
+        $VitalSigns = VitalSign::all();
+        $Procedures = Procedure::all();
+        $Staffs = Staff::all();
+
+        return view('preperachklst.print',compact('docresults','patients','VitalSigns','Procedures','PreOpeChkLstVitalSigns','Staffs','PreOpProcedures','docId'));
     }
 
     /**
@@ -298,6 +334,7 @@ class PreOperaCheckListController extends Controller
         $docfiles->SurgeryTime=$request->SurgeryTime;
         $docfiles->ArrivalTime=$request->ArrivalTime;
         $docfiles->NPOInstruction=$request->NPOInstruction;
+        $docfiles->PreoperativeInstruction=$request->PreoperativeInstruction;
 
         $docfiles->IsNoJewelry=$this->CheckCheckBox($request->IsNoJewelry);
         $docfiles->IsNoMakeup=$this->CheckCheckBox($request->IsNoMakeup);
