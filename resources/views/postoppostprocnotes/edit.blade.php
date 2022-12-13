@@ -363,7 +363,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="Complications" class="col-form-label">Complications</label>
-                    <textarea class="form-control" name="Complications" id="Complications">{{$docresult->EstBloodLoss}}</textarea>
+                    <textarea class="form-control" name="Complications" id="Complications">{{$docresult->Complications}}</textarea>
                   </div>
                 </div>
               </div>

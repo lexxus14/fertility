@@ -211,6 +211,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/poppnotes/edit/{id?}','PostOpPostProcNotesController@edit')->name('PostOpPostProcNotesEdit');
     Route::get('/poppnotes/view/{PatientID?}','PostOpPostProcNotesController@show')->name('PostOpPostProcNotesShow');
+    Route::get('/poppnotes/print/{PatientID?}','PostOpPostProcNotesController@PrintPostOpPostProcNotes')->name('PrintPostOpPostProcNotes');
     Route::post('/poppnotes/delete','PostOpPostProcNotesController@destroy')->name('PostOpPostProcNotesDelete');
     Route::post('/poppnotes/update','PostOpPostProcNotesController@update')->name('PostOpPostProcNotesUpdate');
 /*Patient PostOpPostNotes*/

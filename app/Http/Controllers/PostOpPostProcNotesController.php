@@ -207,6 +207,41 @@ class PostOpPostProcNotesController extends Controller
         return view('postoppostprocnotes.view',compact('docresults','patients','DoctorDiagnosis','Procedures','PreOpDiagnosis','PreOpProcedures','FindingPostOpDiags','docId'));
     }
 
+    public function PrintPostOpPostProcNotes($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join PostOpPostProcNotes as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from PostOpPostProcNotes 
+                  where id =".$docId;;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description from PreOpDiagnosis 
+                    inner join DoctorDiagnosis dd on dd.id = PreOpDiagnosis.PreDiagnosisId
+                    where PreOpDiagnosis.PostOpPostProcNotesId=".$docId;
+
+        $PreOpDiagnosis = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description from PreOpProcedures 
+                    inner join procedures dd on dd.id = PreOpProcedures.ProcedureId
+                    where PreOpProcedures.PostOpPostProcNotesId=".$docId;
+
+        $PreOpProcedures = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description from FindingPostOpDiags 
+                    inner join DoctorDiagnosis dd on dd.id = FindingPostOpDiags.DiagnosisId
+                    where FindingPostOpDiags.PostOpPostProcNotesId=".$docId;
+
+        $FindingPostOpDiags = DB::select($strsql);
+
+        return view('postoppostprocnotes.print',compact('docresults','patients','DoctorDiagnosis','Procedures','PreOpDiagnosis','PreOpProcedures','FindingPostOpDiags','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

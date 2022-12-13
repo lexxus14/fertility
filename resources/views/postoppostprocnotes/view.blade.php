@@ -339,7 +339,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="Complications" class="col-form-label">Complications</label>
-                    <textarea class="form-control" name="Complications" id="Complications">{{$docresult->EstBloodLoss}}</textarea>
+                    <textarea class="form-control" name="Complications" id="Complications">{{$docresult->Complications}}</textarea>
                   </div>
                 </div>
               </div>
@@ -411,10 +411,6 @@
                   <div class="form-group">
                     <label for="exampleInputFile">File</label>
                     <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
                       
                     </div>
                     <br/>
@@ -428,6 +424,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('PostOpPostProcNotes')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintPostOpPostProcNotes')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->
