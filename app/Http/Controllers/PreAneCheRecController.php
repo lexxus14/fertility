@@ -214,6 +214,48 @@ class PreAneCheRecController extends Controller
         return view('preanecherecs.view',compact('docresults','patients','VitalSigns','Procedures','PreAneGenInfVitSigns','Staffs','PreAneProProcs','docId','PreAnePreopDiags','DoctorDiagnosis'));
     }
 
+    public function PrintPreAneCheRecs($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join PreAneCheRecs as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select PreAneCheRecs.*,p.name StaffName from PreAneCheRecs 
+                    inner join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
+                  where PreAneCheRecs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description,VSResult from PreAneGenInfVitSigns 
+            inner join VitalSigns dd on dd.id = PreAneGenInfVitSigns.VitalSignId
+            where PreAneGenInfVitSigns.PreAneCheRecsId=".$docId;
+
+        $PreAneGenInfVitSigns = DB::select($strsql);
+
+
+        $strsql ="select dd.id,dd.description from PreAneProProcs 
+                    inner join procedures dd on dd.id = PreAneProProcs.ProcedureId
+                    where PreAneProProcs.PreAneCheRecsId=".$docId;
+
+        $PreAneProProcs = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description from PreAnePreopDiags 
+                    inner join DoctorDiagnosis dd on dd.id = PreAnePreopDiags.DiagnosisId
+                    where PreAnePreopDiags.PreAneCheRecsId=".$docId;
+
+        $PreAnePreopDiags = DB::select($strsql);
+
+        $VitalSigns = VitalSign::all();
+        $Procedures = Procedure::all();
+        $DoctorDiagnosis = DoctorDiagnosis::all();
+        $Staffs = Staff::all();
+
+        return view('preanecherecs.print',compact('docresults','patients','VitalSigns','Procedures','PreAneGenInfVitSigns','Staffs','PreAneProProcs','docId','PreAnePreopDiags','DoctorDiagnosis'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

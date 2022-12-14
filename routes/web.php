@@ -409,6 +409,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/preanecherecs/edit/{id?}','PreAneCheRecController@edit')->name('PreAneCheRecsEdit');
     Route::get('/preanecherecs/view/{PatientID?}','PreAneCheRecController@show')->name('PreAneCheRecsShow');
+    Route::get('/preanecherecs/print/{PatientID?}','PreAneCheRecController@PrintPreAneCheRecs')->name('PrintPreAneCheRecs');
     Route::post('/preanecherecs/delete','PreAneCheRecController@destroy')->name('PreAneCheRecsDelete');
     Route::post('/preanecherecs/update','PreAneCheRecController@update')->name('PreAneCheRecsUpdate');
 /*Pre Anestheisa Check Records*/
