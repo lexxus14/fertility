@@ -396,6 +396,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/posanesrecs/edit/{id?}','PostAnesthesiaRecsController@edit')->name('PostAnesthesiaRecsEdit');
     Route::get('/posanesrecs/view/{PatientID?}','PostAnesthesiaRecsController@show')->name('PostAnesthesiaRecsShow');
+    Route::get('/posanesrecs/print/{PatientID?}','PostAnesthesiaRecsController@PrintPostAnesthesiaRecs')->name('PrintPostAnesthesiaRecs');
     Route::post('/posanesrecs/delete','PostAnesthesiaRecsController@destroy')->name('PostAnesthesiaRecsDelete');
     Route::post('/posanesrecs/update','PostAnesthesiaRecsController@update')->name('PostAnesthesiaRecsUpdate');
 /*Post Anesthesia Records*/

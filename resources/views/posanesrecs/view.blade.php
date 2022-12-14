@@ -298,7 +298,11 @@
                       </label>
                     </div>   
                     <div class="icheck-success d-inline">
+                      @if($docresult->IsTypAneOthers==1)
+                      <input type="checkbox" name="IsTypAneOthers" id="IsTypAneOthers" checked>
+                      @else
                       <input type="checkbox" name="IsTypAneOthers" id="IsTypAneOthers">
+                      @endif
                       <label for="IsTypAneOthers">
                         Others
                       </label>
@@ -487,6 +491,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('PostAnesthesiaRecs')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintPostAnesthesiaRecs')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

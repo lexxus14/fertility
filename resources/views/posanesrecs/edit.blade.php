@@ -271,9 +271,9 @@
                   <div class="form-group">
                     <div class="icheck-success d-inline">
                       @if($docresult->IsTypAneGA==1)
-                      <input type="checkbox" name="IsNoJewelry" id="IsTypAneGA" checked>
+                      <input type="checkbox" name="IsTypAneGA" id="IsTypAneGA" checked>
                       @else
-                      <input type="checkbox" name="IsNoJewelry" id="IsTypAneGA">
+                      <input type="checkbox" name="IsTypAneGA" id="IsTypAneGA">
                       @endif
                       <label for="IsTypAneGA">
                         G A
@@ -300,7 +300,11 @@
                       </label>
                     </div>   
                     <div class="icheck-success d-inline">
+                      @if($docresult->IsTypAneRegAne==1)
+                      <input type="checkbox" name="IsTypAneOthers" id="IsTypAneOthers" checked>
+                      @else
                       <input type="checkbox" name="IsTypAneOthers" id="IsTypAneOthers">
+                      @endif
                       <label for="IsTypAneOthers">
                         Others
                       </label>
@@ -336,7 +340,7 @@
                         @foreach($PosAneMonRecSubs as $PosAneMonRecSub)
                         <tr id="R{{$intctrMonRec}}">
                           <td class="row-index text-center">
-                            <input type="time" class="form-control" id="MonRecSubdoctime[]" name="MonRecSubdoctime" value="{{$PosAneMonRecSub->MonRecSubdoctime}}">
+                            <input type="time" class="form-control" id="MonRecSubdoctime[]" name="MonRecSubdoctime[]" value="{{$PosAneMonRecSub->MonRecSubdoctime}}">
                           </td>
                           <td class="text-center">
                             <input type="text" class="form-control" id="BP" name="BP[]" value="{{$PosAneMonRecSub->BP}}">

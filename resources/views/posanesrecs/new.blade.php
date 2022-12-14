@@ -251,7 +251,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="icheck-success d-inline">
-                      <input type="checkbox" name="IsNoJewelry" id="IsTypAneGA">
+                      <input type="checkbox" name="IsTypAneGA" id="IsTypAneGA">
                       <label for="IsTypAneGA">
                         G A
                       </label>

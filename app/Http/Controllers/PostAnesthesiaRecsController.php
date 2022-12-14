@@ -88,10 +88,10 @@ class PostAnesthesiaRecsController extends Controller
         $docfiles->filelink = '/file/'.$imagepath;        
         $docfiles->createdbyid=Auth::user()->id;
 
-        $date = date_create($request->docdate);
+        $date = date_create($request->PreOperaDate);
         $docfiles->docdate= $date->format('Y-m-d');
 
-        $docfiles->doctime=$request->doctime;
+        $docfiles->doctime=$request->PreOperaTime;
 
         $docfiles->AnesthetestStaffId=$request->AnesthetestStaffId;
         $docfiles->SurgeonStaffId=$request->SurgeonStaffId;
@@ -142,12 +142,12 @@ class PostAnesthesiaRecsController extends Controller
         {
             $pricelistsub = new PosAneMonRecSub;
             $pricelistsub->PostAnesthesiaRecsId = $doclab_id; 
-            $pricelistsub->MonRecSubdoctime=$MonRecSubdoctime;   
-            $pricelistsub->BP=$BP;
-            $pricelistsub->PulseRate=$Sp02;
-            $pricelistsub->Sp02=$Sp02;
-            $pricelistsub->Fi02= $Fi02;
-            $pricelistsub->PainScore=$PainScore;
+            $pricelistsub->MonRecSubdoctime=$MonRecSubdoctime[$i];   
+            $pricelistsub->BP=$BP[$i];
+            $pricelistsub->PulseRate=$PulseRate[$i];
+            $pricelistsub->Sp02=$Sp02[$i];
+            $pricelistsub->Fi02= $Fi02[$i];
+            $pricelistsub->PainScore=$PainScore[$i];
             $pricelistsub->save();
             
         }      
@@ -199,6 +199,41 @@ class PostAnesthesiaRecsController extends Controller
         $Staffs = Staff::all();
 
         return view('posanesrecs.view',compact('docresults','patients','Procedures','PosAneRecSurProcSubs','Staffs','PosAneMonRecSubs','docId'));
+    }
+
+    public function PrintPostAnesthesiaRecs($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join PostAnesthesiaRecs as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select PostAnesthesiaRecs.*,p.name AnesthetestStaffName,ss.name as SurgeonStaffName,ss.name as RecNurStaffName from PostAnesthesiaRecs 
+                    left join staff as p on p.id = PostAnesthesiaRecs.AnesthetestStaffId
+                    left join staff as ss on ss.id = PostAnesthesiaRecs.SurgeonStaffId
+                    left join staff as rns on rns.id = PostAnesthesiaRecs.RecNurStaffId
+                  where PostAnesthesiaRecs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select dd.id,dd.description from PosAneRecSurProcSub 
+                    inner join procedures dd on dd.id = PosAneRecSurProcSub.ProcedureId
+                    where PosAneRecSurProcSub.PostAnesthesiaRecsId=".$docId;
+
+        $PosAneRecSurProcSubs = DB::select($strsql);
+
+        $strsql ="select * from PosAneMonRecSub 
+                    where PosAneMonRecSub.PostAnesthesiaRecsId=".$docId;
+
+        $PosAneMonRecSubs = DB::select($strsql);
+
+
+        $Procedures = Procedure::all();
+        $Staffs = Staff::all();
+
+        return view('posanesrecs.print',compact('docresults','patients','Procedures','PosAneRecSurProcSubs','Staffs','PosAneMonRecSubs','docId'));
     }
 
     /**
@@ -344,12 +379,12 @@ class PostAnesthesiaRecsController extends Controller
         {
             $pricelistsub = new PosAneMonRecSub;
             $pricelistsub->PostAnesthesiaRecsId = $doclab_id; 
-            $pricelistsub->MonRecSubdoctime=$MonRecSubdoctime;   
-            $pricelistsub->BP=$BP;
-            $pricelistsub->PulseRate=$Sp02;
-            $pricelistsub->Sp02=$Sp02;
-            $pricelistsub->Fi02= $Fi02;
-            $pricelistsub->PainScore=$PainScore;
+            $pricelistsub->MonRecSubdoctime=$MonRecSubdoctime[$i];   
+            $pricelistsub->BP=$BP[$i];
+            $pricelistsub->PulseRate=$PulseRate[$i];
+            $pricelistsub->Sp02=$Sp02[$i];
+            $pricelistsub->Fi02= $Fi02[$i];
+            $pricelistsub->PainScore=$PainScore[$i];
             $pricelistsub->save();
             
         }      
