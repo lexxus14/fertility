@@ -191,6 +191,37 @@ class IntraOperaAnesRecsController extends Controller
         return view('intraoperaanesrec.view',compact('docresults','patients','Medicines','MedicineUnits','IntOpeAneRecTotalDoseDrugs','Staffs','docId'));
     }
 
+    public function PrintIntraOperAnesRecs($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join IntraOperAnesRecs as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select IntraOperAnesRecs.*,p.name StaffName,s.name AsstSurgeonStaffName,s1.name AnesthetistStaffName  from IntraOperAnesRecs 
+                    left join staff as p on p.id = IntraOperAnesRecs.SurgeonStaffId
+                    left join staff as s on s.id = IntraOperAnesRecs.AsstSurgeonStaffId
+                    left join staff as s1 on s1.id = IntraOperAnesRecs.AnesthetistStaffId
+                  where IntraOperAnesRecs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select dd.description,mu.ShortSymbol,IntOpeAneRecTotalDoseDrugs.* from IntOpeAneRecTotalDoseDrugs 
+            inner join medicines dd on dd.id = IntOpeAneRecTotalDoseDrugs.MedId
+            inner join medicineunits mu on mu.id = IntOpeAneRecTotalDoseDrugs.UnitId
+            where IntOpeAneRecTotalDoseDrugs.IntraOperaAnesRecId=".$docId;
+
+        $IntOpeAneRecTotalDoseDrugs = DB::select($strsql);
+
+        $Staffs = Staff::all();
+        $Medicines = Medicine::all();
+        $MedicineUnits = MedicineUnit::all();
+
+        return view('intraoperaanesrec.print',compact('docresults','patients','Medicines','MedicineUnits','IntOpeAneRecTotalDoseDrugs','Staffs','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

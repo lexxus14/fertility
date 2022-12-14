@@ -263,6 +263,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/intraoperaanesrec/edit/{id?}','IntraOperaAnesRecsController@edit')->name('IntraOperAnesRecsEdit');
     Route::get('/intraoperaanesrec/view/{PatientID?}','IntraOperaAnesRecsController@show')->name('IntraOperAnesRecsShow');
+    Route::get('/intraoperaanesrec/print/{PatientID?}','IntraOperaAnesRecsController@PrintIntraOperAnesRecs')->name('PrintIntraOperAnesRecs');
     Route::post('/intraoperaanesrec/delete','IntraOperaAnesRecsController@destroy')->name('IntraOperAnesRecsDelete');
     Route::post('/intraoperaanesrec/update','IntraOperaAnesRecsController@update')->name('IntraOperAnesRecsUpdate');
 /*Intra Operative Anesthesia Records*/
