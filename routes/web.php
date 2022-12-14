@@ -250,6 +250,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/mockembtramea/edit/{id?}','MocEmbTraMeasController@edit')->name('MocEmbTraMeasEdit');
     Route::get('/mockembtramea/view/{PatientID?}','MocEmbTraMeasController@show')->name('MocEmbTraMeasShow');
+    Route::get('/mockembtramea/print/{PatientID?}','MocEmbTraMeasController@PrintMocEmbTraMeas')->name('MocEmbTraMeasPrint');
     Route::post('/mockembtramea/delete','MocEmbTraMeasController@destroy')->name('MocEmbTraMeasDelete');
     Route::post('/mockembtramea/update','MocEmbTraMeasController@update')->name('MocEmbTraMeasUpdate');
 /*Mock Embryo Transfer Measurements*/

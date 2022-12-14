@@ -160,7 +160,24 @@ class MocEmbTraMeasController extends Controller
                   where id =".$docId;
         $docresults = DB::select($strsql);
 
-        return view('mockembtramea.view',compact('docresults','patients'));
+        return view('mockembtramea.view',compact('docresults','patients','docId'));
+    }
+
+    public function PrintMocEmbTraMeas($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join MocEmbTraMeas as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select * from MocEmbTraMeas 
+                  where id =".$docId;
+        $docresults = DB::select($strsql);
+
+        return view('mockembtramea.print',compact('docresults','patients'));
     }
 
     /**
