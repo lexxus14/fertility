@@ -326,6 +326,15 @@ $intctrDiag++;
     $pdf->Cell(25,6,'Date & Time:',0,0);
     $pdf->Cell(30,6,$docresult->AnesthetistDate.' & '.$docresult->AnesthetistTime,0,1);
 
+    if(is_file(public_path($docresult->filelink)))                   
+      {
+        $file= asset($docresult->filelink);
+        $pdf->Cell(40,6,'',0,1);
+        $pdf->Cell(30,6,'Attached File: ',0,0);
+        $html='<a href="'.$file.'" target="_blank">Existing File</a>';
+        $pdf->WriteHTML($html);
+      }
+
   }
   $pdf->Output();
   exit;
