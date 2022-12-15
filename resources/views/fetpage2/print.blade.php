@@ -50,10 +50,12 @@
     $pdf->Cell(10,6,'Age:',0,0);
     $pdf->Cell(0,6,$diff->format('%y'),'B',1);
 
-    $pdf->Cell(35,6,'Husband Name: ',0,0);
+    $pdf->Cell(15,6,'File No: ',0,0);
+    $pdf->Cell(25,6,$patient->FileNo,'B',1);
+    $pdf->Cell(35,6,'Wife Name: ',0,0);
     $pdf->Cell(70,6,$patient->HusbandLastName.', '.$patient->HusbandName,'B',0);
     $pdf->Cell(25,6,'Date of Birth: ',0,0);
-    $pdf->Cell(25,6,$patient->HusbandBirthDate,'B',0);
+    $pdf->Cell(25,6,$patient->WifeBirthDate,'B',0);
 
     $bday = new DateTime($patient->HusbandBirthDate); // Your date of birth
     $today = new Datetime(date('m.d.y'));

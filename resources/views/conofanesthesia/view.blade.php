@@ -163,6 +163,7 @@
 
   <section class="content">
     @foreach($docresults as $docresult)
+
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
       <input type="hidden" name="docId" value="{{$docId}}">
       <div class="row">
@@ -178,7 +179,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Preoperative Checklist</h3>
+              <h3 class="card-title">Consent of Anesthesia</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -188,239 +189,40 @@
             </div>
             <div class="card-body">
               <div class="form-group row">
-                <div class="col-md-4">
+                <div class="col-md-2" >
+                    <label for="docdate" class="col-form-label">Date</label>
+                    <input type="date" name="docdate" class="form-control" id="docdate" value="{{$docresult->docdate}}">
+                </div>
+              </div>
+              <div class="form-group row">                
+                <div class="col-md-6">
+
+                    <label for="OperationName" class="col-form-label">Operation Name</label>
+                    <input type="text" class="form-control" id="OperationName" name="OperationName" value="{{$docresult->OperationName}}"/>
+                </div>
+                
+              </div>
+
+              <div class="form-group row">                
+                <div class="col-md-6">
+                  <p>I, am the patient <b>{{$strPatientName}}</b> confirm that I have been <b>fully explained</b> by the anesthetis Dr.</p>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <input type="button" value="Given by:" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-staff">
+                      <input type="button" value="Anesthetist:" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-staff">
                     </div>
                     <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="GivenByStaffid" id="GivenByStaffid" value="{{$docresult->GivenByStaffid}}">
+                    <input type="hidden" class="form-control" name="AnesthetistStaffId" id="GivenByStaffid" value="{{$docresult->AnesthetistStaffId}}">
                     <input type="text" class="form-control" id="GivenByStaffName" value="{{$docresult->StaffName}}">
                   </div>
+                  <p><b>Regarding the risk, benefit, potential and different options of Anesthesia [General Anesthesia (G.A), Sedation (MAC), Regional Anesthesia, and stand by] for the </b></p>
+                  <label for="SurgicalProcedure" class="col-form-label">Surgical Procedure</label>
+                  <input type="text" class="form-control" id="SurgicalProcedure" name="SurgicalProcedure" value="{{$docresult->SurgicalProcedure}}"/>
+                  <br>
+                  <p><b>And I agree for the:</b></p>
+                  <label for="AneOfChoice" class="col-form-label">Anesthesia of Choice</label>
+                  <input type="text" class="form-control" id="AneOfChoice" name="AneOfChoice" value="{{$docresult->AneOfChoice}}"/>
                 </div>
-              </div>
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="PreOperaDate" class="col-form-label">Date</label>
-                  <input type="date" class="form-control" id="PreOperaDate" name="PreOperaDate" value="{{$docresult->PreOperaDate}}"/>
-                </div>
-                <div class="col-md-2">
-                  <label for="PreOperaTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="PreOperaTime" name="PreOperaTime" value="{{$docresult->PreOperaTime}}"/>
-                </div>
-              </div>
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="PSurgeryDate" class="col-form-label">Surgery Date</label>
-                  <input type="date" class="form-control" id="PSurgeryDate" name="PSurgeryDate" value="{{$docresult->PSurgeryDate}}"/>
-                </div>
-                <div class="col-md-2">
-                  <label for="SurgeryTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="SurgeryTime" name="SurgeryTime" value="{{$docresult->SurgeryTime}}"/>
-                </div>
-              </div>
-
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="ArrivalTime" class="col-form-label">Time to arrive</label>
-                  <input type="time" class="form-control" id="ArrivalTime" name="ArrivalTime" value="{{$docresult->ArrivalTime}}"/>
-                </div>
-                <div class="col-md-10">
-                  <label for="NPOInstruction" class="col-form-label">NPO Instruction</label>
-                  <input type="text" class="form-control" id="NPOInstruction" name="NPOInstruction" value="{{$docresult->NPOInstruction}}"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2">
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoJewelry==1)
-                      <input type="checkbox" name="IsNoJewelry" id="IsNoJewelry" checked>
-                      @else
-                      <input type="checkbox" name="IsNoJewelry" id="IsNoJewelry">
-                      @endif
-                      <label for="IsNoJewelry">
-                        No Jewelry
-                      </label>
-                    </div>                   
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoMakeup==1)
-                      <input type="checkbox" name="IsNoMakeup" id="IsNoMakeup" checked>
-                      @else
-                      <input type="checkbox" name="IsNoMakeup" id="IsNoMakeup">
-                      @endif
-                      <label for="IsNoMakeup">
-                        No Makeup
-                      </label>
-                    </div>                   
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoNailPolish==1)
-                      <input type="checkbox" name="IsNoNailPolish" id="IsNoNailPolish" checked>
-                      @else
-                      <input type="checkbox" name="IsNoNailPolish" id="IsNoNailPolish">
-                      @endif
-                      <label for="IsNoNailPolish">
-                        No Nail Polish
-                      </label>
-                    </div>                   
-                  </div>
-                </div>
-                <div class="col-md-10">
-                  <div class="form-group">
-                    <label for="Others" class="col-form-label">Others</label>
-                    <textarea class="form-control" name="Others" id="Others">{{$docresult->Others}}</textarea>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <h3>UPON ADMISSION: NURSING ASSESSMENT</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <h3>Patient Identification:&nbsp{{$strPatientName}}</h3>
-                  </div>
-                </div>
-              </div>
-   
-              <div class="row">
-                <div class="col-12">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Vital Sign</th>
-                        <th>Result</th>
-                        <th style="width: 40px">Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody">
-                        <?php $intctrVS=1 ?>
-                        @foreach($PreOpeChkLstVitalSigns as $PreOpeChkLstVitalSign)
-                        <tr id="R{{$intctrVS}}">
-                          <td class="row-index text-center">
-                            <input type="hidden" class="medid" name="VitalSignId[]" value="{{$PreOpeChkLstVitalSign->id}}">
-                            <p>{{$intctrVS}}</p>
-                          </td>
-                          <td class="text-center">
-                            {{$PreOpeChkLstVitalSign->description}}
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="VitalSignRes[]" value="{{$PreOpeChkLstVitalSign->VitalSignRes}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                          </td>
-                        </tr> 
-                        <?php $intctrVS++; ?>
-                        @endforeach                      
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="NpoStatus" class="col-form-label">NPO Status</label>
-                    <input type="text" class="form-control" id="NpoStatus" name="NpoStatus" value="{{$docresult->NpoStatus}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="Allergy" class="col-form-label">Allergy</label>
-                    <input type="text" class="form-control" id="Allergy" name="Allergy" value="{{$docresult->Allergy}}"> 
-                  </div>                  
-                </div>              
-              </div>
-   
-              <div class="row">
-                <div class="col-12">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Procedure</th>
-                        <th style="width: 40px">Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody_pro">
-                        <?php $intctrP=1;?>
-                        @foreach($PreOpProcedures as $PreOpProcedure)
-                       <tr id="R{{$intctrP}}">
-                        <td class="row-index text-center">
-                          <input type="hidden" class="medid" name="ProcedureId[]" value="{{$PreOpProcedure->id}}">
-                          <p>{{$intctrP}}</p>
-                        </td>
-                        <td class="text-center">
-                          {{$PreOpProcedure->description}}
-                        </td>
-                        <td class="text-center">
-                          <input type="button" class="btn btn-danger btn-sm remove-procedure float-right" value="Remove">
-                          </td>
-                        </tr>
-                        <?php $intctrP++; ?>
-                        @endforeach 
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
-                </div>
-              </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="HisAndPhy" class="col-form-label">History and Physical</label>
-                    <input type="text" class="form-control" id="HisAndPhy" name="HisAndPhy" value="{{$docresult->HisAndPhy}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="InfoConforSur" class="col-form-label">Informed Consent for Surgery</label>
-                    <input type="text" class="form-control" id="InfoConforSur" name="InfoConforSur" value="{{$docresult->InfoConforSur}}"> 
-                  </div>                  
-                </div> 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="AnesCons" class="col-form-label">Anesthesia Consent</label>
-                    <input type="text" class="form-control" id="AnesCons" name="AnesCons" value="{{$docresult->AnesCons}}">
-                  </div>                  
-                </div>               
-              </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="LabReport" class="col-form-label">Lab Reports</label>
-                    <input type="text" class="form-control" id="LabReport" name="LabReport" value="{{$docresult->LabReport}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="PreOpMed" class="col-form-label">Pre-Op Medications</label>
-                    <input type="text" class="form-control" id="PreOpMed" name="PreOpMed" value="{{$docresult->PreOpMed}}"> 
-                  </div>                  
-                </div> 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="VoidedFreely" class="col-form-label">Voided Freely</label>
-                    <input type="text" class="form-control" id="VoidedFreely" name="VoidedFreely" value="{{$docresult->VoidedFreely}}"> 
-                  </div>                  
-                </div>               
-              </div>            
+              </div>          
 
               <div class="row">
                 <div class="col-sm-4">
@@ -430,20 +232,20 @@
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>                      
+                      </div>
+                      
                     </div>
-                    <br/>
-                      @if(is_file(public_path($docresult->filelink)))
-                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File..</a>
-                      @endif
                   </div>
-
+                  @if(is_file(public_path($docresult->filelink)))
+                  <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
+                  @endif
                 </div>
               </div>
               
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('PreOperaCheckList')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('ConOfAnesthesia')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintConOfAnesthesia')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->
@@ -451,12 +253,14 @@
           <!-- /.card -->
         </div>
       </div>
+      
+
+
     @endforeach
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -530,6 +334,25 @@
 $(function () {
   bsCustomFileInput.init();
 });
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    // body...
+    $('.add-staff').click(function(){
+
+      var med_id = $(this).val();
+      url = '{{route('GetStaffInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);
+        $('#GivenByStaffName').val(data.name); 
+        $('#GivenByStaffid').val(data.id); 
+      });
+
+      $('#open-modal-staff').modal('toggle'); 
+
+    });
+  });
 </script>
 
 @endsection

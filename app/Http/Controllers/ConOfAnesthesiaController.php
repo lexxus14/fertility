@@ -117,9 +117,44 @@ class ConOfAnesthesiaController extends Controller
      * @param  \App\ConOfAnesthesia  $conOfAnesthesia
      * @return \Illuminate\Http\Response
      */
-    public function show(ConOfAnesthesia $conOfAnesthesia)
+    public function show($docId)
     {
-        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join ConOfAnesthesia as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select ConOfAnesthesia.*,p.name StaffName from ConOfAnesthesia 
+                    left join staff as p on p.id = ConOfAnesthesia.AnesthetistStaffId
+                  where ConOfAnesthesia.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('conofanesthesia.view',compact('docresults','patients','Staffs','docId'));
+    }
+
+    public function PrintConOfAnesthesia($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join ConOfAnesthesia as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select ConOfAnesthesia.*,p.name StaffName from ConOfAnesthesia 
+                    left join staff as p on p.id = ConOfAnesthesia.AnesthetistStaffId
+                  where ConOfAnesthesia.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('conofanesthesia.print',compact('docresults','patients','Staffs','docId'));
     }
 
     /**
@@ -139,7 +174,7 @@ class ConOfAnesthesiaController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select ConOfAnesthesia.*,p.name StaffName from ConOfAnesthesia 
-                    inner join staff as p on p.id = ConOfAnesthesia.AnesthetistStaffId
+                    left join staff as p on p.id = ConOfAnesthesia.AnesthetistStaffId
                   where ConOfAnesthesia.id =".$docId;
         $docresults = DB::select($strsql);
 

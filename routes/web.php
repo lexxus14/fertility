@@ -423,6 +423,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/conofanesthesia/edit/{id?}','ConOfAnesthesiaController@edit')->name('ConOfAnesthesiaEdit');
     Route::get('/conofanesthesia/view/{PatientID?}','ConOfAnesthesiaController@show')->name('ConOfAnesthesiaShow');
+    Route::get('/conofanesthesia/print/{PatientID?}','ConOfAnesthesiaController@PrintConOfAnesthesia')->name('PrintConOfAnesthesia');
     Route::post('/conofanesthesia/delete','ConOfAnesthesiaController@destroy')->name('ConOfAnesthesiaDelete');
     Route::post('/conofanesthesia/update','ConOfAnesthesiaController@update')->name('ConOfAnesthesiaUpdate');
 /*Consent of Anesthesia*/
