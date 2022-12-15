@@ -159,9 +159,9 @@ class IVFEmbryoTransDataSheetController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IVFEmbryoTransDataSheet.*,p.name NurseName,p1.name EmbryologistName,p2.name MDName from IVFEmbryoTransDataSheet 
-                    inner join staff as p on p.id = IVFEmbryoTransDataSheet.NurseStaffId
-                    inner join staff as p1 on p1.id = IVFEmbryoTransDataSheet.EmbryologistStaffId
-                    inner join staff as p2 on p2.id = IVFEmbryoTransDataSheet.MDStaffId
+                    left join staff as p on p.id = IVFEmbryoTransDataSheet.NurseStaffId
+                    left join staff as p1 on p1.id = IVFEmbryoTransDataSheet.EmbryologistStaffId
+                    left join staff as p2 on p2.id = IVFEmbryoTransDataSheet.MDStaffId
                   where IVFEmbryoTransDataSheet.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -169,6 +169,29 @@ class IVFEmbryoTransDataSheetController extends Controller
         $Staffs = Staff::all();
 
         return view('ivfembratransdatasheet.view',compact('docresults','patients','Staffs','docId'));
+    }
+
+    public function PrintIVFEmbryoTransDataSheet($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join IVFEmbryoTransDataSheet as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select IVFEmbryoTransDataSheet.*,p.name NurseName,p1.name EmbryologistName,p2.name MDName from IVFEmbryoTransDataSheet 
+                    left join staff as p on p.id = IVFEmbryoTransDataSheet.NurseStaffId
+                    left join staff as p1 on p1.id = IVFEmbryoTransDataSheet.EmbryologistStaffId
+                    left join staff as p2 on p2.id = IVFEmbryoTransDataSheet.MDStaffId
+                  where IVFEmbryoTransDataSheet.id =".$docId;
+        $docresults = DB::select($strsql);
+
+
+        $Staffs = Staff::all();
+
+        return view('ivfembratransdatasheet.print',compact('docresults','patients','Staffs','docId'));
     }
 
     /**
@@ -188,9 +211,9 @@ class IVFEmbryoTransDataSheetController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IVFEmbryoTransDataSheet.*,p.name NurseName,p1.name EmbryologistName,p2.name MDName from IVFEmbryoTransDataSheet 
-                    inner join staff as p on p.id = IVFEmbryoTransDataSheet.NurseStaffId
-                    inner join staff as p1 on p1.id = IVFEmbryoTransDataSheet.EmbryologistStaffId
-                    inner join staff as p2 on p2.id = IVFEmbryoTransDataSheet.MDStaffId
+                    left join staff as p on p.id = IVFEmbryoTransDataSheet.NurseStaffId
+                    left join staff as p1 on p1.id = IVFEmbryoTransDataSheet.EmbryologistStaffId
+                    left join staff as p2 on p2.id = IVFEmbryoTransDataSheet.MDStaffId
                   where IVFEmbryoTransDataSheet.id =".$docId;
         $docresults = DB::select($strsql);
 

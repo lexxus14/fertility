@@ -276,6 +276,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/ivfembratransdatasheet/edit/{id?}','IVFEmbryoTransDataSheetController@edit')->name('IVFEmbryoTransDataSheetEdit');
     Route::get('/ivfembratransdatasheet/view/{PatientID?}','IVFEmbryoTransDataSheetController@show')->name('IVFEmbryoTransDataSheetShow');
+    Route::get('/ivfembratransdatasheet/print/{PatientID?}','IVFEmbryoTransDataSheetController@PrintIVFEmbryoTransDataSheet')->name('PrintIVFEmbryoTransDataSheet');
     Route::post('/ivfembratransdatasheet/delete','IVFEmbryoTransDataSheetController@destroy')->name('IVFEmbryoTransDataSheetDelete');
     Route::post('/ivfembratransdatasheet/update','IVFEmbryoTransDataSheetController@update')->name('IVFEmbryoTransDataSheetUpdate');
 /*IVF Embryo Transfer Data Sheet*/
