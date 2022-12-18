@@ -43,7 +43,7 @@ class SpermFreezingController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select SpermFreezings.*,p.name StaffName from SpermFreezings 
-                    inner join staff as p on p.id = SpermFreezings.CompByStaffId
+                    left join staff as p on p.id = SpermFreezings.CompByStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 
@@ -163,7 +163,7 @@ class SpermFreezingController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select SpermFreezings.*,p.name StaffName from SpermFreezings 
-                    inner join staff as p on p.id = SpermFreezings.CompByStaffId
+                    left join staff as p on p.id = SpermFreezings.CompByStaffId
                   where SpermFreezings.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -171,6 +171,28 @@ class SpermFreezingController extends Controller
         $Staffs = Staff::all();
 
         return view('spermfreezing.view',compact('docresults','patients','Staffs','docId'));
+    }
+
+    public function PrintSpermFreezing($docId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join SpermFreezings as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select SpermFreezings.*,p.name StaffName from SpermFreezings 
+                    left join staff as p on p.id = SpermFreezings.CompByStaffId
+                  where SpermFreezings.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        
+        $Staffs = Staff::all();
+
+        return view('spermfreezing.print',compact('docresults','patients','Staffs','docId'));
     }
 
     /**
@@ -190,7 +212,7 @@ class SpermFreezingController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select SpermFreezings.*,p.name StaffName from SpermFreezings 
-                    inner join staff as p on p.id = SpermFreezings.CompByStaffId
+                    left join staff as p on p.id = SpermFreezings.CompByStaffId
                   where SpermFreezings.id =".$docId;
         $docresults = DB::select($strsql);
 

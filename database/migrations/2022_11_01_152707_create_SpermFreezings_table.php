@@ -38,7 +38,7 @@ class CreateSpermFreezingsTable extends Migration
             $table->double('Volume')->nullable();
             $table->string('Liquefaction')->nullable();
             $table->string('Color')->nullable();
-            $table->double('Viscosity')->nullable();
+            $table->string('Viscosity')->nullable();
             $table->double('pH')->nullable();
             $table->integer('OfVialsNo')->nullable();
             $table->string('Tank')->nullable();

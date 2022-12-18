@@ -223,7 +223,7 @@
                   Complete of Ejaculation
                   <div class="row">
                     <div class="icheck-success d-inline">
-                      @if($docresult->DaysOfAbstinence)
+                      @if($docresult->IsEjaculateComplete)
                       <input type="checkbox" name="IsEjaculateComplete" checked id="IsEjaculateComplete">
                       @else
                       <input type="checkbox" name="IsEjaculateComplete" id="IsEjaculateComplete">
@@ -516,6 +516,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('SpermFreezing')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintSpermFreezing')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

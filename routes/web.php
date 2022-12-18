@@ -289,6 +289,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/spermfreezing/edit/{id?}','SpermFreezingController@edit')->name('SpermFreezingEdit');
     Route::get('/spermfreezing/view/{PatientID?}','SpermFreezingController@show')->name('SpermFreezingShow');
+    Route::get('/spermfreezing/print/{PatientID?}','SpermFreezingController@PrintSpermFreezing')->name('PrintSpermFreezing');
     Route::post('/spermfreezing/delete','SpermFreezingController@destroy')->name('SpermFreezingDelete');
     Route::post('/spermfreezing/update','SpermFreezingController@update')->name('SpermFreezingUpdate');
 /*Sperm Freezing*/
