@@ -137,7 +137,7 @@ class PDF extends Fpdf
                 $x=$this->GetX();
                 $y=$this->GetY();
                 $this->Rect($x,$y,$w[$i],$h);
-                $this->MultiCell($w[$i],5,trim($row[$i]),0,'C');
+                $this->MultiCell($w[$i],5,trim($row[$i]),0,'C');                
                 //Put the position to the right of the cell
                 $this->SetXY($x+$w[$i],$y);                 
             }
@@ -320,6 +320,18 @@ class PDF extends Fpdf
         {
             $this->WriteHTML2($html);
         }
+    }
+
+    function checkbox($checked = TRUE, $checkbox_size = 5 , $ori_font_family = 'Arial', $ori_font_size = '10', $ori_font_style = '' )
+    {
+        if($checked == TRUE)
+        $check = "4";
+        else
+        $check = "";
+
+        // $this->SetFont('ZapfDingbats','B', $ori_font_size);
+        // $this->Cell($checkbox_size, $checkbox_size, $check, 1, 0);
+        // $this->SetFont( $ori_font_family, $ori_font_style, $ori_font_size);
     }
 
 }

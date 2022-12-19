@@ -178,7 +178,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Preoperative Checklist</h3>
+              <h3 class="card-title">Sperm Thawing</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -187,111 +187,16 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="form-group row">
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Given by:" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-staff">
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="GivenByStaffid" id="GivenByStaffid" value="{{$docresult->GivenByStaffid}}">
-                    <input type="text" class="form-control" id="GivenByStaffName" value="{{$docresult->StaffName}}">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="PreOperaDate" class="col-form-label">Date</label>
-                  <input type="date" class="form-control" id="PreOperaDate" name="PreOperaDate" value="{{$docresult->PreOperaDate}}"/>
-                </div>
-                <div class="col-md-2">
-                  <label for="PreOperaTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="PreOperaTime" name="PreOperaTime" value="{{$docresult->PreOperaTime}}"/>
-                </div>
-              </div>
-              <div class="form-group row">                
-                <div class="col-md-2">
-                  <label for="PSurgeryDate" class="col-form-label">Surgery Date</label>
-                  <input type="date" class="form-control" id="PSurgeryDate" name="PSurgeryDate" value="{{$docresult->PSurgeryDate}}"/>
-                </div>
-                <div class="col-md-2">
-                  <label for="SurgeryTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="SurgeryTime" name="SurgeryTime" value="{{$docresult->SurgeryTime}}"/>
-                </div>
-              </div>
 
               <div class="form-group row">                
                 <div class="col-md-2">
-                  <label for="ArrivalTime" class="col-form-label">Time to arrive</label>
-                  <input type="time" class="form-control" id="ArrivalTime" name="ArrivalTime" value="{{$docresult->ArrivalTime}}"/>
+                  <label for="docdate" class="col-form-label">Date</label>
+                  <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}" />
                 </div>
-                <div class="col-md-10">
-                  <label for="NPOInstruction" class="col-form-label">NPO Instruction</label>
-                  <input type="text" class="form-control" id="NPOInstruction" name="NPOInstruction" value="{{$docresult->NPOInstruction}}"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2">
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoJewelry==1)
-                      <input type="checkbox" name="IsNoJewelry" id="IsNoJewelry" checked>
-                      @else
-                      <input type="checkbox" name="IsNoJewelry" id="IsNoJewelry">
-                      @endif
-                      <label for="IsNoJewelry">
-                        No Jewelry
-                      </label>
-                    </div>                   
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoMakeup==1)
-                      <input type="checkbox" name="IsNoMakeup" id="IsNoMakeup" checked>
-                      @else
-                      <input type="checkbox" name="IsNoMakeup" id="IsNoMakeup">
-                      @endif
-                      <label for="IsNoMakeup">
-                        No Makeup
-                      </label>
-                    </div>                   
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsNoNailPolish==1)
-                      <input type="checkbox" name="IsNoNailPolish" id="IsNoNailPolish" checked>
-                      @else
-                      <input type="checkbox" name="IsNoNailPolish" id="IsNoNailPolish">
-                      @endif
-                      <label for="IsNoNailPolish">
-                        No Nail Polish
-                      </label>
-                    </div>                   
-                  </div>
-                </div>
-                <div class="col-md-10">
-                  <div class="form-group">
-                    <label for="Others" class="col-form-label">Others</label>
-                    <textarea class="form-control" name="Others" id="Others">{{$docresult->Others}}</textarea>
-                  </div>
-                </div>
-              </div>
 
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <h3>UPON ADMISSION: NURSING ASSESSMENT</h3>
-                  </div>
-                </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <h3>Patient Identification:&nbsp{{$strPatientName}}</h3>
-                  </div>
-                </div>
-              </div>
-   
+              <b>PRC Processed Sperm</b>
+ 
               <div class="row">
                 <div class="col-12">
                 <!-- /.card-header -->
@@ -299,129 +204,99 @@
                     <table  class="table table-bordered table-striped">
                       <thead>                  
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Vital Sign</th>
-                        <th>Result</th>
+                        <th style="width: 100px"># Of Vials</th>
+                        <th>Date Recovered</th>
+                        <th>Office</th>
+                        <th>Specimen Type</th>
                         <th style="width: 40px">Action</th>
                       </tr>                  
                       </thead>
                       <tbody id="tbody">
-                        <?php $intctrVS=1 ?>
-                        @foreach($PreOpeChkLstVitalSigns as $PreOpeChkLstVitalSign)
-                        <tr id="R{{$intctrVS}}">
-                          <td class="row-index text-center">
-                            <input type="hidden" class="medid" name="VitalSignId[]" value="{{$PreOpeChkLstVitalSign->id}}">
-                            <p>{{$intctrVS}}</p>
+                        <?php $intctr=1; ?>
+                        @foreach($SpermThawingProcSubs as $SpermThawingProcSub)
+                        <tr id="R${++rowIdx}">
+                          <td class="row-index text-center">                
+                            <input type="text" class="form-control" name="NoOfVials[]" value="{{$SpermThawingProcSub->NoOfVials}}">
                           </td>
                           <td class="text-center">
-                            {{$PreOpeChkLstVitalSign->description}}
+                            <input type="date" class="form-control" name="DateRecovered[]" value="{{$SpermThawingProcSub->DateRecovered}}">
                           </td>
                           <td class="text-center">
-                            <input type="text" class="form-control" name="VitalSignRes[]" value="{{$PreOpeChkLstVitalSign->VitalSignRes}}">
+                            <input type="text" class="form-control" name="Office[]" value="{{$SpermThawingProcSub->Office}}">
+                          </td>
+                          <td class="text-left">
+                              <div class="form-group">
+                              <input type="hidden" value="{{$SpermThawingProcSub->IsFresh}}" name="IsFresh[]"  id="IsFreshVal{{$intctr}}">
+                                <div class="icheck-success d-inline">
+                                  @if($SpermThawingProcSub->IsFresh)                  
+                                  <input type="checkbox" id="F{{$intctr}}" checked class="IsFresh">
+                                  @else
+                                  <input type="checkbox" id="F{{$intctr}}" class="IsFresh">
+                                  @endif
+                                  <label for="F{{$intctr}}">
+                                    Fresh
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                              <input type="hidden" value="{{$SpermThawingProcSub->IsTESEPESAMESA}}" name="IsTESEPESAMESA[]"  id="IsTESEPESAMESAVal{{$intctr}}">
+                                <div class="icheck-success d-inline">
+                                  @if($SpermThawingProcSub->IsTESEPESAMESA)
+                                  <input type="checkbox"  id="T{{$intctr}}" checked class="IsTESEPESAMESA">
+                                  @else
+                                  <input type="checkbox"  id="T{{$intctr}}" class="IsTESEPESAMESA">
+                                  @endif
+                                  <label for="T{{$intctr}}">
+                                    TESA PESA MESA
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                              <input type="hidden" value="{{$SpermThawingProcSub->IsPrevFroz}}" name="IsPrevFroz[]"  id="IsPrevFrozVal{{$intctr}}">
+                                <div class="icheck-success d-inline">
+                                  @if($SpermThawingProcSub->IsPrevFroz)
+                                  <input type="checkbox"  id="P{{$intctr}}" checked class="IsPrevFroz">
+                                  @else
+                                  <input type="checkbox"  id="P{{$intctr}}" class="IsPrevFroz">
+                                  @endif
+                                  <label for="P{{$intctr}}">
+                                    Previously Frozen
+                                  </label>
+                                </div>
+                              </div>
                           </td>
                           <td class="text-center">
                             <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
                           </td>
-                        </tr> 
-                        <?php $intctrVS++; ?>
-                        @endforeach                      
+                          </tr> 
+                          <?php $intctr++; ?>
+                        @endforeach                    
                       </tbody>                  
                     </table>
                 <!-- /.card-body -->
                   
                 </div>
-              </div>
-              <div class="row">                
+              </div>      
+              <div class="form-group row">
                 <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="NpoStatus" class="col-form-label">NPO Status</label>
-                    <input type="text" class="form-control" id="NpoStatus" name="NpoStatus" value="{{$docresult->NpoStatus}}">  
-                  </div>                  
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <input type="button" value="Completed by:" class="btn btn-success float-right">
+                    </div>
+                    <!-- /btn-group -->
+                    <input type="hidden" class="form-control" name="CompByStaffId" id="CompByStaffId" value="{{$docresult->CompByStaffId}}">
+                    <input type="text" class="form-control" id="CompByStaffName" value="{{$docresult->StaffName}}">
+                  </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="Allergy" class="col-form-label">Allergy</label>
-                    <input type="text" class="form-control" id="Allergy" name="Allergy" value="{{$docresult->Allergy}}"> 
-                  </div>                  
-                </div>              
               </div>
-   
               <div class="row">
-                <div class="col-12">
-                <!-- /.card-header -->
-                    <!-- <table id="example1" class="table table-bordered table-striped"> -->
-                    <table  class="table table-bordered table-striped">
-                      <thead>                  
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Procedure</th>
-                        <th style="width: 40px">Action</th>
-                      </tr>                  
-                      </thead>
-                      <tbody id="tbody_pro">
-                        <?php $intctrP=1;?>
-                        @foreach($PreOpProcedures as $PreOpProcedure)
-                       <tr id="R{{$intctrP}}">
-                        <td class="row-index text-center">
-                          <input type="hidden" class="medid" name="ProcedureId[]" value="{{$PreOpProcedure->id}}">
-                          <p>{{$intctrP}}</p>
-                        </td>
-                        <td class="text-center">
-                          {{$PreOpProcedure->description}}
-                        </td>
-                        <td class="text-center">
-                          <input type="button" class="btn btn-danger btn-sm remove-procedure float-right" value="Remove">
-                          </td>
-                        </tr>
-                        <?php $intctrP++; ?>
-                        @endforeach 
-                      </tbody>                  
-                    </table>
-                <!-- /.card-body -->
-                  
+                <div class="col-md-12">
+                  <label for="Notes">
+                    Notes
+                  </label>
+                  <textarea class="form-control" name="Notes" rows="4">{{$docresult->Notes}}</textarea>
                 </div>
               </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="HisAndPhy" class="col-form-label">History and Physical</label>
-                    <input type="text" class="form-control" id="HisAndPhy" name="HisAndPhy" value="{{$docresult->HisAndPhy}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="InfoConforSur" class="col-form-label">Informed Consent for Surgery</label>
-                    <input type="text" class="form-control" id="InfoConforSur" name="InfoConforSur" value="{{$docresult->InfoConforSur}}"> 
-                  </div>                  
-                </div> 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="AnesCons" class="col-form-label">Anesthesia Consent</label>
-                    <input type="text" class="form-control" id="AnesCons" name="AnesCons" value="{{$docresult->AnesCons}}">
-                  </div>                  
-                </div>               
-              </div>
-              <div class="row">                
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="LabReport" class="col-form-label">Lab Reports</label>
-                    <input type="text" class="form-control" id="LabReport" name="LabReport" value="{{$docresult->LabReport}}">  
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="PreOpMed" class="col-form-label">Pre-Op Medications</label>
-                    <input type="text" class="form-control" id="PreOpMed" name="PreOpMed" value="{{$docresult->PreOpMed}}"> 
-                  </div>                  
-                </div> 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="VoidedFreely" class="col-form-label">Voided Freely</label>
-                    <input type="text" class="form-control" id="VoidedFreely" name="VoidedFreely" value="{{$docresult->VoidedFreely}}"> 
-                  </div>                  
-                </div>               
-              </div>            
-
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
@@ -430,20 +305,20 @@
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>                      
+                      </div>
+                      
                     </div>
-                    <br/>
-                      @if(is_file(public_path($docresult->filelink)))
-                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File..</a>
-                      @endif
+                    @if(is_file(public_path($docresult->filelink)))
+                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
+                    @endif
                   </div>
-
                 </div>
               </div>
               
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('PreOperaCheckList')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('SpermThawing')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintSpermThawing')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->
@@ -456,7 +331,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -472,26 +346,6 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
-
- <script type="text/javascript">
-    $(function () { 
-       //Date picker
-    $('#lead-date').datetimepicker({
-        format: 'L'
-    });
-
-    $('#lead-date-update').datetimepicker({
-        format: 'L'
-    });
-    $('#marrieddate').datetimepicker({
-        format: 'L'
-    });    
-    $('#husbandbirthdate').datetimepicker({
-        format: 'L'
-    });
-
-  })
- </script> 
 
 <script>
   $(function () {
@@ -532,4 +386,170 @@ $(function () {
 });
 </script>
 
+<script >
+    $(document).ready(function(){
+
+    
+    var rowIdx = {{$intctr}};                 
+    
+    /* Price List */
+
+    $('#AddProcessedSperm').click(function(){
+
+            $('#tbody').append(`<tr id="R${++rowIdx}">
+              <td class="row-index text-center">                
+                <input type="text" class="form-control" name="NoOfVials[]" value="1">
+              </td>
+              <td class="text-center">
+                <input type="date" class="form-control" name="DateRecovered[]" >
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" name="Office[]" value="DHCC">
+              </td>
+              <td class="text-left">
+                  <div class="form-group">
+                  <input type="hidden" value="0" name="IsFresh[]"  id="IsFreshVal${rowIdx}">
+                    <div class="icheck-success d-inline">                  
+                      <input type="checkbox" id="F${rowIdx}" class="IsFresh">
+                      <label for="F${rowIdx}">
+                        Fresh
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                  <input type="hidden" value="0" name="IsTESEPESAMESA[]"  id="IsTESEPESAMESAVal${rowIdx}">
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox"  id="T${rowIdx}" class="IsTESEPESAMESA">
+                      <label for="T${rowIdx}">
+                        TESA PESA MESA
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                  <input type="hidden" value="0" name="IsPrevFroz[]"  id="IsPrevFrozVal${rowIdx}">
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox"  id="P${rowIdx}" class="IsPrevFroz">
+                      <label for="P${rowIdx}">
+                        Previously Frozen
+                      </label>
+                    </div>
+                  </div>
+              </td>
+              <td class="text-center">
+                <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
+
+                </td>
+              </tr>`);
+
+
+    });
+
+
+    $('.add-staff').click(function(){
+
+      var med_id = $(this).val();
+      url = '{{route('GetStaffInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);
+        $('#CompByStaffName').val(data.name); 
+        $('#CompByStaffId').val(data.id); 
+      });
+
+      $('#open-modal-staff').modal('toggle'); 
+
+    });
+
+    // jQuery button click event to remove a row.
+    $('#tbody').on('click', '.IsFresh', function () {
+
+      var id = $(this).attr('id');
+      var dig = parseInt(id.substring(1));
+
+      var curval = $('#IsFreshVal'+dig).val();
+      if(curval==0)
+      {
+        $('#IsFreshVal'+dig).val(1);
+      }
+      else
+      {
+         $('#IsFreshVal'+dig).val(0);
+      }
+
+    });
+
+    $('#tbody').on('click', '.IsTESEPESAMESA', function () {
+
+      var id = $(this).attr('id');
+      var dig = parseInt(id.substring(1));
+
+      var curval = $('#IsTESEPESAMESAVal'+dig).val();
+      if(curval==0)
+      {
+        $('#IsTESEPESAMESAVal'+dig).val(1);
+      }
+      else
+      {
+         $('#IsTESEPESAMESAVal'+dig).val(0);
+      }
+
+    });
+
+    $('#tbody').on('click', '.IsPrevFroz', function () {
+
+      var id = $(this).attr('id');
+      var dig = parseInt(id.substring(1));
+
+      var curval = $('#IsPrevFrozVal'+dig).val();
+      if(curval==0)
+      {
+        $('#IsPrevFrozVal'+dig).val(1);
+      }
+      else
+      {
+         $('#IsPrevFrozVal'+dig).val(0);
+      }
+
+    });
+
+    $('#tbody').on('click', '.remove-medicine-treatment', function () {
+
+
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // // Iterating across all the rows
+      // // obtained to change the index
+      // child.each(function () {
+
+      //             // Getting <tr> id.
+      //             var id = $(this).attr('id');
+
+      //             // Getting the <p> inside the .row-index class.
+      //             var idx = $(this).children('.row-index').children('p');
+
+      //             // Gets the row number from <tr> id.
+      //             var dig = parseInt(id.substring(1));
+
+      //             // Modifying row index.
+      //             idx.html(`${dig - 1}`);
+
+      //             // Modifying row id.
+      //             $(this).attr('id', `R${dig - 1}`);
+      // });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      // rowIdx--;
+    });
+
+    });
+
+/* Lead Assessement */
+
+
+  </script>
 @endsection

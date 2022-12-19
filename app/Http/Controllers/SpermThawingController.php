@@ -150,9 +150,55 @@ class SpermThawingController extends Controller
      * @param  \App\SpermThawing  $spermThawing
      * @return \Illuminate\Http\Response
      */
-    public function show(SpermThawing $spermThawing)
+    public function show($docId)
     {
-        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join SpermThawings as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select SpermThawings.*,p.name StaffName from SpermThawings 
+                    inner join staff as p on p.id = SpermThawings.CompByStaffId
+                  where SpermThawings.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select SpermThawingProcSubs.* from SpermThawingProcSubs 
+            inner join SpermThawings dd on dd.id = SpermThawingProcSubs.SpermThawingsId
+            where dd.id=".$docId;
+
+        $SpermThawingProcSubs = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('spermthawing.view',compact('docresults','patients','SpermThawingProcSubs','Staffs','docId'));
+    }
+    public function PrintSpermThawing($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join SpermThawings as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select SpermThawings.*,p.name StaffName from SpermThawings 
+                    inner join staff as p on p.id = SpermThawings.CompByStaffId
+                  where SpermThawings.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select SpermThawingProcSubs.* from SpermThawingProcSubs 
+            inner join SpermThawings dd on dd.id = SpermThawingProcSubs.SpermThawingsId
+            where dd.id=".$docId;
+
+        $SpermThawingProcSubs = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('spermthawing.print',compact('docresults','patients','SpermThawingProcSubs','Staffs','docId'));
     }
 
     /**

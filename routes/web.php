@@ -302,6 +302,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/spermthawing/edit/{id?}','SpermThawingController@edit')->name('SpermThawingEdit');
     Route::get('/spermthawing/view/{PatientID?}','SpermThawingController@show')->name('SpermThawingShow');
+    Route::get('/spermthawing/print/{PatientID?}','SpermThawingController@PrintSpermThawing')->name('PrintSpermThawing');
     Route::post('/spermthawing/delete','SpermThawingController@destroy')->name('SpermThawingDelete');
     Route::post('/spermthawing/update','SpermThawingController@update')->name('SpermThawingUpdate');
 /*Sperm Thawing*/
