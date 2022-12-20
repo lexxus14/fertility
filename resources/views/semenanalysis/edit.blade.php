@@ -163,7 +163,7 @@
 
   <section class="content">
   @foreach($docresults as $docresult)
-   <form action="{{route('SemenAnalysisStore')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" id="quickForm" novalidate="">
+   <form action="{{route('SemenAnalysisUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" id="quickForm" novalidate="">
         {{ csrf_field() }}
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
       <input type="hidden" name="docId" value="{{$docId}}">
@@ -189,7 +189,11 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="form-group row">     
+              <div class="form-group row">   
+                <div class="col-md-3">
+                  <label for="AccessionNo" class="col-form-label">Accession #</label>
+                  <input type="text" class="form-control" id="AccessionNo" name="AccessionNo" value="{{$docresult->AccessionNo}}"/>
+                </div>  
                 <div class="col-md-3">
                   <label for="docdate" class="col-form-label">Date</label>
                   <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}" />
@@ -323,7 +327,7 @@
                           </tr>
                           <tr>
                             <td>Viscosity</td>
-                            <td><input type="number" class="form-control" name="Viscosity" value="{{$docresult->Viscosity}}"> </td>
+                            <td><input type="text" class="form-control" name="Viscosity" value="{{$docresult->Viscosity}}"> </td>
                             <td>[None to sligth]</td>
                           </tr>
                           <tr>
@@ -429,7 +433,7 @@
                             <td></td>
                           </tr>
                           <tr>
-                            <td>d. Non Motile</td>
+                            <td>Non-sperm cells</td>
                             <td><input type="number" class="form-control" name="NonSpermCells" value="{{$docresult->NonSpermCells}}"> </td>
                             <td>< 1 Million /ml</td>
                           </tr>

@@ -99,6 +99,7 @@ class SemenAnalysisController extends Controller
         $docfiles->docdate= $date->format('Y-m-d');
 
         $docfiles->CollectionTime=$request->CollectionTime;
+        $docfiles->AccessionNo=$request->AccessionNo;
         $docfiles->DeliveryTime=$request->DeliveryTime;
         $docfiles->DaysOfAbstinence=$request->DaysOfAbstinence;
         $docfiles->PhysicianStaffID=$request->PhysicianStaffID;
@@ -152,19 +153,43 @@ class SemenAnalysisController extends Controller
                     INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
                     INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
                     inner join nationalities as hn on hn.id = p.HusbandNationalityId
-                    inner join SpermFreezings as li on li.patientid = p.id
+                    inner join SemenAnalysis as li on li.patientid = p.id
                     WHERE li.id =".$docId;
         $patients = DB::select($strsql);
 
-        $strsql ="select SpermFreezings.*,p.name StaffName from SpermFreezings 
-                    inner join staff as p on p.id = SpermFreezings.CompByStaffId
-                  where SpermFreezings.id =".$docId;
+        $strsql ="select SemenAnalysis.*,p.name PhysicianStaffName,p1.name EmbryologistStaffName from SemenAnalysis 
+                    left join staff as p on p.id = SemenAnalysis.PhysicianStaffID
+                    left join staff as p1 on p1.id = SemenAnalysis.EmbryologistStaffId
+                  where SemenAnalysis.id =".$docId;
         $docresults = DB::select($strsql);
 
         
         $Staffs = Staff::all();
 
-        return view('spermfreezing.view',compact('docresults','patients','Staffs','docId'));
+        return view('semenanalysis.view',compact('docresults','patients','Staffs','docId'));
+    }
+
+    public function PrintSemenAnalysis($docId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join SemenAnalysis as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select SemenAnalysis.*,p.name PhysicianStaffName,p1.name EmbryologistStaffName from SemenAnalysis 
+                    left join staff as p on p.id = SemenAnalysis.PhysicianStaffID
+                    left join staff as p1 on p1.id = SemenAnalysis.EmbryologistStaffId
+                  where SemenAnalysis.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        
+        $Staffs = Staff::all();
+
+        return view('semenanalysis.print',compact('docresults','patients','Staffs','docId'));
     }
 
     /**
@@ -241,6 +266,7 @@ class SemenAnalysisController extends Controller
         $docfiles->docdate= $date->format('Y-m-d');
 
         $docfiles->CollectionTime=$request->CollectionTime;
+        $docfiles->AccessionNo=$request->AccessionNo;
         $docfiles->DeliveryTime=$request->DeliveryTime;
         $docfiles->DaysOfAbstinence=$request->DaysOfAbstinence;
         $docfiles->PhysicianStaffID=$request->PhysicianStaffID;

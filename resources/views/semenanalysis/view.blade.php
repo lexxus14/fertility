@@ -162,7 +162,7 @@
     <!-- /.content -->
 
   <section class="content">
-    @foreach($docresults as $docresult)
+  @foreach($docresults as $docresult)
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
       <input type="hidden" name="docId" value="{{$docId}}">
       <div class="row">
@@ -178,7 +178,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Sperm Freezing</h3>
+              <h3 class="card-title">Semen Analysis</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -187,146 +187,90 @@
               </div>
             </div>
             <div class="card-body">
-
-              <div class="form-group row">                
-                <div class="col-md-2">
+              <div class="form-group row"> 
+                <div class="col-md-3">
+                  <label for="AccessionNo" class="col-form-label">Accession #</label>
+                  <input type="text" class="form-control" id="AccessionNo" name="AccessionNo" value="{{$docresult->AccessionNo}}"/>
+                </div>    
+                <div class="col-md-3">
                   <label for="docdate" class="col-form-label">Date</label>
                   <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}" />
-                </div>
+                </div>           
                 <div class="col-md-3">
-                  <label for="FileNo" class="col-form-label">File NO</label>
-                  <input type="text" class="form-control" id="FileNo" name="FileNo" value="{{$docresult->FileNo}}"/>
-                </div>
-                <div class="col-md-3">
-                  <label for="FreezingNo" class="col-form-label">Freezing No</label>
-                  <input type="text" class="form-control" id="FreezingNo" name="FreezingNo" value="{{$docresult->FreezingNo}}"/>
-                </div>
-                <div class="col-md-3">
-                  <label for="AccnNo" class="col-form-label">Accn NO</label>
-                  <input type="text" class="form-control" id="AccnNo" name="AccnNo" value="{{$docresult->AccnNo}}"/>
-                </div>
-              </div>
-
-              <div class="form-group row">                
-                <div class="col-md-2">
                   <label for="CollectionTime" class="col-form-label">Collection Time</label>
                   <input type="time" class="form-control" id="CollectionTime" name="CollectionTime" value="{{$docresult->CollectionTime}}"/>
                 </div>
-                <div class="col-md-2">
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-3">
+                  <label for="DeliveryTime" class="col-form-label">Delivery Time</label>
+                  <input type="time" class="form-control" id="DeliveryTime" name="DeliveryTime" value="{{$docresult->DeliveryTime}}"/>
+                </div>
+                <div class="col-md-3">
                   <label for="DaysOfAbstinence" class="col-form-label">Days of Abtinence</label>
                   <input type="text" class="form-control" id="DaysOfAbstinence" name="DaysOfAbstinence" value="{{$docresult->DaysOfAbstinence}}"/>
+                </div>
+                <div class="col-md-3">
+                  <label for="CompByName">Physician</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <input type="button" value="MD:" class="btn btn-success float-right" id="CompByName">
+                    </div>
+                    <!-- /btn-group -->
+                    <input type="hidden" class="form-control" name="PhysicianStaffID" id="CompByStaffId" value="{{$docresult->PhysicianStaffID}}">
+                    <input type="text" class="form-control" id="CompByStaffName" value="{{$docresult->PhysicianStaffName}}">
+                  </div>
                 </div>
               </div>
 
               <div class="form-group row">
                 <div class="col-md-6">
-                  Complete of Ejaculation
-                  <div class="row">
+                  Complete of Ejaculation &nbsp
+                  
                     <div class="icheck-success d-inline">
-                      @if($docresult->DaysOfAbstinence)
-                      <input type="checkbox" name="IsEjaculateComplete" checked id="IsEjaculateComplete">
+                      @if($docresult->IsEjaComplete)
+                      <input type="checkbox" name="IsEjaComplete" checked id="IsEjaComplete">
                       @else
-                      <input type="checkbox" name="IsEjaculateComplete" id="IsEjaculateComplete">
+                      <input type="checkbox" name="IsEjaComplete" id="IsEjaComplete">
                       @endif
-                      <label for="IsEjaculateComplete">
+                      <label for="IsEjaComplete">
                         Complete
                       </label>
                     </div>
                     <div class="icheck-success d-inline">
-                      @if($docresult->IsEjaculateIncomplete)
-                      <input type="checkbox" name="IsEjaculateIncomplete" checked id="IsEjaculateIncomplete">
+                      @if($docresult->IsEjaSpilled)
+                      <input type="checkbox" name="IsEjaSpilled" checked id="IsEjaSpilled">
                       @else
-                      <input type="checkbox" name="IsEjaculateIncomplete" id="IsEjaculateIncomplete">
+                      <input type="checkbox" name="IsEjaSpilled" id="IsEjaSpilled">
                       @endif
-                      <label for="IsEjaculateIncomplete">
-                        Incomplete
-                      </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsEjaculateSpilled)
-                      <input type="checkbox" name="IsEjaculateSpilled" checked id="IsEjaculateSpilled">
-                      @else
-                      <input type="checkbox" name="IsEjaculateSpilled" id="IsEjaculateSpilled">
-                      @endif
-                      <label for="IsEjaculateSpilled">
+                      <label for="IsEjaSpilled">
                         Spilled
                       </label>
-                    </div>
+                    </div> 
                 </div>
-                </div>
+
                 <div class="col-md-6">
                   Collected At &nbsp
                   <div class="icheck-success d-inline">
-                    @if($docresult->IsCollectedOnSite)
-                    <input type="checkbox" name="IsCollectedOnSite" checked id="IsCollectedOnSite">
+                    @if($docresult->IsCollHome)
+                    <input type="checkbox" name="IsCollHome" checked id="IsCollHome">
                     @else
-                    <input type="checkbox" name="IsCollectedOnSite" id="IsCollectedOnSite">
+                    <input type="checkbox" name="IsCollHome" id="IsCollHome">
                     @endif
-                    <label for="IsCollectedOnSite">
-                      On Site
+                    <label for="IsCollHome">
+                      Home
                     </label>
                   </div>
                   <div class="icheck-success d-inline">
-                    @if($docresult->IsCollectedOffSite)
-                    <input type="checkbox" name="IsCollectedOffSite" checked id="IsCollectedOffSite">
+                    @if($docresult->IsCollOffice)
+                    <input type="checkbox" name="IsCollOffice" checked id="IsCollOffice">
                     @else
-                    <input type="checkbox" name="IsCollectedOffSite" id="IsCollectedOffSite">
+                    <input type="checkbox" name="IsCollOffice" id="IsCollOffice">
                     @endif
-                    <label for="IsCollectedOffSite">
-                      Off Site
+                    <label for="IsCollOffice">
+                      Office
                     </label>
-                  </div>
-                  <div class="row">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsFreshEja)
-                      <input type="checkbox" name="IsFreshEja" checked id="IsFreshEja">
-                      @else
-                      <input type="checkbox" name="IsFreshEja" id="IsFreshEja">
-                      @endif
-                      <label for="IsFreshEja">
-                        Fresh Ejaculation
-                      </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsMESA)
-                      <input type="checkbox" name="IsMESA" checked id="IsMESA">
-                      @else
-                      <input type="checkbox" name="IsMESA" id="IsMESA">
-                      @endif
-                      <label for="IsMESA">
-                        MESA
-                      </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsTESE)
-                      <input type="checkbox" name="IsTESE" checked id="IsTESE">
-                      @else
-                      <input type="checkbox" name="IsTESE" id="IsTESE">
-                      @endif
-                      <label for="IsTESE">
-                        TESE
-                      </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsPESA)
-                      <input type="checkbox" name="IsPESA" checked id="IsPESA">
-                      @else
-                      <input type="checkbox" name="IsPESA" id="IsPESA">
-                      @endif
-                      <label for="IsPESA">
-                        PESA
-                      </label>
-                    </div>
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsReFreeze)
-                      <input type="checkbox" name="IsReFreeze" checked id="IsReFreeze">
-                      @else
-                      <input type="checkbox" name="IsReFreeze" id="IsReFreeze">
-                      @endif
-                      <label for="IsReFreeze">
-                        Re-Freeze
-                      </label>
-                    </div>
                   </div>
                 </div>
               </div>   
@@ -370,11 +314,6 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <td>Volume</td>
-                            <td><input type="number" class="form-control" name="Volume" value="{{$docresult->Volume}}"> </td>
-                            <td>1.5 ml</td>
-                          </tr>
-                          <tr>
                             <td>Liquefaction</td>
                             <td><input type="text" class="form-control" name="Liquefaction" value="{{$docresult->Liquefaction}}"> </td>
                             <td>< 60 min.</td>
@@ -401,94 +340,192 @@
                   </div>
                   <!-- /.card -->
                 </div>
-              </div>           
-              <h3>PRC PROCESSED SPERM</h3>
-              
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="OfVialsNo"># of Vials</label>
-                    <input type="number" class="form-control" name="OfVialsNo" value="{{$docresult->OfVialsNo}}">
-                    <label for="Tank">Tank</label>
-                    <input type="text" class="form-control" name="Tank" value="{{$docresult->Tank}}">
-                    <label for="Canister">Canister</label>
-                    <input type="text" class="form-control" name="Canister" value="{{$docresult->Canister}}">
-                    <label for="Cane">Cane</label>
-                    <input type="text" class="form-control" name="Cane" value="{{$docresult->Cane}}">
-                    
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="SpermVolume">Volume</label>
-                    <input type="number" class="form-control" name="SpermVolume" value="{{$docresult->SpermVolume}}">
-                    <label for="Conc">Conc .ml</label>
-                    <input type="text" class="form-control" name="Conc" placeholder="ml" value="{{$docresult->Conc}}">
-                    <label for="Motility">Motility</label>
-                    <input type="text" class="form-control" name="Motility" value="{{$docresult->Motility}}">
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="DateRecovered">Date Recovered</label>
-                    <input type="date" class="form-control" name="DateRecovered" value="{{$docresult->DateRecovered}}">
-                    <label for="Office">Office</label>
-                    <input type="text" class="form-control" name="Office" value="{{$docresult->Office}}">
-
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  Specimen Type
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsSpecTypeFresh)
-                      <input type="checkbox" name="IsSpecTypeFresh" checked id="IsSpecTypeFresh">
-                      @else
-                      <input type="checkbox" name="IsSpecTypeFresh" id="IsSpecTypeFresh">
-                      @endif
-                      <label for="IsSpecTypeFresh">
-                        Fresh
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsSpecTESAPESAMESA)
-                      <input type="checkbox" name="IsSpecTESAPESAMESA" checked id="IsSpecTESAPESAMESA">
-                      @else
-                      <input type="checkbox" name="IsSpecTESAPESAMESA" id="IsSpecTESAPESAMESA">
-                      @endif
-                      <label for="IsSpecTESAPESAMESA">
-                        TESA PESA MESA
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsSpecPrevFroz)
-                      <input type="checkbox" name="IsSpecPrevFroz" checked id="IsSpecPrevFroz">
-                      @else
-                      <input type="checkbox" name="IsSpecPrevFroz" id="IsSpecPrevFroz">
-                      @endif
-                      <label for="IsSpecPrevFroz">
-                        Previously Frozen
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                
               </div>
 
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <!-- <h3 class="card-title">Responsive Hover Table</h3> -->
+                      <div class="row">
+                        <div class="col-md-4">
+                         
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4 text-center">
+                          WHO Manual 5th Edition, 2010
+                        </div>
+                      </div>
+                      <!-- <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                      <table class="table table-hover text-nowrap">
+                        <thead>
+                          <tr>
+                            <th>Semen Analysis</th>
+                            <th></th>
+                            <th>Normal Range</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Volume</td>
+                            <td><input type="number" class="form-control" name="Volume" value="{{$docresult->Volume}}"> </td>
+                            <td>>=1.5ml</td>
+                          </tr>
+                          <tr>
+                            <td>Sperm Count</td>
+                            <td><input type="number" class="form-control" name="SpermCount" value="{{$docresult->SpermCount}}"> </td>
+                            <td>>=15 Million /ml </td>
+                          </tr>
+                          <tr>
+                            <td>Total Sperm Count</td>
+                            <td><input type="number" class="form-control" name="TotalSpermCount" value="{{$docresult->TotalSpermCount}}"> </td>
+                            <td>>=39 Million /ml</td>
+                          </tr>
+                          <tr>
+                            <td>Cryptozoospermia</td>
+                            <td><input type="text" class="form-control" name="Cryptozoospermia" value="{{$docresult->Cryptozoospermia}}"> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Progressive Motility (a+b)</td>
+                            <td><input type="number" class="form-control" name="ProgMotility" value="{{$docresult->ProgMotility}}"> </td>
+                            <td>>=39 %</td>
+                          </tr>
+                          <tr>
+                            <td>Progression</td>
+                            <td> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>a. Rapid</td>
+                            <td><input type="number" class="form-control" name="ProgRapid" placeholder="%" value="{{$docresult->ProgRapid}}"> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>b. Slow</td>
+                            <td><input type="number" class="form-control" name="ProgSlow" placeholder="%" value="{{$docresult->ProgSlow}}"> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>c. Non Progressive</td>
+                            <td><input type="number" class="form-control" name="ProgNonProg" placeholder="%" value="{{$docresult->ProgNonProg}}"> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>d. Non Motile</td>
+                            <td><input type="number" class="form-control" name="ProgNonMotile" placeholder="%" value="{{$docresult->ProgNonMotile}}"> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Non-sperms cells</td>
+                            <td><input type="number" class="form-control" name="NonSpermCells" value="{{$docresult->NonSpermCells}}"> </td>
+                            <td>< 1 Million /ml</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                </div>
+              </div>    
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <!-- <h3 class="card-title">Responsive Hover Table</h3> -->
+                      <div class="row">
+                        <div class="col-md-4">
+                         
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4 text-center">
+                          WHO Manual 5th Edition, 2010
+                        </div>
+                      </div>
+                      <!-- <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                      <table class="table table-hover text-nowrap">
+                        <thead>
+                          <tr>
+                            <th>Morphology: Strict Criteria [Kruger]</th>
+                            <th></th>
+                            <th>Normal Range</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Normal Form</td>
+                            <td><input type="number" class="form-control" name="NorForm" placeholder="%" value="{{$docresult->NorForm}}"> </td>
+                            <td>>= 4% </td>
+                          </tr>
+                          <tr>
+                            <td>Abnormal Head</td>
+                            <td><input type="number" class="form-control" name="AbHead" placeholder="%" value="{{$docresult->AbHead}}"> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Abnormal Midpiece</td>
+                            <td><input type="number" class="form-control" name="AbMid" placeholder="%" value="{{$docresult->AbMid}}"> </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Abnormal Tail</td>
+                            <td><input type="number" class="form-control" name="AbTail" placeholder="%" value="{{$docresult->AbTail}}"> </td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                </div>
+              </div>       
+              
+
               <div class="form-group row">
+                <div class="col-md-2">
+                  <label for="TimeAnalyzed">Time Analyzed</label>
+                  <input type="time" class="form-control" name="TimeAnalyzed" id="TimeAnalyzed" value="{{$docresult->TimeAnalyzed}}">
+                </div>
                 <div class="col-md-6">
+                  <label for="EmbryologistStaffId">Embryologist</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <input type="button" value="Completed By:" class="btn btn-success float-right" id="CompByName">
+                      <input type="button" value="Emb:" class="btn btn-success float-right" id="EmbryologistName">
                     </div>
                     <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="CompByStaffId" id="CompByStaffId" value="{{$docresult->CompByStaffId}}">
-                    <input type="text" class="form-control" id="CompByStaffName" value="{{$docresult->StaffName}}">
+                    <input type="hidden" class="form-control" name="EmbryologistStaffId" id="EmbryologistStaffId" value="{{$docresult->EmbryologistStaffId}}">
+                    <input type="text" class="form-control" id="EmbryologistStaffName" value="{{$docresult->EmbryologistStaffName}}">
                   </div>
                 </div>
               </div>
@@ -505,7 +542,13 @@
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label for="exampleInputFile">File</label>
-
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      
+                    </div>
                     @if(is_file(public_path($docresult->filelink)))
                     <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
                     @endif
@@ -515,7 +558,8 @@
               
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('SpermFreezing')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('SemenAnalysis')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintSemenAnalysis')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->
@@ -523,15 +567,71 @@
           <!-- /.card -->
         </div>
       </div>
-      
-
-   
-    @endforeach
+  @endforeach
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
+  <!-- Modal Staff -->
+      <div class="modal fade" id="open-modal-staff">
+        <input type="hidden" name="" id="SelectedModal" value="0">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="StaffModalTitle">Staff</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12">
+
+                  <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Staff</th>
+                      <th style="width: 40px">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                      $intctr =0;
+                    ?>
+                    @foreach($Staffs as $Staff)
+                    <?php
+                    $intctr++; 
+                    ?>
+                    <tr>
+                      <td>{{$intctr}}</td>
+                      <td>{{$Staff->name}}</td>
+
+                      <td><button type="button" class="btn btn-success add-staff" value="{{$Staff->id}}">Add</button> </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>                                 
+                </div>
+
+              </div>
+
+            </div>
+            
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+  <!-- /.modal -->
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -547,6 +647,59 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
+
+
+
+
+<script >
+    $(document).ready(function(){
+
+    $('#CompByName').click(function(){
+      $('#StaffModalTitle').text('Physician');
+       $('#SelectedModal').val("1");
+    });
+
+    $('#EmbryologistName').click(function(){
+      $('#StaffModalTitle').text('Embryologist');
+       $('#SelectedModal').val("2");
+    });
+
+    $('.add-staff').click(function(){
+
+      var med_id = $(this).val();
+      var SelectedId = $('#SelectedModal').val();
+      url = '{{route('GetStaffInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+        console.log(data);
+
+
+        switch(SelectedId){
+          case "1":
+            $('#CompByStaffName').val(data.name); 
+            $('#CompByStaffId').val(data.id); 
+            break;
+
+          default:
+            $('#EmbryologistStaffName').val(data.name); 
+            $('#EmbryologistStaffId').val(data.id); 
+
+        }
+
+        $('#SelectedModal').val("0");
+      });
+
+      $('#open-modal-staff').modal('toggle'); 
+
+    });
+
+
+    });
+
+/* Lead Assessement */
+
+
+  </script>
 
 <script>
 $(function () {

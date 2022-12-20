@@ -316,6 +316,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/semenanalysis/edit/{id?}','SemenAnalysisController@edit')->name('SemenAnalysisEdit');
     Route::get('/semenanalysis/view/{PatientID?}','SemenAnalysisController@show')->name('SemenAnalysisShow');
+    Route::get('/semenanalysis/print/{PatientID?}','SemenAnalysisController@PrintSemenAnalysis')->name('PrintSemenAnalysis');
     Route::post('/semenanalysis/delete','SemenAnalysisController@destroy')->name('SemenAnalysisDelete');
     Route::post('/semenanalysis/update','SemenAnalysisController@update')->name('SemenAnalysisUpdate');
 /*Semen Analysis*/

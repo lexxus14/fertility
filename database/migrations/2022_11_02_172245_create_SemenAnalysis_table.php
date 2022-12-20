@@ -21,6 +21,7 @@ class CreateSemenAnalysisTable extends Migration
             $table->date('docdate')->nullable();
             $table->string('Notes')->nullable();
             $table->time('CollectionTime')->nullable();
+            $table->string('AccessionNo')->nullable();
             $table->time('DeliveryTime')->nullable();
             $table->string('DaysOfAbstinence')->nullable();
             $table->bigInteger('PhysicianStaffID')->nullable();
@@ -30,7 +31,7 @@ class CreateSemenAnalysisTable extends Migration
             $table->integer('IsCollOffice')->nullable();
             $table->string('Liquefaction')->nullable();
             $table->string('Color')->nullable();
-            $table->double('Viscosity')->nullable();
+            $table->string('Viscosity')->nullable();
             $table->double('pH')->nullable();
             $table->double('Volume')->nullable();
             $table->double('SpermCount')->nullable();

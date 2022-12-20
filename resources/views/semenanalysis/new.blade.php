@@ -189,6 +189,10 @@
             <div class="card-body">
               <div class="form-group row">     
                 <div class="col-md-3">
+                  <label for="AccessionNo" class="col-form-label">Accession #</label>
+                  <input type="text" class="form-control" id="AccessionNo" name="AccessionNo"/>
+                </div> 
+                <div class="col-md-3">
                   <label for="docdate" class="col-form-label">Date</label>
                   <input type="date" class="form-control" id="docdate" name="docdate"/>
                 </div>           
@@ -305,7 +309,7 @@
                           </tr>
                           <tr>
                             <td>Viscosity</td>
-                            <td><input type="number" class="form-control" name="Viscosity"> </td>
+                            <td><input type="text" class="form-control" name="Viscosity"> </td>
                             <td>[None to sligth]</td>
                           </tr>
                           <tr>
@@ -411,7 +415,7 @@
                             <td></td>
                           </tr>
                           <tr>
-                            <td>d. Non Motile</td>
+                            <td>Non-sperm cells</td>
                             <td><input type="number" class="form-control" name="NonSpermCells"> </td>
                             <td>< 1 Million /ml</td>
                           </tr>
