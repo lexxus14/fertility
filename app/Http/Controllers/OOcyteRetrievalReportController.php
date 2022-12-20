@@ -112,9 +112,38 @@ class OOcyteRetrievalReportController extends Controller
      * @param  \App\OOcyteRetReport  $oOcyteRetReport
      * @return \Illuminate\Http\Response
      */
-    public function show(OOcyteRetReport $oOcyteRetReport)
+    public function show($docId)
     {
-        //
+       $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join OOcyteRetReports as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select OOcyteRetReports.* from OOcyteRetReports 
+                  where OOcyteRetReports.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        return view('oocyteretreport.view',compact('docresults','patients','docId'));
+    }
+
+    public function OOcyteRetReportPrint($docId)
+    {
+       $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join OOcyteRetReports as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select OOcyteRetReports.* from OOcyteRetReports 
+                  where OOcyteRetReports.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        return view('oocyteretreport.print',compact('docresults','patients','docId'));
     }
 
     /**

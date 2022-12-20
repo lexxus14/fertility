@@ -329,6 +329,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/oocyteretreport/edit/{id?}','OOcyteRetrievalReportController@edit')->name('OOcyteRetReportEdit');
     Route::get('/oocyteretreport/view/{PatientID?}','OOcyteRetrievalReportController@show')->name('OOcyteRetReportShow');
+    Route::get('/oocyteretreport/print/{PatientID?}','OOcyteRetrievalReportController@OOcyteRetReportPrint')->name('OOcyteRetReportPrint');
     Route::post('/oocyteretreport/delete','OOcyteRetrievalReportController@destroy')->name('OOcyteRetReportDelete');
     Route::post('/oocyteretreport/update','OOcyteRetrievalReportController@update')->name('OOcyteRetReportUpdate');
 /*OOcyte Retrieval Report*/

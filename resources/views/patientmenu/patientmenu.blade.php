@@ -321,7 +321,7 @@
                     <?php $intTotalOOcyteRetReports= 0; ?>
                     @foreach($TotalOOcyteRetReports as $TotalOOcyteRetReport)
                     <?php
-                      $intTotalSemenAnalysis = $TotalOOcyteRetReport->TotalOOcyteRetReports;
+                      $intTotalOOcyteRetReports = $TotalOOcyteRetReport->TotalOOcyteRetReports;
                       ?>
                     @endforeach
                     {{$intTotalOOcyteRetReports}}
