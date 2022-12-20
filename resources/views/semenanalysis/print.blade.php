@@ -181,7 +181,7 @@
     $pdf->Cell(30,6,'Morophology: Strict Criteria [Kruger]',0,1);
 
     $pdf->Cell(80,6,'Normal Form',0,0);
-    $pdf->Cell(75,6,$docresult->NorForm,0,0);
+    $pdf->Cell(75,6,$docresult->NorForm.' %',0,0);
     $pdf->Cell(30,6,'>= 4%',0,1);
     $pdf->Cell(80,6,'Abnormal Head',0,0);
     $pdf->Cell(75,6,$docresult->AbHead.' %',0,1);
