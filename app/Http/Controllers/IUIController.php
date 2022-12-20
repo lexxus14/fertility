@@ -176,6 +176,28 @@ class IUIController extends Controller
         return view('iui.view',compact('docresults','patients','Staffs','docId'));
     }
 
+    public function PrintIUI($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join IUIs as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select IUIs.*,p.name PhysicianStaffName,p1.name EmbryologistStaffName from IUIs 
+                    left join staff as p on p.id = IUIs.PhysicianStaffId
+                    left join staff as p1 on p1.id = IUIs.EmbryologistStaffId
+                  where IUIs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        
+        $Staffs = Staff::all();
+
+        return view('iui.print',compact('docresults','patients','Staffs','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -334,7 +334,7 @@
                     <?php $intTotalIUIs= 0; ?>
                     @foreach($TotalIUIs as $TotalIUI)
                     <?php
-                      $intTotalSemenAnalysis = $TotalIUI->TotalIUIs;
+                      $intTotalIUIs = $TotalIUI->TotalIUIs;
                       ?>
                     @endforeach
                     {{$intTotalIUIs}}

@@ -354,6 +354,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/iui/edit/{id?}','IUIController@edit')->name('IUIEdit');
     Route::get('/iui/view/{PatientID?}','IUIController@show')->name('IUIShow');
+    Route::get('/iui/print/{PatientID?}','IUIController@PrintIUI')->name('PrintIUI');
     Route::post('/iui/delete','IUIController@destroy')->name('IUIDelete');
     Route::post('/iui/update','IUIController@update')->name('IUIUpdate');
 /*IUI*/
