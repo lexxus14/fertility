@@ -52,7 +52,7 @@
     $pdf->Cell(35,6,'Husband Name: ',0,0);
     $pdf->Cell(70,6,$patient->HusbandLastName.', '.$patient->HusbandName,'B',0);
     $pdf->Cell(25,6,'Date of Birth: ',0,0);
-    $pdf->Cell(25,6,$patient->WifeBirthDate,'B',0);
+    $pdf->Cell(25,6,$patient->HusbandBirthDate,'B',0);
 
     $bday = new DateTime($patient->HusbandBirthDate); // Your date of birth
     $today = new Datetime(date('m.d.y'));

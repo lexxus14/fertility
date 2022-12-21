@@ -367,6 +367,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/embryoreci/edit/{id?}','EmbryologyRecordController@edit')->name('EmbryologyRecordIEdit');
     Route::get('/embryoreci/view/{PatientID?}','EmbryologyRecordController@show')->name('EmbryologyRecordIShow');
+    Route::get('/embryoreci/print/{PatientID?}','EmbryologyRecordController@PrintEmbryologyRecordI')->name('PrintEmbryologyRecordI');
     Route::post('/embryoreci/delete','EmbryologyRecordController@destroy')->name('EmbryologyRecordIDelete');
     Route::post('/embryoreci/update','EmbryologyRecordController@update')->name('EmbryologyRecordIUpdate');
 /*Embryology Record I*/

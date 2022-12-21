@@ -269,6 +269,37 @@ class EmbryologyRecordController extends Controller
         return view('embryoreci.view',compact('docresults','patients','Staffs','docId'));
     }
 
+    public function PrintEmbryologyRecordI($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join EmbryologyRecordIs as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select EmbryologyRecordIs.*,p.name RetAnesthesiologistName,p1.name RetNurseName, p2.name RetEmbName, p3.name RetPhysicianName, p4.name RetWristCheckByName, p5.name  InsInsEmbrName, p6.name FerResEmbrName,p7.name ICSIEmbName,p8.name EmbTranPhysiName,p9.name EmbTranEmbrName,p10.name EmbTranNurseName,p11.name OocCrvEmbName from EmbryologyRecordIs 
+                    left join staff as p on p.id = EmbryologyRecordIs.RetAnesthesiologistStaffId
+                    left join staff as p1 on p1.id = EmbryologyRecordIs.RetNurseStaffId
+                    left join staff as p2 on p2.id = EmbryologyRecordIs.RetEmbStaffId
+                    left join staff as p3 on p3.id = EmbryologyRecordIs.RetPhysicianStaffId
+                    left join staff as p4 on p4.id = EmbryologyRecordIs.RetWristCheckByStaffId
+                    left join staff as p5 on p5.id = EmbryologyRecordIs.InsInsEmbrStaffId
+                    left join staff as p6 on p6.id = EmbryologyRecordIs.FerResEmbrStaffId
+                    left join staff as p7 on p7.id = EmbryologyRecordIs.ICSIEmbStaffId
+                    left join staff as p8 on p8.id = EmbryologyRecordIs.EmbTranPhysiStaffId
+                    left join staff as p9 on p9.id = EmbryologyRecordIs.EmbTranEmbrStaffId
+                    left join staff as p10 on p10.id = EmbryologyRecordIs.EmbTranNurseStaffId
+                    left join staff as p11 on p11.id = EmbryologyRecordIs.OocCrvEmbStaffId
+                  where EmbryologyRecordIs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('embryoreci.print',compact('docresults','patients','Staffs','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

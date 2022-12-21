@@ -339,7 +339,7 @@
                   <input type="number" class="form-control" id="CycleNo" name="CycleNo" value="{{$docresult->CycleNo}}"/>
                 </div>
                 <div class="col-md-3">
-                  <label for="CycleDate" class="col-form-label">CycleDate</label>
+                  <label for="CycleDate" class="col-form-label">Cycle Date</label>
                   <input type="date" class="form-control" id="CycleDate" name="CycleDate" value="{{$docresult->CycleDate}}"/>
                 </div>                
               </div>
@@ -1166,6 +1166,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('EmbryologyRecordI')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PrintEmbryologyRecordI')}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->
