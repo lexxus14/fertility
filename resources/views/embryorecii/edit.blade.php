@@ -193,15 +193,15 @@
             <div class="form-group row">
               <div class="col-md-3">
                 <label for="docdate" class="col-form-label">Date</label>
-                <input type="date" class="form-control" id="docdate" name="docdate"/>
+                <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}"/>
               </div>  
               <div class="col-md-3">
                 <label for="RecordNo" class="col-form-label">Record No</label>
-                <input type="text" class="form-control" id="RecordNo" name="RecordNo"/>
+                <input type="text" class="form-control" id="RecordNo" name="RecordNo" value="{{$docresult->RecordNo}}"/>
               </div> 
               <div class="col-md-3">
                 <label for="CycleNo" class="col-form-label">Cycle No</label>
-                <input type="text" class="form-control" id="CycleNo" name="CycleNo"/>
+                <input type="text" class="form-control" id="CycleNo" name="CycleNo" value="{{$docresult->CycleNo}}"/>
               </div> 
                             
             </div>

@@ -248,6 +248,36 @@ class EmbryoRecordIIController extends Controller
         return view('embryorecii.view',compact('docresults','patients','EmbryologyRecordIISubs','Staffs','docId'));
     }
 
+    public function PrintEmbryologyRecordII($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join EmbryologyRecordIIs as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select EmbryologyRecordIIs.*,p.name Day0EmbryologistName,p1.name Day1EmbryologistName,p2.name Day3EmbryologistName,p3.name Day5EmbryologistName,p4.name Day6EmbryologistName from EmbryologyRecordIIs 
+                    left join staff as p on p.id = EmbryologyRecordIIs.Day0EmbryologistStaffId
+                    left join staff as p1 on p1.id = EmbryologyRecordIIs.Day1EmbryologistStaffId
+                    left join staff as p2 on p2.id = EmbryologyRecordIIs.Day3EmbryologistStaffId
+                    left join staff as p3 on p3.id = EmbryologyRecordIIs.Day5EmbryologistStaffId
+                    left join staff as p4 on p4.id = EmbryologyRecordIIs.Day6EmbryologistStaffId
+                  where EmbryologyRecordIIs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select EmbryologyRecordIISubs.* from EmbryologyRecordIISubs 
+            inner join EmbryologyRecordIIs dd on dd.id = EmbryologyRecordIISubs.EmbryologyRecordIIsId
+            where EmbryologyRecordIISubs.EmbryologyRecordIIsId=".$docId;
+
+        $EmbryologyRecordIISubs = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('embryorecii.print',compact('docresults','patients','EmbryologyRecordIISubs','Staffs','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
