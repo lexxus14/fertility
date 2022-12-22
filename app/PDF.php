@@ -21,9 +21,13 @@ class PDF extends Fpdf
         // Move to the right
         // $this->Cell(60);
         // Title
-        $this->Cell(60,5,'Test',1,0,'C');
+        $this->Cell(0,5,'PRC FERTILITY CENTER',0,1,'C');
+        $this->SetFont('Arial','B',12);
+        $this->Cell(0,5,'Dubai Healthcare City',0,1,'C');
+        $this->SetFont('Arial','BI',8);
+        $this->Cell(0,5,'Helping Create Families Every Day.',0,0,'C');
         // Line break
-        $this->Ln(20);
+        $this->Ln(15);
     }
 
     // Page footer

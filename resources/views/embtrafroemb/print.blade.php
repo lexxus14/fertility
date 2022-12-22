@@ -22,12 +22,21 @@ $pdf->AliasNbPages();
   $pdf->SetFont('Arial','B',12);
 
   $pdf->Cell(0,4,'EMBRYO(S) TRANSFER WITH FROZEN EMBRYO DATA SHEET',0,1,'C');
+  $DocDate="";
+  foreach($docresults as $docresult)
+  {
+    $DocDate =$docresult->docdate;
+  }
 
   foreach($patients as $patient){
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(40,6,'',0,1);
     $pdf->Cell(15,6,'File No: ',0,0);
-    $pdf->Cell(25,6,$patient->FileNo,'B',1);
+    $pdf->Cell(25,6,$patient->FileNo,'B',0);
+    $pdf->Cell(100,6,'',0,0);
+    $pdf->Cell(15,6,'Date: ',0,0);
+    $pdf->Cell(0,6,$DocDate,'B',1);
+
     $pdf->Cell(35,6,"Patient's Name: ",0,0);
     $pdf->Cell(70,6,$patient->WifeLastName.', '.$patient->WifeName,'B',0);
     $pdf->Cell(25,6,'Date of Birth: ',0,0);
@@ -87,8 +96,8 @@ $pdf->AliasNbPages();
     
     $pdf->Ln();
     $pdf->Ln();
-    $pdf->Cell(20,6,'Patient Initials: ',0,0);
-    $pdf->Cell(0,6,$docresult->PatientInit,0,1);
+    $pdf->Cell(30,6,'Patient Initials: ',0,0);
+    $pdf->Write(6,$docresult->PatientInit);
 
     $pdf->Cell(20,6,'Day of ET:',0,0);
     $pdf->Cell(20,6,$docresult->ET3,'B',0,'C');
