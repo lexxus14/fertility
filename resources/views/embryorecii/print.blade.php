@@ -70,7 +70,7 @@
     $pdf->Cell(10,6,'Age:',0,0);
     $pdf->Cell(0,6,$diff->format('%y'),'B',1);
   }
-
+  $pdf->Ln();
   foreach($docresults as $docresult)
   {
     $pdf->SetFont('Arial','',8);
@@ -141,10 +141,53 @@
     $pdf->Cell(30,4,$docresult->Day6PtCall.' PT Cal '.$docresult->Day6Initial.' Initial','BR',0,'C');
     $pdf->Cell(30,4,'','BR',1,'C');
 
+    $pdf->SetFont('Arial','',12);
 
     $pdf->Ln();
     $pdf->Cell(15,6,'Notes: ',0,0);
     $pdf->Write(6,$docresult->Notes);
+
+    
+    $pdf->Ln();
+    
+    $pdf->Cell(15,6,'Lot Numbers: ',0,1);
+    $pdf->SetFont('Arial','',8);
+    $pdf->Cell(38,6,'ASP: lot# ','TLR',0);
+    $pdf->Cell(38,6,'ASP: Exp. Date ','TR',0);
+    $pdf->Cell(38,6,'Protien:SSS Lot # ','TR',0);
+    $pdf->Cell(38,6,'Protien:SSS Exp. Date ','TR',0);
+    $pdf->Cell(38,6,'Others ','TR',1);
+
+    $pdf->Cell(38,6,$docresult->AspLotNo,'LRB',0);
+    $pdf->Cell(38,6,$docresult->AspExpDate,'RB',0);
+    $pdf->Cell(38,6,$docresult->ProteinSSSLot,'RB',0);
+    $pdf->Cell(38,6,$docresult->ProteinSSSExpDate,'RB',0);
+    $pdf->Cell(38,6,$docresult->AspOthers,'RB',1);
+
+    $pdf->Cell(38,6,'Global Lot #','LR',0);
+    $pdf->Cell(38,6,'Global Date','R',0);
+    $pdf->Cell(38,6,'mHTF Lot #','R',0);
+    $pdf->Cell(38,6,'mHT FExp Date','R',0);
+    $pdf->Cell(38,6,'Others ','R',1);
+
+    $pdf->Cell(38,6,$docresult->GlobalLotNo,'LRB',0);
+    $pdf->Cell(38,6,$docresult->GlobalExpDate,'RB',0);
+    $pdf->Cell(38,6,$docresult->mHTFLotNo,'RB',0);
+    $pdf->Cell(38,6,$docresult->mHTFExpDate,'RB',0);
+    $pdf->Cell(38,6,$docresult->GlobalOther,'RB',1);
+
+    $pdf->Cell(38,6,'Hyluronidase Log #','LR',0);
+    $pdf->Cell(38,6,'Hyluronidase Exp Date','R',0);
+    $pdf->Cell(38,6,'Oil Lot No','R',0);
+    $pdf->Cell(38,6,'Oil Exp Date','R',0);
+    $pdf->Cell(38,6,'Others ','R',1);
+
+    $pdf->Cell(38,6,$docresult->HyluronidaseLogNo,'LRB',0);
+    $pdf->Cell(38,6,$docresult->HyluronidaseExpDate,'RB',0);
+    $pdf->Cell(38,6,$docresult->OilLotNo,'RB',0);
+    $pdf->Cell(38,6,$docresult->OilExpDate,'RB',0);
+    $pdf->Cell(38,6,$docresult->GlobalOthers,'RB',1);
+
     if(is_file(public_path($docresult->filelink)))                   
       {
         $file= asset($docresult->filelink);
