@@ -159,6 +159,28 @@ class EmbTraFroEmbController extends Controller
         return view('embtrafroemb.view',compact('docresults','patients','Staffs','docId'));
     }
 
+    public function PrintEmbTraFroEmb($docId)
+    {
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join EmbTraEmbFroEmbs as li on li.patientid = p.id
+                    WHERE li.id =".$docId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select EmbTraEmbFroEmbs.*,p.name EmbryologistName,p1.name MDName,p2.name NurseName from EmbTraEmbFroEmbs 
+                    left join staff as p on p.id = EmbTraEmbFroEmbs.EmbryologistStaffId
+                    left join staff as p1 on p1.id = EmbTraEmbFroEmbs.MDStaffId
+                    left join staff as p2 on p2.id = EmbTraEmbFroEmbs.NurseStaffId
+                  where EmbTraEmbFroEmbs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('embtrafroemb.print',compact('docresults','patients','Staffs','docId'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

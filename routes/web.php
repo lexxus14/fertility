@@ -393,6 +393,7 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 
     Route::get('/embtrafroemb/edit/{id?}','EmbTraFroEmbController@edit')->name('EmbTraFroEmbEdit');
     Route::get('/embtrafroemb/view/{PatientID?}','EmbTraFroEmbController@show')->name('EmbTraFroEmbShow');
+    Route::get('/embtrafroemb/print/{PatientID?}','EmbTraFroEmbController@PrintEmbTraFroEmb')->name('PrintEmbTraFroEmb');
     Route::post('/embtrafroemb/delete','EmbTraFroEmbController@destroy')->name('EmbTraFroEmbDelete');
     Route::post('/embtrafroemb/update','EmbTraFroEmbController@update')->name('EmbTraFroEmbUpdate');
 /*embryo transfer froozen emb*/

@@ -63,10 +63,10 @@
       $strPatientName = $patient->HusbandLastName.', '.$patient->HusbandName;
       $pdf->Cell(45,6,'File No: ',0,0);
       $pdf->Cell(45,6,$patient->FileNo,'B',1);
-      $pdf->Cell(45,6,'Wife Name: ',0,0);
+      $pdf->Cell(45,6,'Name of the patient: ',0,0);
       $pdf->Cell(0,6,$patient->HusbandLastName.', '.$patient->HusbandName,'B',1);
       $pdf->Cell(45,6,'Date of Birth: ',0,0);
-      $pdf->Cell(45,6,$patient->WifeBirthDate,'B',1);
+      $pdf->Cell(45,6,$patient->HusbandBirthDate,'B',1);
 
       $bday = new DateTime($patient->HusbandBirthDate); // Your date of birth
       $today = new Datetime(date('m.d.y'));
