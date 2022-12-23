@@ -90,6 +90,7 @@ class PatientController extends Controller
                 $query->orwhere('MainContactNo','like','%'.$search.'%')
                       ->orwhere('WifeContactNo','like','%'.$search.'%')
                       ->orwhere('HusbandContactNo','like','%'.$search.'%')
+                      ->orwhere('FileNo','like','%'.$search.'%')
                       ->orwhere('MainEmail','like','%'.$search.'%');
             })
             ->paginate();
