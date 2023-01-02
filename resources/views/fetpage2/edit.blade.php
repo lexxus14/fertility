@@ -155,7 +155,8 @@
    <form action="{{route('FETpage2Update')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
         {{ csrf_field() }}
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-      <input type="hidden" name="FETiD" value="{{$DocId}}">
+      <input type="hidden" name="FETPage2iD" value="{{$DocId}}">
+      <input type="hidden" name="FETiD" value="{{$PhaseId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">

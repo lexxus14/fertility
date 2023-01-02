@@ -95,42 +95,28 @@
                 <a href="{{route('PatientPatientVitalSign')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
                   <span class="badge bg-teal">
                     <?php
-                      $intTotalPatientResult =0;
+                      $intTotalPatientVitalSign =0;
                     ?>
-                    @foreach($TotalPatientResults as $TotalPatientResult)
+                    @foreach($TotalPatientVitalSigns as $TotalPatientVitalSign)
                     <?php
-                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
+                      $intTotalPatientVitalSign =$TotalPatientVitalSign->TotalPatientVitalSigns;
                     ?>
                     @endforeach
-                    {{$intTotalPatientResult}}</span>
+                    {{$intTotalPatientVitalSign}}</span>
                   <i class="fas fa-file"></i> Vital Sign
                 </a>
 
                 <a href="{{route('DoctorConsultation')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
                   <span class="badge bg-teal">
-                    <?php
-                      $intTotalPatientResult =0;
-                    ?>
-                    @foreach($TotalPatientResults as $TotalPatientResult)
-                    <?php
-                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
-                    ?>
-                    @endforeach
-                    {{$intTotalPatientResult}}</span>
+                    
+                    {{$TotalDoctorDiagnosis}}</span>
                   <i class="fas fa-file"></i> Doctor Consultation
                 </a>
 
                 <a href="{{route('PatientCalendarIndex')}}/{{$intPatientId}}" class="btn btn-app bg-danger">
                   <span class="badge bg-teal">
-                    <?php
-                      $intTotalPatientResult =0;
-                    ?>
-                    @foreach($TotalPatientResults as $TotalPatientResult)
-                    <?php
-                      $intTotalPatientResult =$TotalPatientResult->TotalPatientResult;
-                    ?>
-                    @endforeach
-                    {{$intTotalPatientResult}}</span>
+                    
+                    {{$TotalCalendar}}</span>
                   <i class="fas fa-file"></i> Calendar
                 </a>              
                

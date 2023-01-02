@@ -217,7 +217,7 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Vital Sign</th>
-                        <th >Note</th>
+                        <th >Result</th>
                       </tr>                  
                       </thead>
                       <tbody id="tbody">

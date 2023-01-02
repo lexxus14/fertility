@@ -262,7 +262,9 @@
                   <div class="form-group">
                     <label for="exampleInputFile">File</label>
                     <div class="input-group">
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @if(is_file(public_path($docresult->filelink)))
+                        <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @endif 
                     </div>
                   </div>
                 </div>

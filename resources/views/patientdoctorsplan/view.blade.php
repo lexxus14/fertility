@@ -169,7 +169,7 @@
                 </div>
             @endif
             <div class="card-header">
-              <h3 class="card-title">Doctor's Diagnosis</h3>
+              <h3 class="card-title">Doctor's Plan</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -263,7 +263,10 @@
                   <div class="form-group">
                     <label for="exampleInputFile">File</label>
                     <div class="input-group">
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      
+                      @if(is_file(public_path($docresult->filelink)))
+                        <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @endif   
                     </div>
                   </div>
                 </div>

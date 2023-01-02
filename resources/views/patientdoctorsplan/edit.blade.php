@@ -279,14 +279,16 @@
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @if(is_file(public_path($docresult->filelink)))
+                        <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @endif                         
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12">
-                  <a href="{{route('PatientDoctorDiagnosisSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
+                  <a href="{{route('PatientDoctorsPlanSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
                   <input type="submit" value="Save" class="btn btn-success float-right">
                 </div>
               </div>

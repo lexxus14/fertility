@@ -283,7 +283,7 @@ class FETPage2Controller extends Controller
     {
         $imagepath = "";
 
-        $strsql ="SELECT * from FETPage2s where id=".$request->FETiD;
+        $strsql ="SELECT * from FETPage2s where id=".$request->FETPage2iD;
         $las = DB::select($strsql);
 
         $laLinkFile ="";
@@ -310,7 +310,7 @@ class FETPage2Controller extends Controller
             $imagepath = $laLinkFile;
        }
 
-       $docfiles = FETPage2::find($request->FETiD);
+       $docfiles = FETPage2::find($request->FETPage2iD);
 
         $date = date_create($request->docdate);
         $docfiles->docdate= $date->format('Y-m-d');
@@ -342,7 +342,7 @@ class FETPage2Controller extends Controller
         $docfiles->save();
         $doclab_id = $docfiles->id;
 
-        $sub = DB::table('FETPage2DiagnosisSubs')->where('FETPage2sId', $request->FETiD)->delete();
+        $sub = DB::table('FETPage2DiagnosisSubs')->where('FETPage2sId', $request->FETPage2iD)->delete();
 
         $DiagnosisID=$request->DiagnosisID;
 
@@ -365,7 +365,7 @@ class FETPage2Controller extends Controller
         $Estradiol=$request->Estradiol;
         $Notes=$request->Notes;
 
-        $sub = DB::table('FETPage2CDSubs')->where('FETPage2sId', $request->FETiD)->delete();
+        $sub = DB::table('FETPage2CDSubs')->where('FETPage2sId', $request->FETPage2iD)->delete();
 
         $N = count($CDNo);
 

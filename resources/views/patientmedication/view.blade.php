@@ -262,9 +262,11 @@
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label for="exampleInputFile">File</label>
-                    
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                    <label for="exampleInputFile">File</label>                    
+                      
+                      @if(is_file(public_path($docresult->filelink)))
+                          <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                       @endif 
                   </div>
                 </div>
               </div>

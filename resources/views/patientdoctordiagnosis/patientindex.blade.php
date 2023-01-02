@@ -188,8 +188,12 @@
 		                  <tr>
 		                    <td>{{$intctr}}</td>
 		                    <td>{{$result->docdate}}</td>
-		                    <td>{{$result->description}}</td>
-		                    <td>{{$result->filelink}}</td>
+		                    <td>{{$result->description}}</td>                        
+		                    <td>
+                          @if(is_file(public_path($result->filelink)))
+                          {{$result->filelink}}
+                           @endif                          
+                        </td>
 		                    <td>{{$result->notes}}</td>
 		                    <td>
 		                      <a class="btn btn-primary btn-sm float-right" href="{{route('PatientDoctorDiagnosisShow')}}/{{$result->id}}">

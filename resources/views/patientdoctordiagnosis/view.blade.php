@@ -263,7 +263,10 @@
                   <div class="form-group">
                     <label for="exampleInputFile">File</label>
                     <div class="input-group">
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @if(is_file(public_path($docresult->filelink)))
+                          <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @endif
+                      
                     </div>
                   </div>
                 </div>
@@ -271,7 +274,7 @@
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('PatientDoctorDiagnosisSign')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
-                  <a href="{{route('PatientDoctorDiagnosisPrint')}}/{{$docresult->id}}" class="btn btn-secondary float-right">Print</a>
+                  <a href="{{route('PatientDoctorDiagnosisPrint')}}/{{$docresult->id}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                 </div>
               </div>
             <!-- /.card-body -->

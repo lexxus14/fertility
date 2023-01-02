@@ -279,7 +279,9 @@
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @if(is_file(public_path($docresult->filelink)))
+                        <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @endif                      
                     </div>
                   </div>
                 </div>

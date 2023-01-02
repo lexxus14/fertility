@@ -13,6 +13,16 @@ use App\LeadReminder;
 use App\PatientProcedure;
 use App\ImpTempTable;
 use App\LeadToPatientList;
+use App\MaleDoctorConsultation;
+use App\FemaleDoctorConsulatation;
+use App\PatientDoctorDiagnosis;
+use App\PatientDoctorsPlan;
+use App\PatientDoctorsLab;
+use App\PatientMedication;
+use App\StimulatingPhase;
+use App\FETPhase;
+use App\FreshFormPhase;
+use App\ClomidCyle;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -403,12 +413,34 @@ class LeadController extends Controller
                     where d.patientid=".$PatientId;
         $TotalEmbTraEmbFroEmbs = DB::select($strsql);
 
+        $strsql ="select count(*) as TotalPatientVitalSigns from patientvitalsigns as d
+                    where d.patientid=".$PatientId;
+        $TotalPatientVitalSigns = DB::select($strsql);
+
+         $strsql ="select * from femaledoctorsconsultation 
+                  where patientid =".$PatientId;
+        $docresult = DB::select($strsql);
+
+        $TotalDoctorDiagnosis = 0;
+        $TotalDoctorDiagnosis = $TotalDoctorDiagnosis + MaleDoctorConsultation::where('patientid', $PatientId)->count();
+        $TotalDoctorDiagnosis = $TotalDoctorDiagnosis + FemaleDoctorConsulatation::where('patientid', $PatientId)->count();
+        $TotalDoctorDiagnosis = $TotalDoctorDiagnosis + PatientDoctorDiagnosis::where('patientid', $PatientId)->count();
+        $TotalDoctorDiagnosis = $TotalDoctorDiagnosis + PatientDoctorsPlan::where('patientid', $PatientId)->count();
+        $TotalDoctorDiagnosis = $TotalDoctorDiagnosis + PatientMedication::where('patientid', $PatientId)->count();
+        $TotalDoctorDiagnosis = $TotalDoctorDiagnosis + PatientDoctorsLab::where('patientid', $PatientId)->count();
+        $TotalDoctorDiagnosis = $TotalDoctorDiagnosis + PatientProcedure::where('patientid', $PatientId)->count();
+
+        $TotalCalendar = 0;
+        $TotalCalendar = $TotalCalendar + StimulatingPhase::where('patientid', $PatientId)->count();
+        $TotalCalendar = $TotalCalendar + FETPhase::where('patientid', $PatientId)->count();
+        $TotalCalendar = $TotalCalendar + FreshFormPhase::where('patientid', $PatientId)->count();
+        $TotalCalendar = $TotalCalendar + ClomidCyle::where('patientid', $PatientId)->count();
 
         $staffs = Staff::all();
         $reasons = Reason::all();
 
 
-        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes','TotalPreOperaChecklists','TotalOperativeReports','TotalIVFRequisistionForms','TotalMocEmbTraMeas','TotalPostAnesthesiaRecs','TotalPreAneCheRecs','TotalConOfAnesthesias','TotalIntraOperAnesRecs','TotalIVFEmbryoTransDataSheets','TotalSpermFreezings','TotalSpermThawings','TotalSemenAnalysis','TotalOOcyteRetReports','TotalIUIs','TotalOOcyteFreezeThawTransRecs','TotalEmbryologyRecordIs','TotalEmbryologyRecordIIs','TotalEmbTraEmbFroEmbs'));
+        return view('lead.view',compact('TotalPatientConsultations','TotalPatientTreatments','TotalPatientMedications','TotalPatientResults','TotalBiopsyResults','TotalBiopsyStudys','TotalTransferredEmbryos','TotalFrozens','TotalGoodEmbryos','TotalEggFertizeds','TotalEggCollecteds','TotalPathXrays','TotalRecHisAssessments','TotalRecLabs','TotalRecDocNotes','TotalRecDocs','pricelists','leadreminders','patients','leadassessments','staffs','reasons','TotalDiagnosticyHysteroscopy','TotalPostOpPostNotes','TotalPreOperaChecklists','TotalOperativeReports','TotalIVFRequisistionForms','TotalMocEmbTraMeas','TotalPostAnesthesiaRecs','TotalPreAneCheRecs','TotalConOfAnesthesias','TotalIntraOperAnesRecs','TotalIVFEmbryoTransDataSheets','TotalSpermFreezings','TotalSpermThawings','TotalSemenAnalysis','TotalOOcyteRetReports','TotalIUIs','TotalOOcyteFreezeThawTransRecs','TotalEmbryologyRecordIs','TotalEmbryologyRecordIIs','TotalEmbTraEmbFroEmbs','TotalPatientVitalSigns','TotalDoctorDiagnosis','TotalCalendar'));
     }
 
     /**

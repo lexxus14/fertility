@@ -160,7 +160,7 @@
         <div class="col-md-12">
           <div class="card card-primary">
             <div class="mb-5 p-4 bg-white shadow-sm">
-              <h3>Male Doctor Consultation</h3>
+              <h3>Male History</h3>
               <div id="stepper3" class="bs-stepper">
                 <div class="bs-stepper-header" role="tablist">
                   <div class="step" data-target="#test-nlf-1">

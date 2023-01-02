@@ -218,7 +218,7 @@
 	          <div class="col-md-12">
 	            <div class="card">
 	              <div class="card-header">
-	                <h3 class="card-title"><b>Female Doctor Consultation</b></h3>
+	                <h3 class="card-title"><b>Female History</b></h3>
 	                <!-- <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
 	                  <i class="fas fa-pencil-alt"></i> New
 	                </button> -->
@@ -288,7 +288,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><b>Male Doctor Consultation</b></h3>
+                  <h3 class="card-title"><b>Male History</b></h3>
                   <!-- <button class="btn btn-success float-right open-modal-lead-assessment" value="{{$intPatientId}}" data-toggle="modal" data-target="#modal-show" style="margin-right: 5px;">
                     <i class="fas fa-pencil-alt"></i> New
                   </button> -->
@@ -359,7 +359,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Delete Female Doctor Consultation</h4>
+              <h4 class="modal-title">Delete Female History</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -387,7 +387,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Delete Male Doctor Consultation</h4>
+              <h4 class="modal-title">Delete Male History</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

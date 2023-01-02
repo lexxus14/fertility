@@ -280,7 +280,10 @@
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
-                      <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @if(is_file(public_path($docresult->filelink)))
+                        <p>FILE: <a href="{{url('/')}}/{{$docresult->filelink}}" target="_blank">{{$docresult->filelink}} </a></p>
+                      @endif   
+                      
                     </div>
                   </div>
                 </div>
@@ -456,14 +459,7 @@
               <td class="text-center">
               ${data.description}
               </td>
-              <td style="width: 200px">
-                <div class="form-group">
-                      <div class="input-group date" data-target-input="nearest">
-                          <input type="text" class="form-control" name="txtMedicineTime[]" />
-                              <div class="input-group-text"><i class="fa fa-clock"></i></div>
-                      </div>
-                    </div>
-              </td>
+              
               <td class="text-center">
                 <textarea class="form-control" name="txtnote[]"></textarea>
               </td>
