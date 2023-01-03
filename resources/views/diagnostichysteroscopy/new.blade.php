@@ -182,16 +182,36 @@
                     <input type="date" class="form-control" id="docdate" name="docdate"/>
                   </div>
               </div>
+
               <div class="row">
-                <div class="col-12">
                   <div class="form-group">
-                      <div class="form-group">
-                        <label>Diagnosis:</label>
-                        <textarea id="inputNoteLead-Edit" name="DiagHsyNote" class="form-control" rows="4"></textarea>
-                      </div>                      
-                    </div>
+                  <div class="col-12">
+                    <input type="button" value="Add Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
+                  </div>
+                  </div>
                 </div>
-              </div>
+                <div class="row">
+                  <div class="col-6">
+                  <!-- /.card-header -->
+                      <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                      <table  class="table table-bordered table-striped">
+                        <thead>                  
+                        <tr>
+                          <th>#</th>
+                          <th>Diagnosis</th>
+                          <th>Action</th>
+                        </tr>                  
+                        </thead>
+                        <tbody id="tbody">
+                          
+                        
+          
+                        </tbody>                  
+                      </table>
+                  <!-- /.card-body -->
+                    
+                  </div>
+                </div>
               <div class="row">                
                 <div class="col-md-4">
                   <div class="form-group">
@@ -308,6 +328,64 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <!-- Modal Medicine Treatement -->
+      <div class="modal fade" id="open-modal-medicine-treatment">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Diagnosis</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12">
+
+                  <table id="example3" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Description</th>
+                      <th style="width: 40px">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                      $intctr =0;
+                    ?>
+                    @foreach($doctorDiagnosis as $doctorDiagnosi)
+                    <?php
+                    $intctr++; 
+                    ?>
+                    <tr>
+                      <td>{{$intctr}}</td>
+                      <td>{{$doctorDiagnosi->description}}</td>
+
+                      <td><button type="button" class="btn btn-success add-medicine-treatment" value="{{$doctorDiagnosi->id}}">Add</button> </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>                                 
+                </div>
+
+              </div>
+
+            </div>
+            
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 
 
   <!-- DataTables  & Plugins -->
@@ -376,6 +454,71 @@
   });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+      var rowIdx = 0;
+      $('.add-medicine-treatment').click(function(){
+
+      var med_id = $(this).val();
+      url = '{{route('DoctorDiagnosInfo')}}';
+
+      $.get(url + '/' + med_id, function (data) {
+            $('#tbody').append(`<tr id="R${++rowIdx}">
+              <td class="row-index text-center">
+              <input type="hidden"  name="DiagnosisID[]" value="${data.id}">
+                <p>${rowIdx}</p>
+              </td>
+              <td class="text-center">
+              ${data.description}
+              </td>
+              <td class="text-center">
+                <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
+                
+
+                </td>
+              </tr>`);
+      });
+
+    });
+
+
+    // jQuery button click event to remove a row.
+    $('#tbody').on('click', '.remove-medicine-treatment', function () {
+
+      // Getting all the rows next to the row
+      // containing the clicked button
+      var child = $(this).closest('tr').nextAll();
+
+      // Iterating across all the rows
+      // obtained to change the index
+      child.each(function () {
+
+                  // Getting <tr> id.
+                  var id = $(this).attr('id');
+
+                  // Getting the <p> inside the .row-index class.
+                  var idx = $(this).children('.row-index').children('p');
+
+                  // Gets the row number from <tr> id.
+                  var dig = parseInt(id.substring(1));
+
+                  // Modifying row index.
+                  idx.html(`${dig - 1}`);
+
+                  // Modifying row id.
+                  $(this).attr('id', `R${dig - 1}`);
+      });
+
+      // Removing the current row.
+      $(this).closest('tr').remove();
+
+      // Decreasing total number of rows by 1.
+      rowIdx--;
+    });
+
+    });
+
+</script>
 
 <script>
 $(function () {

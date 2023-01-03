@@ -57,8 +57,13 @@ $pdf->AliasNbPages();
   foreach($docresults as $docresult)
   {
 
-    $pdf->Cell(20,6,'Diaganosis: ',0,0);
-    $pdf->Write(6,$docresult->DiagHsyNote);
+    $pdf->Cell(20,6,'Diaganosis: ',0,1);
+    
+    foreach($DiagnosisSubs as $DiagnosisSub)
+    {
+      $pdf->Cell(60,6,'   '.$DiagnosisSub->description,0,1);
+    }
+
     $pdf->Cell(20,6,'',0,1);
     $pdf->Cell(20,6,'',0,1);
 

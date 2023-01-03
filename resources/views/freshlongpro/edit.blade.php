@@ -337,22 +337,19 @@
                           <?php $intctrDiag=1; ?>
                           @foreach($DiagnosisSubs as $DiagnosisSub)
                          <tr id="R{{$intctrDiag}}">
-                          <td class="row-index text-center">
-                          <input type="hidden"  name="DiagnosisID[]" value="{{$DiagnosisSub->id}}">
+                            <td class="row-index text-center">
+                            <input type="hidden"  name="DiagnosisID[]" value="{{$DiagnosisSub->id}}">
                               <p>{{$intctrDiag}}</p>
-                          </td>
-                          <td class="text-center">
-                          {{$DiagnosisSub->description}}
-                          </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                            
-
+                            </td>
+                            <td class="text-center">
+                            {{$DiagnosisSub->description}}
+                            </td>
+                            <td class="text-center">
+                              <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">             
                             </td>
                           </tr> 
-                          <?php $intctrDiag++; ?>
+                          <?php $intctrDiag++; ?>                       
                           @endforeach
-          
                         </tbody>                  
                       </table>
                   <!-- /.card-body -->

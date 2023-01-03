@@ -184,15 +184,37 @@
                   </div>
               </div>
               <div class="row">
-                <div class="col-12">
-                  <div class="form-group">
-                      <div class="form-group">
-                        <label>Diagnosis:</label>
-                        <textarea id="inputNoteLead-Edit" name="DiagHsyNote" class="form-control" rows="4">{{$docresult->DiagHsyNote}}</textarea>
-                      </div>                      
-                    </div>
+                  <div class="col-6">
+                  <!-- /.card-header -->
+                      <!-- <table id="example1" class="table table-bordered table-striped"> -->
+                      <table  class="table table-bordered table-striped">
+                        <thead>                  
+                        <tr>
+                          <th>#</th>
+                          <th>Diagnosis</th>
+                        </tr>                  
+                        </thead>
+                        <tbody id="tbody">
+                          <?php $intctrDiag=1; ?>
+                          @foreach($DiagnosisSubs as $DiagnosisSub)
+                         <tr id="R{{$intctrDiag}}">
+                          <td class="row-index text-center">
+                          <input type="hidden"  name="DiagnosisID[]" value="{{$DiagnosisSub->id}}">
+                              <p>{{$intctrDiag}}</p>
+                          </td>
+                          <td class="text-center">
+                          {{$DiagnosisSub->description}}
+                          </td>
+                          </tr> 
+                          <?php $intctrDiag++; ?>
+                          @endforeach
+          
+                        </tbody>                  
+                      </table>
+                  <!-- /.card-body -->
+                    
+                  </div>
                 </div>
-              </div>
               <div class="row">                
                 <div class="col-md-4">
                   <div class="form-group">

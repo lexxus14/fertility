@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DiagnosticHyste;
 use Illuminate\Http\Request;
+use App\DoctorDiagnosis;
+use App\DiagHysDiags;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,9 +64,9 @@ class DiagnosticHysteController extends Controller
                     inner join nationalities as hn on hn.id = p.HusbandNationalityId
                     WHERE p.id =".$PatientId;
         $patients = DB::select($strsql);
+        $doctorDiagnosis = DoctorDiagnosis::all();
 
-
-        return view('diagnostichysteroscopy.new',compact('patients'));
+        return view('diagnostichysteroscopy.new',compact('patients','doctorDiagnosis'));
     }
 
     /**
@@ -110,6 +112,19 @@ class DiagnosticHysteController extends Controller
         $docfiles->save();
 
         $doclab_id = $docfiles->id;
+
+        $DiagnosisID=$request->DiagnosisID;
+
+        $N = count($DiagnosisID);
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new DiagHysDiags;
+            $pricelistsub->DiagnHysId = $doclab_id; 
+            $pricelistsub->DiagnosisId = $DiagnosisID[$i];
+            $pricelistsub->save();
+            
+        }
        
         $translinks = new SystemFunctionController;
 
@@ -138,7 +153,12 @@ class DiagnosticHysteController extends Controller
                   where id =".$docId;;
         $docresults = DB::select($strsql);
 
-        return view('diagnostichysteroscopy.view',compact('patients','docresults','docId'));
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from DiagHysDiags
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = DiagHysDiags.DiagnosisId
+                    WHERE DiagnHysId =".$docId;
+        $DiagnosisSubs = DB::select($strsql);
+
+        return view('diagnostichysteroscopy.view',compact('patients','docresults','DiagnosisSubs','docId'));
     }
 
     public function PrintDiagHysteroscopy($docId)
@@ -155,7 +175,12 @@ class DiagnosticHysteController extends Controller
                   where id =".$docId;;
         $docresults = DB::select($strsql);
 
-        return view('diagnostichysteroscopy.print',compact('patients','docresults','docId'));
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from DiagHysDiags
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = DiagHysDiags.DiagnosisId
+                    WHERE DiagnHysId =".$docId;
+        $DiagnosisSubs = DB::select($strsql);
+
+        return view('diagnostichysteroscopy.print',compact('patients','docresults','DiagnosisSubs','docId'));
     }
 
     /**
@@ -178,7 +203,14 @@ class DiagnosticHysteController extends Controller
                   where id =".$docId;;
         $docresults = DB::select($strsql);
 
-        return view('diagnostichysteroscopy.edit',compact('patients','docresults','docId'));
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from DiagHysDiags
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = DiagHysDiags.DiagnosisID
+                    WHERE DiagnHysId =".$docId;
+        $DiagnosisSubs = DB::select($strsql);
+
+        $doctorDiagnosis = DoctorDiagnosis::all();
+
+        return view('diagnostichysteroscopy.edit',compact('patients','docresults','DiagnosisSubs','doctorDiagnosis','docId'));
     }
 
     /**
@@ -236,6 +268,21 @@ class DiagnosticHysteController extends Controller
         $docfiles->IsVFok= $this->CheckCheckBox($request->IsVFok);
         $docfiles->NoWhy=$request->NoWhy;
         $docfiles->save();
+        $doclab_id = $docfiles->id;
+
+        $sub = DB::table('DiagHysDiags')->where('DiagnHysId', $request->docId)->delete();
+        $DiagnosisID=$request->DiagnosisID;
+
+        $N = count($DiagnosisID);
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new DiagHysDiags;
+            $pricelistsub->DiagnHysId = $doclab_id; 
+            $pricelistsub->DiagnosisId = $DiagnosisID[$i];
+            $pricelistsub->save();
+            
+        }
 
         return redirect()->to('/diaghyste/'.$request->txtpatientId);
     }
