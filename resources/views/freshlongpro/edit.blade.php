@@ -217,20 +217,20 @@
                 <div class="row">
                   <div class="col-2">
                       <div class="form-group">
-                        <label>IVF</label>
-                          <input type="text" class="form-control" name="IVF" value="{{$docresult->IVF}}"/>
+                        <label>Office</label>
+                          <input type="text" class="form-control" name="Office" value="{{$docresult->Office}}"/>
                       </div>
                   </div>
                   <div class="col-2">
                       <div class="form-group">
-                        <label>Ovum Donor</label>
-                          <input type="text" class="form-control" name="OvDonor" value="{{$docresult->OvDonor}}"/>
+                        <label>Retrieval Location</label>
+                          <input type="text" class="form-control" name="RetLoc" value="{{$docresult->RetLoc}}"/>
                       </div>
                   </div>
                   <div class="col-2">
                       <div class="form-group">
-                        <label>IVF w/ Surrugate</label>
-                          <input type="text" class="form-control" name="IVFwSur" value="{{$docresult->IVFwSur}}"/>
+                        <label>Cryo Sperm Loc</label>
+                          <input type="text" class="form-control" name="CrySpermLoc" value="{{$docresult->CrySpermLoc}}"/>
                       </div>
                   </div>
                 </div>

@@ -261,6 +261,40 @@ class FreshFormLongProtocolController extends Controller
         return view('freshlongpro.view',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','DiagnosisSubs','FreshFormLongProSubs','FreshFormLongProgs'));
     }
 
+    public function PrintLongProtocol($PhaseId,$DocId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    inner join FreshPhases as st on st.patientid = p.id
+                    WHERE st.id =".$PhaseId;
+        $patients = DB::select($strsql);
+
+        $strsql ="SELECT * from FreshFormLongPros
+                    WHERE id =".$DocId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="SELECT doctordiagnosis.id,doctordiagnosis.description from FreshFormLongProDiags
+                    INNER JOIN doctordiagnosis on doctordiagnosis.id = FreshFormLongProDiags.FertilityDiagnosisId
+                    WHERE FreshFormLongProsiD =".$DocId;
+        $DiagnosisSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from FreshFormLongProSubs
+                    WHERE FreshFormLongProsiD =".$DocId;
+        $FreshFormLongProSubs = DB::select($strsql);
+
+        $strsql ="SELECT * from FreshFormLongProgs
+                    WHERE FreshFormLongProsiD =".$DocId;
+        $FreshFormLongProgs = DB::select($strsql);
+
+
+        $doctorDiagnosis = DoctorDiagnosis::all();
+
+        return view('freshlongpro.print',compact('patients','doctorDiagnosis','DocId','PhaseId','docresults','DiagnosisSubs','FreshFormLongProSubs','FreshFormLongProgs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -382,7 +416,7 @@ class FreshFormLongProtocolController extends Controller
         $docfiles->save();
         $doclab_id = $docfiles->id;
 
-        $sub = DB::table('FreshFormLongProDiags')->where('FreshFormLongProsiD', $request->FreshFormId)->delete();
+        $sub = DB::table('FreshFormLongProDiags')->where('FreshFormLongProsiD', $request->DocId)->delete();
 
         $DiagnosisID=$request->DiagnosisID;
 
@@ -397,7 +431,7 @@ class FreshFormLongProtocolController extends Controller
             
         }
 
-        $sub = DB::table('FreshFormLongProSubs')->where('FreshFormLongProsiD', $request->FreshFormId)->delete();
+        $sub = DB::table('FreshFormLongProSubs')->where('FreshFormLongProsiD', $request->DocId)->delete();
 
         $CycleNo=$request->CDNo;
         $CycleDate=$request->CDDate;
@@ -427,7 +461,7 @@ class FreshFormLongProtocolController extends Controller
             
         }
 
-        $sub = DB::table('FreshFormLongProgs')->where('FreshFormLongProsiD', $request->FreshFormId)->delete();
+        $sub = DB::table('FreshFormLongProgs')->where('FreshFormLongProsiD', $request->DocId)->delete();
         
         $OBUSNo=$request->OBUSNo;
         $OBUS=$request->OBUS;

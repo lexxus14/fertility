@@ -201,13 +201,6 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group">
-                <div class="col-12">
-                  <input type="button" value="Add Diagnosis" class="btn btn-success float-right" data-toggle="modal" data-target="#open-modal-medicine-treatment">
-                </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-6">
                 <!-- /.card-header -->
                     <!-- <table id="example1" class="table table-bordered table-striped"> -->
@@ -216,7 +209,6 @@
                       <tr>
                         <th>#</th>
                         <th>Diagnosis</th>
-                        <th>Action</th>
                       </tr>                  
                       </thead>
                       <tbody id="tbody">
@@ -232,9 +224,6 @@
                           </td>
                           <td class="text-center">
                             {{$FETPage2DiagnosisSub->description}}
-                          </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
                           </td>
                         </tr>
                         @endforeach 
@@ -338,13 +327,7 @@
                   </div>
                 </div>
                   
-              <div class="row">
-                <div class="form-group">
-                  <div class="col-12">
-                    <input type="button" value="Add Cycle" id="add_cd" class="btn btn-success float-right">
-                  </div>
-                </div>
-              </div>   
+  
               <div class="row">
                 <div class="col-12">
                 <!-- /.card-header -->
@@ -358,7 +341,6 @@
                         <th>Lining</th>
                         <th>Estradiol</th>
                         <th>Notes</th>
-                        <th>Action</th>
                       </tr>                  
                       </thead>
                       <tbody id="tbody_cd">
@@ -397,11 +379,6 @@
                           <td class="text-center">
                             <textarea name="Notes[]" class="form-control">{{$FETPage2CDSub->Notes}} </textarea>
                           </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-cd float-right" value="Remove">
-                              </i>
-
-                            </td>
                         </tr>
                         @endforeach                     
                       </tbody>                  
@@ -439,65 +416,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Modal Medicine Treatement -->
-      <div class="modal fade" id="open-modal-medicine-treatment">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Diagnosis</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-12">
-
-                  <table id="example3" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Description</th>
-                      <th style="width: 40px">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                      $intctr =0;
-                    ?>
-                    @foreach($doctorDiagnosis as $doctorDiagnosi)
-                    <?php
-                    $intctr++; 
-                    ?>
-                    <tr>
-                      <td>{{$intctr}}</td>
-                      <td>{{$doctorDiagnosi->description}}</td>
-
-                      <td><button type="button" class="btn btn-success add-medicine-treatment" value="{{$doctorDiagnosi->id}}">Add</button> </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>                                 
-                </div>
-
-              </div>
-
-            </div>
-            
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-
-
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
 
 
   <!-- DataTables  & Plugins -->
@@ -566,200 +484,6 @@
   });
 </script>
 
-    <script >
-    $(document).ready(function(){
-    var rowIdx = {{$intctr}};
-    var rowIdx_cd = {{$ctr}};        
-    
-    $('#add_cd').click(function(){
-      
-      $('#tbody_cd').append(`<tr id="RCD${++rowIdx_cd}">
-        <td class="row-index text-center">
-          <input type="number" class="form-control" name="CDNo[]" value="${rowIdx_cd}">
-        </td>
-        <td class="text-center">
-          <input type="date" class="form-control" name="CDDate[]">
-        </td>
-        <td class="text-center">
-          <div class="form-group row">
-            <label for="rt" class="col-sm-2 col-form-label">RT</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="rt" name="RT[]" placeholder="RT">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="lt" class="col-sm-2 col-form-label">LT</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="lt" name="LT[]" placeholder="LT">
-            </div>
-          </div>
-        </td>        
-        <td class="text-center">
-          <input type="text" class="form-control" name="Lining[]">
-        </td>
-        <td class="text-center">
-          <input type="text" class="form-control" name="Estradiol[]">
-        </td>
-        <td class="text-center">
-          <textarea name="Notes[]" class="form-control"> </textarea>
-        </td>
-        <td class="text-center">
-          <input type="button" class="btn btn-danger btn-sm remove-cd float-right" value="Remove">
-            </i>
-
-          </td>
-        </tr>`);
-    });
-
-    // jQuery button click event to remove a row.
-    $('#tbody_cd').on('click', '.remove-cd', function () {
-
-
-      // Getting all the rows next to the row
-      // containing the clicked button
-      var child = $(this).closest('tr').nextAll();
-
-      // Iterating across all the rows
-      // obtained to change the index
-      child.each(function () {
-
-                  // Getting <tr> id.
-                  var id = $(this).attr('id');
-
-                  // Getting the <p> inside the .row-index class.
-                  var idx = $(this).children('.row-index').children('p');
-
-                  // Gets the row number from <tr> id.
-                  var dig = parseInt(id.substring(3));
-
-                  // Modifying row index.
-                  idx.html(`${dig - 1}`);
-
-                  // Modifying row id.
-                  $(this).attr('id', `RCD${dig - 1}`);
-      });
-
-      // Removing the current row.
-      $(this).closest('tr').remove();
-
-      // Decreasing total number of rows by 1.
-      rowIdx_cd--;
-    });
-
-    /* Price List */
-
-    $('.add-medicine-treatment').click(function(){
-
-      var med_id = $(this).val();
-      url = '{{route('DoctorDiagnosInfo')}}';
-
-      $.get(url + '/' + med_id, function (data) {
-        console.log(data);
-            $('#tbody').append(`<tr id="R${++rowIdx}">
-              <td class="row-index text-center">
-              <input type="hidden" name="DiagnosisID[]" value="${data.id}">
-                <p>${rowIdx}</p>
-              </td>
-              <td class="text-center">
-              ${data.description}
-              </td>
-              <td class="text-center">
-                <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-                 
-
-                </td>
-              </tr>`);
-      });
-
-    });
-
-
-    // jQuery button click event to remove a row.
-    $('#tbody').on('click', '.remove-medicine-treatment', function () {
-
-      var med_value = 0;
-      var total_amount =0;
-      var totalPayableAmount = 0;
-
-      // Getting all the rows next to the row
-      // containing the clicked button
-      var child = $(this).closest('tr').nextAll();
-
-      // Iterating across all the rows
-      // obtained to change the index
-      child.each(function () {
-
-                  // Getting <tr> id.
-                  var id = $(this).attr('id');
-
-                  // Getting the <p> inside the .row-index class.
-                  var idx = $(this).children('.row-index').children('p');
-
-                  // Gets the row number from <tr> id.
-                  var dig = parseInt(id.substring(1));
-
-                  // Modifying row index.
-                  idx.html(`${dig - 1}`);
-
-                  // Modifying row id.
-                  $(this).attr('id', `R${dig - 1}`);
-      });
-
-      // Removing the current row.
-      $(this).closest('tr').remove();
-
-      // Decreasing total number of rows by 1.
-      rowIdx--;
-    });
-
-    $('.open-modal-lead-assessment').click(function(data){
-      var id = $(this).val();
-      $('#patient_id').val(id);
-    });
-
-    //display modal form for task editing
-    $('.open-modal-lead-assessment-edit').click(function(){
-        var task_id = $(this).val();
-        // alert(task_id);
-        $.get(url  + task_id, function (data) {
-            //success data
-            console.log(data);
-            $('#LeadAssUpdateId').val(data[0].id);
-
-            const d = new Date(data[0].date);
-            let text = d.toLocaleDateString();
-            $('#lead-date-update-ass').val(text);
-            $("#cmbStaff").append("<option value='"+data[0].staffid+"'selected>"+data[0].name +"</option>");
-            $("#cmbReason").append("<option value='"+data[0].reasonid+"'selected>"+data[0].description +"</option>");
-            $('#inputNoteLead-Edit').text(data[0].notes);
-            // $('#task').val(data.task);
-            // $('#description').val(data.description);
-            // $('#btn-save').val("update");
-
-            // $('#myModal').modal('show');
-        }) 
-
-        // $.get(url + '/' + task_id, function (data) {
-        //     //success data
-        //     var i = 0
-        //     for (i = 0, len = data.length; i < len; i++) {
-        //         console.log(data[i]);
-        //     }
-            //console.log(data[1]);
-
-            // $('#task_id').val(data.id);
-            // $('#task').val(data.task);
-            // $('#description').val(data.description);
-            // $('#btn-save').val("update");
-
-            $('#modal-lead-assessment-edit').modal('show');
-        })
-    });
-
-/* Lead Assessement */
-
-
-  </script>
 
 <script>
 $(function () {

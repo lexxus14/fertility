@@ -639,6 +639,8 @@ Route::get('/patientcalendar/{PatientID?}','PatientCalendarController@index')->n
     Route::post('/freshlongprotocol/update','FreshFormLongProtocolController@update')->name('FreshFormLongProUpdate');
     Route::get('/freshlongprotocol/view/{PhaseId?}/{id?}','FreshFormLongProtocolController@show')->name('FreshFormLongProShow');
     Route::post('/freshlongprotocol/delete','FreshFormLongProtocolController@destroy')->name('FreshFormLongProDelete');
+
+    Route::get('/freshlongprotocol/print/{PhaseId?}/{id?}','FreshFormLongProtocolController@PrintLongProtocol')->name('FreshFormLongProPrint');
 /*Fresh Form Long Protocol*/
 
 /*Clomid Cycle*/

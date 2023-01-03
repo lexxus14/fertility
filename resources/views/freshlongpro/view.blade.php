@@ -543,7 +543,6 @@
                           <th>Progesteron</th>
                           <th># SACS</th>
                           <th># FHT</th>
-                          <th>Action</th>
                         </tr>                  
                         </thead>
                         <tbody id="tbody_obus">
@@ -604,6 +603,7 @@
                 <div class="row">
                   <div class="col-12">
                     <a href="{{route('FreshFormLongPro')}}/{{$PhaseId}}" class="btn btn-secondary">Cancel</a>
+                    <a href="{{route('FreshFormLongProPrint')}}/{{$PhaseId}}/{{$DocId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
                   </div>
                 </div>
               <!-- /.card-body -->
