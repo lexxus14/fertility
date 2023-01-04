@@ -38,7 +38,7 @@ class PreOperaCheckListController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreOperaChecklists.*,p.name StaffName from PreOperaChecklists 
-                    inner join staff as p on p.id = PreOperaChecklists.GivenByStaffid
+                    left join staff as p on p.id = PreOperaChecklists.GivenByStaffid
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 
@@ -181,19 +181,19 @@ class PreOperaCheckListController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreOperaChecklists.*,p.name StaffName from PreOperaChecklists 
-                    inner join staff as p on p.id = PreOperaChecklists.GivenByStaffid
+                    left join staff as p on p.id = PreOperaChecklists.GivenByStaffid
                   where PreOperaChecklists.id =".$docId;
         $docresults = DB::select($strsql);
 
         $strsql ="select dd.id,dd.description,VitalSignRes from PreOpeChkLstVitalSigns 
-            inner join VitalSigns dd on dd.id = PreOpeChkLstVitalSigns.VitalSignId
+            left join VitalSigns dd on dd.id = PreOpeChkLstVitalSigns.VitalSignId
             where PreOpeChkLstVitalSigns.PreOperaChecklistsId=".$docId;
 
         $PreOpeChkLstVitalSigns = DB::select($strsql);
 
 
         $strsql ="select dd.id,dd.description from PreOperaChkLstProcs 
-                    inner join procedures dd on dd.id = PreOperaChkLstProcs.ProcedureId
+                    left join procedures dd on dd.id = PreOperaChkLstProcs.ProcedureId
                     where PreOperaChkLstProcs.PreOperaChecklistsId=".$docId;
 
         $PreOpProcedures = DB::select($strsql);
@@ -216,19 +216,19 @@ class PreOperaCheckListController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreOperaChecklists.*,p.name StaffName from PreOperaChecklists 
-                    inner join staff as p on p.id = PreOperaChecklists.GivenByStaffid
+                    left join staff as p on p.id = PreOperaChecklists.GivenByStaffid
                   where PreOperaChecklists.id =".$docId;
         $docresults = DB::select($strsql);
 
         $strsql ="select dd.id,dd.description,VitalSignRes from PreOpeChkLstVitalSigns 
-            inner join VitalSigns dd on dd.id = PreOpeChkLstVitalSigns.VitalSignId
+            left join VitalSigns dd on dd.id = PreOpeChkLstVitalSigns.VitalSignId
             where PreOpeChkLstVitalSigns.PreOperaChecklistsId=".$docId;
 
         $PreOpeChkLstVitalSigns = DB::select($strsql);
 
 
         $strsql ="select dd.id,dd.description from PreOperaChkLstProcs 
-                    inner join procedures dd on dd.id = PreOperaChkLstProcs.ProcedureId
+                    left join procedures dd on dd.id = PreOperaChkLstProcs.ProcedureId
                     where PreOperaChkLstProcs.PreOperaChecklistsId=".$docId;
 
         $PreOpProcedures = DB::select($strsql);
@@ -257,19 +257,19 @@ class PreOperaCheckListController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreOperaChecklists.*,p.name StaffName from PreOperaChecklists 
-                    inner join staff as p on p.id = PreOperaChecklists.GivenByStaffid
+                    left join staff as p on p.id = PreOperaChecklists.GivenByStaffid
                   where PreOperaChecklists.id =".$docId;
         $docresults = DB::select($strsql);
 
         $strsql ="select dd.id,dd.description,VitalSignRes from PreOpeChkLstVitalSigns 
-            inner join VitalSigns dd on dd.id = PreOpeChkLstVitalSigns.VitalSignId
+            left join VitalSigns dd on dd.id = PreOpeChkLstVitalSigns.VitalSignId
             where PreOpeChkLstVitalSigns.PreOperaChecklistsId=".$docId;
 
         $PreOpeChkLstVitalSigns = DB::select($strsql);
 
 
         $strsql ="select dd.id,dd.description from PreOperaChkLstProcs 
-                    inner join procedures dd on dd.id = PreOperaChkLstProcs.ProcedureId
+                    left join procedures dd on dd.id = PreOperaChkLstProcs.ProcedureId
                     where PreOperaChkLstProcs.PreOperaChecklistsId=".$docId;
 
         $PreOpProcedures = DB::select($strsql);

@@ -190,7 +190,7 @@
               <div class="col-md-12">
                   <div class="form-group">
                     <label for="PreoperativeInstruction" class="col-form-label">Preoperative Instruction:</label>
-                    <textarea class="form-control" name="PreoperativeInstruction" id="PreoperativeInstruction">{{$docresult->StaffName}}</textarea>
+                    <textarea class="form-control" name="PreoperativeInstruction" id="PreoperativeInstruction"></textarea>
                   </div>
                 </div>
               <div class="form-group row">

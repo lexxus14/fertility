@@ -243,7 +243,7 @@ class IVFReqFormController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IVFRequisistionForms.*,p.name StaffName from IVFRequisistionForms 
-                    inner join staff as p on p.id = IVFRequisistionForms.PhysicianId
+                    left join staff as p on p.id = IVFRequisistionForms.PhysicianId
                   where IVFRequisistionForms.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -254,7 +254,7 @@ class IVFReqFormController extends Controller
         $IVFReqFormMeds = DB::select($strsql);
 
         $strsql ="select dd.id,dd.description from IVFProcOrds 
-                    inner join procedures dd on dd.id = IVFProcOrds.ProcedureId
+                    left join procedures dd on dd.id = IVFProcOrds.ProcedureId
                     where IVFProcOrds.IVFRequisistionFormsId=".$docId;
         $IVFProcOrds = DB::select($strsql);
 

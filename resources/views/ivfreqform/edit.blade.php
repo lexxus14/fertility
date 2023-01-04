@@ -665,7 +665,10 @@
                       
                     </div>
                     <br/>
-                    <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
+                    @if(is_file(public_path($docresult->filelink)))
+                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
+                    @endif
+                    
                   </div>
                 </div>
               </div>

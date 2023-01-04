@@ -360,7 +360,7 @@
                             {{$IntOpeAneRecTotalDoseDrug->description}}
                           </td>
                           <td>
-                            <select name="UnitId" class="form-control">
+                            <select name="UnitId[]" class="form-control">
                               @foreach($MedicineUnits as $MedicineUnit)
                               @if($IntOpeAneRecTotalDoseDrug->MedId==$MedicineUnit->id)
                               <option selected value="{{$MedicineUnit->id}}">{{$MedicineUnit->ShortSymbol}}</option>

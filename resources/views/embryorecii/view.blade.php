@@ -428,8 +428,7 @@
                           <label>ET-Transfer</label>
                           <label>C-egg Cyro</label>
                           <label>D-Discard</label>
-                        </th>         
-                        <th></th>
+                        </th>      
                       </tr>  
                         <tr>
                           <th>Maturity</th>
@@ -438,7 +437,6 @@
                           <th>PB</th>
                           <th>PN</th>    
                           <th>Remarks</th>    
-                          <th></th>    
                           <th></th>    
                           <th></th>    
                           <th></th>    
@@ -487,10 +485,6 @@
                             <input type="text" class="form-control" name="Dispositionremarks[]" value="{{$EmbryologyRecordIISub->Dispositionremarks}}">
                           </td>
 
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
-
-                          </td>
                         </tr>  
                         <?php $intctr++; ?>
                         @endforeach                 
@@ -553,8 +547,7 @@
                           </div>
                         </th>   
                         <th class="text-left">
-                        </th>         
-                        <th></th>
+                        </th>       
                       </tr>                        
                       </tfoot>                
                     </table>

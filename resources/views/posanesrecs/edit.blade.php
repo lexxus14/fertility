@@ -162,6 +162,7 @@
     <!-- /.content -->
 
   <section class="content">
+    <?php $TotalScore = 0; ?>
     @foreach($docresults as $docresult)
    <form action="{{route('PostAnesthesiaRecsUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
         {{ csrf_field() }}
@@ -440,6 +441,11 @@
                   <div class="form-group">
                     <label for="HisAndPhy" class="col-form-label">Total Score</label>
                     <input type="text" class="form-control" id="TotalScore" name="TotalScore" value="{{$docresult->TotalScore}}" placeholder="10">  
+
+                    <?php 
+                      if(isset($docresult->TotalScore))
+                      $TotalScore = $docresult->TotalScore; 
+                    ?>
                   </div>
                 </div>
               </div>
@@ -829,7 +835,75 @@ $(function () {
 
     
     var rowIdx =  {{$intctrMonRec}} - 1;          
-    var rowIdx_pro = {{$intctrPro}} - 1;     
+    var rowIdx_pro = {{$intctrPro}} - 1;   
+
+    var TotalScore = {{$TotalScore}};
+
+
+    $('#IsCriDisCon').click(function(){
+      if($('input[name="IsCriDisCon"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisAct').click(function(){
+      if($('input[name="IsCriDisAct"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisBre').click(function(){
+      if($('input[name="IsCriDisBre"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisCir').click(function(){
+      if($('input[name="IsCriDisCir"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisOxySat').click(function(){
+      if($('input[name="IsCriDisOxySat"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    }); 
 
     $('.add-mon-rec').click(function(){
 

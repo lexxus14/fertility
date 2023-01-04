@@ -627,9 +627,9 @@
               </div>
               <div class="row">
                 <div class="col-sm-4">
-                  <div class="form-group">
-                    <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
-                  </div>
+                  @if(is_file(public_path($docresult->filelink)))
+                      <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
+                    @endif
                 </div>
               </div>
               

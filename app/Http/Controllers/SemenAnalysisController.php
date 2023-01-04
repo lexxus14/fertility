@@ -43,7 +43,7 @@ class SemenAnalysisController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select SemenAnalysis.*,p.name StaffName from SemenAnalysis 
-                    inner join staff as p on p.id = SemenAnalysis.PhysicianStaffID
+                    left join staff as p on p.id = SemenAnalysis.PhysicianStaffID
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 

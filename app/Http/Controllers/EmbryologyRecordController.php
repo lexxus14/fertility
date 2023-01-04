@@ -43,7 +43,7 @@ class EmbryologyRecordController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select EmbryologyRecordIs.*,p.name StaffName from EmbryologyRecordIs 
-                    inner join staff as p on p.id = EmbryologyRecordIs.RetPhysicianStaffId
+                    left join staff as p on p.id = EmbryologyRecordIs.RetPhysicianStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 

@@ -321,7 +321,7 @@
                       </tr>                  
                       </thead>
                       <tbody id="tbody">
-                        <?php $intctrVS=1 ?>
+                        <?php $intctrVS=1; ?>
                         @foreach($PreOpeChkLstVitalSigns as $PreOpeChkLstVitalSign)
                         <tr id="R{{$intctrVS}}">
                           <td class="row-index text-center">

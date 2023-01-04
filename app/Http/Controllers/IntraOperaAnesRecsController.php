@@ -51,7 +51,7 @@ class IntraOperaAnesRecsController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IntraOperAnesRecs.*,p.name StaffName from IntraOperAnesRecs 
-                    inner join staff as p on p.id = IntraOperAnesRecs.SurgeonStaffId
+                    left join staff as p on p.id = IntraOperAnesRecs.SurgeonStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 

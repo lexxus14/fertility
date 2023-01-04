@@ -199,14 +199,14 @@
                         </thead>
                         <tbody id="tbody_diag">
                           <?php $intctrDiag = 1;?>
-                          @foreach($DoctorDiagnosis as $DoctorDiagnosi)
+                          @foreach($PreAnePreopDiags as $PreAnePreopDiag)
                           <tr id="R{{$intctrDiag}}">
                             <td class="row-index text-center">
-                              <input type="hidden" class="medid" name="DiagnosisId[]" value="{{$DoctorDiagnosi->id}}">
+                              <input type="hidden" class="medid" name="DiagnosisId[]" value="{{$PreAnePreopDiag->id}}">
                               <p>{{$intctrDiag}}</p>
                             </td>
                             <td class="text-center">
-                              {{$DoctorDiagnosi->description}}
+                              {{$PreAnePreopDiag->description}}
                             </td>
                           </tr>
                           <?php $intctrDiag++; ?>

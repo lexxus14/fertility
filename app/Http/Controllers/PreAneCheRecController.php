@@ -40,7 +40,7 @@ class PreAneCheRecController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreAneCheRecs.*,p.name StaffName from PreAneCheRecs 
-                    inner join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
+                    left join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 
@@ -183,7 +183,7 @@ class PreAneCheRecController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreAneCheRecs.*,p.name StaffName from PreAneCheRecs 
-                    inner join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
+                    left join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
                   where PreAneCheRecs.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -225,7 +225,7 @@ class PreAneCheRecController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreAneCheRecs.*,p.name StaffName from PreAneCheRecs 
-                    inner join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
+                    left join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
                   where PreAneCheRecs.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -273,7 +273,7 @@ class PreAneCheRecController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select PreAneCheRecs.*,p.name StaffName from PreAneCheRecs 
-                    inner join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
+                    left join staff as p on p.id = PreAneCheRecs.AnesthetistStaffId
                   where PreAneCheRecs.id =".$docId;
         $docresults = DB::select($strsql);
 

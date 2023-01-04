@@ -64,11 +64,11 @@ $pdf->AliasNbPages();
 <td>Diagnosis</td>
 </tr>";
 $intctrDiag = 1;
-foreach($DoctorDiagnosis as $DoctorDiagnosi)
+foreach($PreAnePreopDiags as $PreAnePreopDiag)
 {
 $htmlTable=$htmlTable."<tr>
 <td>$intctrDiag</td>
-<td>$DoctorDiagnosi->description</td>
+<td>$PreAnePreopDiag->description</td>
 </tr>";
 $intctrDiag++;
 }

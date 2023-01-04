@@ -44,7 +44,7 @@ class ConOfAnesthesiaController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select ConOfAnesthesia.*,p.name StaffName from ConOfAnesthesia 
-                    inner join staff as p on p.id = ConOfAnesthesia.AnesthetistStaffId
+                    left join staff as p on p.id = ConOfAnesthesia.AnesthetistStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 

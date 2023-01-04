@@ -44,7 +44,7 @@ class SpermThawingController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select SpermThawings.*,p.name StaffName from SpermThawings 
-                    inner join staff as p on p.id = SpermThawings.CompByStaffId
+                    left join staff as p on p.id = SpermThawings.CompByStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 
@@ -161,7 +161,7 @@ class SpermThawingController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select SpermThawings.*,p.name StaffName from SpermThawings 
-                    inner join staff as p on p.id = SpermThawings.CompByStaffId
+                    left join staff as p on p.id = SpermThawings.CompByStaffId
                   where SpermThawings.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -218,7 +218,7 @@ class SpermThawingController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select SpermThawings.*,p.name StaffName from SpermThawings 
-                    inner join staff as p on p.id = SpermThawings.CompByStaffId
+                    left join staff as p on p.id = SpermThawings.CompByStaffId
                   where SpermThawings.id =".$docId;
         $docresults = DB::select($strsql);
 
@@ -278,6 +278,7 @@ class SpermThawingController extends Controller
         $docfiles->docdate= $date->format('Y-m-d');
         
         $docfiles->Notes=$request->Notes;
+        $docfiles->CompByStaffId=$request->CompByStaffId;
         $docfiles->save();
         $doclab_id = $docfiles->id;
 
@@ -289,6 +290,7 @@ class SpermThawingController extends Controller
         $IsFresh=$request->IsFresh;
         $IsTESEPESAMESA=$request->IsTESEPESAMESA;
         $IsPrevFroz=$request->IsPrevFroz;
+
 
         $N = count($NoOfVials);
 

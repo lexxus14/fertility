@@ -208,7 +208,6 @@
                         <th>Date Recovered</th>
                         <th>Office</th>
                         <th>Specimen Type</th>
-                        <th style="width: 40px">Action</th>
                       </tr>                  
                       </thead>
                       <tbody id="tbody">
@@ -264,9 +263,6 @@
                                   </label>
                                 </div>
                               </div>
-                          </td>
-                          <td class="text-center">
-                            <input type="button" class="btn btn-danger btn-sm remove-medicine-treatment float-right" value="Remove">
                           </td>
                           </tr> 
                           <?php $intctr++; ?>

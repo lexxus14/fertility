@@ -43,7 +43,7 @@ class IVFEmbryoTransDataSheetController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IVFEmbryoTransDataSheet.*,p.name MDStaffName from IVFEmbryoTransDataSheet 
-                    inner join staff as p on p.id = IVFEmbryoTransDataSheet.MDStaffId
+                    left join staff as p on p.id = IVFEmbryoTransDataSheet.MDStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 

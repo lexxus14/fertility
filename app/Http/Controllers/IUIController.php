@@ -42,7 +42,7 @@ class IUIController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select IUIs.*,p.name StaffName from IUIs 
-                    inner join staff as p on p.id = IUIs.PhysicianStaffId
+                    left join staff as p on p.id = IUIs.PhysicianStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 

@@ -357,7 +357,7 @@
                 <div class="col-md-2">
                   <div class="form-group">
                     <label for="HisAndPhy" class="col-form-label">Total Score</label>
-                    <input type="text" class="form-control" id="TotalScore" name="TotalScore" placeholder="10">  
+                    <input type="text" class="form-control" id="TotalScore" name="TotalScore" value="0" placeholder="10">  
                   </div>
                 </div>
               </div>
@@ -744,6 +744,7 @@ $(function () {
     
     var rowIdx = 0;          
     var rowIdx_pro = 0;     
+    var TotalScore = 0;
 
     $('.add-mon-rec').click(function(){
 
@@ -797,6 +798,71 @@ $(function () {
               </tr>`);
       });
 
+    });
+
+    $('#IsCriDisCon').click(function(){
+      if($('input[name="IsCriDisCon"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisAct').click(function(){
+      if($('input[name="IsCriDisAct"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisBre').click(function(){
+      if($('input[name="IsCriDisBre"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisCir').click(function(){
+      if($('input[name="IsCriDisCir"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
+    });
+
+    $('#IsCriDisOxySat').click(function(){
+      if($('input[name="IsCriDisOxySat"]').is(':checked'))
+      {
+      TotalScore = TotalScore + 2;
+      $('#TotalScore').val(TotalScore);
+      }
+      else
+      {
+        TotalScore = TotalScore - 2;
+      $('#TotalScore').val(TotalScore);
+      }
     });
 
     $('.add-staff').click(function(){

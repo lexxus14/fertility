@@ -96,7 +96,7 @@ $pdf->AliasNbPages();
 
     $pdf->Cell(15,6,'UPON ADMISSION: NURSING ASSESSMENT',0,1);
 
-    $pdf->Cell(35,6,'PATIENT IDENTIFICATION: ',0,0);
+    $pdf->Cell(45,6,'PATIENT IDENTIFICATION: ',0,0);
     $pdf->Write(6,$strPatientName);
 
     $pdf->Cell(35,6,' ',0,1);

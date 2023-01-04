@@ -189,31 +189,31 @@
     $pdf->Ln();
 
     $pdf->Cell(35,6,'WIFE Signature:',0,0);
-    $pdf->Cell(90,6,'','B',0);
+    $pdf->Cell(90,6,$patient->WifeName.' '.$patient->WifeLastName,'B',0);
     $pdf->Cell(10,6,'Date:',0,0);
     $pdf->Cell(0,6,'','B',1);
 
     $pdf->Ln();
     $pdf->Cell(35,6,'HUSBAND Signature:',0,0);
-    $pdf->Cell(90,6,'','B',0);
+    $pdf->Cell(90,6,$patient->HusbandName.' '.$patient->HusbandLastName,'B',0);
     $pdf->Cell(10,6,'Date:',0,0);
     $pdf->Cell(0,6,'','B',1);
 
     $pdf->Ln();
     $pdf->Cell(35,6,'NURSE Signature:',0,0);
-    $pdf->Cell(90,6,'','B',0);
+    $pdf->Cell(90,6,$docresult->NurseName,'B',0);
     $pdf->Cell(10,6,'Date:',0,0);
     $pdf->Cell(0,6,'','B',1);
 
     $pdf->Ln();
-    $pdf->Cell(35,6,'Embryologist Signature:',0,0);
-    $pdf->Cell(90,6,'','B',0);
+    $pdf->Cell(40,6,'Embryologist Signature:',0,0);
+    $pdf->Cell(85,6,$docresult->EmbryologistName,'B',0);
     $pdf->Cell(10,6,'Date:',0,0);
     $pdf->Cell(0,6,'','B',1);
 
     $pdf->Ln();
     $pdf->Cell(35,6,'MD Signature:',0,0);
-    $pdf->Cell(90,6,'','B',0);
+    $pdf->Cell(90,6,$docresult->MDName,'B',0);
     $pdf->Cell(10,6,'Date:',0,0);
     $pdf->Cell(0,6,'','B',1);
     
