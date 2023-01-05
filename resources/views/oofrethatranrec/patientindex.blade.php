@@ -196,12 +196,12 @@
                           @endif
                         </td>
 		                    <td>
-		                      <a class="btn btn-primary btn-sm float-right" href="{{route('OOctyeFreezeThawTransShow')}}/{{$result->id}}">
+		                      <a class="btn btn-primary btn-sm float-right" href="{{route('OOctyeFreezeThawTransShow')}}/{{$intPatientId}}/{{$result->id}}">
 		                        <i class="fas fa-folder"></i>
 		                              View
 		                      </a>
 
-		                      <a class="btn btn-info btn-sm float-right" href="{{route('OOctyeFreezeThawTransEdit')}}/{{$result->id}}">
+		                      <a class="btn btn-info btn-sm float-right" href="{{route('ExistOOctyeFreezeThawTrans')}}/{{$intPatientId}}/{{$result->id}}">
 		                        <i class="fas fa-pencil-alt"></i> Edit
 		                      </a>                       
 

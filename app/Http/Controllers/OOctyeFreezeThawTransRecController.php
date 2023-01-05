@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Staff;
 use App\OOctyeFreezeThawTransRec;
 use App\OOctyeFreezeThawTransRecSub;
+use App\OOctyeFreezeThawTransRecSubDetails;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class OOctyeFreezeThawTransRecController extends Controller
         $patients = DB::select($strsql);
 
         $strsql ="select OOcyteFreezeThawTransRecs.*,p.name StaffName from OOcyteFreezeThawTransRecs 
-                    inner join staff as p on p.id = OOcyteFreezeThawTransRecs.PhysicianStaffId
+                    left join staff as p on p.id = OOcyteFreezeThawTransRecs.PhysicianStaffId
                   where patientid =".$PatientId;
         $docresult = DB::select($strsql);
 
@@ -68,8 +69,108 @@ class OOctyeFreezeThawTransRecController extends Controller
 
         $Staffs = Staff::all();
 
+        
+
         return view('oofrethatranrec.new',compact('patients','Staffs'));
     }
+
+    public function CreateFreezThaw($PatientId,$docId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    WHERE p.id =".$PatientId;
+        $patients = DB::select($strsql);
+
+        $Staffs = Staff::all();       
+
+        return view('oofrethatranrec.new_details',compact('patients','Staffs','docId'));
+    }
+
+    public function EditFreezThaw($PatientId,$docId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    WHERE p.id =".$PatientId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select OOcyteFreezeThawTransRecSubs.*,p2.name FreezingEmbStaff,p3.name ThawingEmbStaff from OOcyteFreezeThawTransRecSubs 
+                    left join staff as p2 on p2.id = OOcyteFreezeThawTransRecSubs.FreezingEmbStaffId
+                    left join staff as p3 on p3.id = OOcyteFreezeThawTransRecSubs.ThawingEmbStaffId
+            where OOcyteFreezeThawTransRecSubs.id=".$docId;
+
+        $OOcyteSubs = DB::select($strsql);
+
+        $Staffs = Staff::all();       
+
+        return view('oofrethatranrec.edit_details',compact('patients','Staffs','docId','OOcyteSubs'));
+    }
+
+    public function StoreOoFreThaTranRec($PatientId)
+    {
+
+        $docfiles = new OOctyeFreezeThawTransRec;
+        $docfiles->patientid = $PatientId;     
+        $docfiles->createdbyid=Auth::user()->id;
+
+        $date = date_create();
+        $docfiles->docdate= $date->format('Y-m-d');
+
+        $docfiles->save();
+        $doclab_id = $docfiles->id;
+
+        return redirect()->to('/oofrethatranrec/newfreezthaw/'.$PatientId.'/'.$doclab_id);
+    }
+    public function StoreOoFreThaTranRecSave($PatientId)
+    {
+
+        $docfiles = new OOctyeFreezeThawTransRec;
+        $docfiles->patientid = $PatientId;     
+        $docfiles->createdbyid=Auth::user()->id;
+
+        $date = date_create();
+        $docfiles->docdate= $date->format('Y-m-d');
+
+        $docfiles->save();
+        $doclab_id = $docfiles->id;
+
+        return redirect()->to('/oofrethatranrec/ofttr/'.$PatientId.'/'.$doclab_id);
+    }
+
+    public function createExist($PatientId, $docId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    WHERE p.id =".$PatientId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select OOcyteFreezeThawTransRecs.*,p2.name PhysicianStaffName,p3.name EmbryologistStaffName,p4.name NurseStaffName from OOcyteFreezeThawTransRecs 
+                    left join staff as p2 on p2.id = OOcyteFreezeThawTransRecs.PhysicianStaffId
+                    left join staff as p3 on p3.id = OOcyteFreezeThawTransRecs.EmbryologistStaffId
+                    left join staff as p4 on p4.id = OOcyteFreezeThawTransRecs.NurseStaffId
+                  where OOcyteFreezeThawTransRecs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select OOcyteFreezeThawTransRecSubs.*,p2.name FreezingEmbStaff,p3.name ThawingEmbStaff from OOcyteFreezeThawTransRecSubs 
+                    left join staff as p2 on p2.id = OOcyteFreezeThawTransRecSubs.FreezingEmbStaffId
+                    left join staff as p3 on p3.id = OOcyteFreezeThawTransRecSubs.ThawingEmbStaffId
+            where OOcFreThaTraRecId=".$docId;
+
+        $OOcyteSubs = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('oofrethatranrec.new',compact('docresults','patients','OOcyteSubs','Staffs','docId'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -79,50 +180,24 @@ class OOctyeFreezeThawTransRecController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $imagepath = "";
 
-        if ($files = $request->file('inputFile')) {
-        // Define upload path
-           $destinationPath = public_path('/file/'); // upload path
-        // Upload Orginal Image           
-           $imagepath = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $imagepath);
-       }
-
-        $docfiles = new OOctyeFreezeThawTransRec;
-        $docfiles->patientid = $request->txtpatientId;
-        $docfiles->filelink = '/file/'.$imagepath;        
-        $docfiles->createdbyid=Auth::user()->id;
-
-        $date = date_create($request->docdate);
-        $docfiles->docdate= $date->format('Y-m-d');
-
-        $docfiles->Notes=$request->Notes;
-
+        $docfiles = new OOctyeFreezeThawTransRecSub;
+        $docfiles->OOcFreThaTraRecId = $request->OOcFreThaTraRecId;
+        
         $date = date_create($request->FreezingDate);
         $docfiles->FreezingDate= $date->format('Y-m-d');
 
-        $docfiles->FreezingTime=$request->FreezingTime;
-        $docfiles->FreezingLocation=$request->FreezingLocation;
-        $docfiles->FreezingEmbStaffId=$request->FreezingEmbStaffId;
+        $docfiles->FreezingTime = $request->FreezingTime;
+        $docfiles->FreezingLocation = $request->FreezingLocation;
+        $docfiles->FreezingEmbStaffId = $request->FreezingEmbStaffId;
 
         $date = date_create($request->ThawingDate);
         $docfiles->ThawingDate= $date->format('Y-m-d');
 
-        $docfiles->ThawingTime=$request->ThawingTime;
-        $docfiles->ThawingLocation=$request->ThawingLocation;
-        $docfiles->ThawingEmbStaffId=$request->ThawingEmbStaffId;
-
-        $docfiles->TransferTime=$request->TransferTime;
-        $docfiles->NoOfEmbTrans=$request->NoOfEmbTrans;
-        $docfiles->NoOfAttempts=$request->NoOfAttempts;
-        $docfiles->IsAHYes=$this->CheckCheckBox($request->IsAHYes);
-        $docfiles->IsAHNo=$this->CheckCheckBox($request->IsAHNo);
-        $docfiles->CathLoading=$request->CathLoading;
-        $docfiles->PhysicianStaffId=$request->PhysicianStaffId;
-        $docfiles->EmbryologistStaffId=$request->EmbryologistStaffId;
-        $docfiles->NurseStaffId=$request->NurseStaffId;
+        $docfiles->ThawingTime = $request->ThawingTime;
+        $docfiles->ThawingLocation = $request->ThawingLocation;
+        $docfiles->ThawingEmbStaffId = $request->ThawingEmbStaffId;
+        
         $docfiles->save();
         $doclab_id = $docfiles->id;
 
@@ -137,8 +212,61 @@ class OOctyeFreezeThawTransRecController extends Controller
 
         for($i=0; $i < $N; $i++)
         {
-            $pricelistsub = new OOctyeFreezeThawTransRecSub;
-            $pricelistsub->OOcytFreThawTransRecsId = $doclab_id; 
+            $pricelistsub = new OOctyeFreezeThawTransRecSubDetails;
+            $pricelistsub->OOcFTTRSubId = $doclab_id; 
+            $pricelistsub->StrawNo= $StrawNo[$i]; 
+            $pricelistsub->OoctyeNo= $OoctyeNo[$i]; 
+            $pricelistsub->Maturation= $Maturation[$i]; 
+            $pricelistsub->StageGrade= $StageGrade[$i]; 
+            $pricelistsub->IsThawYes= $IsThawYes[$i]; 
+            $pricelistsub->IsThawNo= $IsThawNo[$i]; 
+            $pricelistsub->save();
+            
+        }
+
+        $translinks = new SystemFunctionController;
+
+        $translinks->StoreTransLink($doclab_id,$this->DocTransName);
+        
+        return redirect()->to('/oofrethatranrec/'.$request->txtpatientId);
+    }
+
+    public function updateDetails(Request $request)
+    {
+
+        $docfiles = OOctyeFreezeThawTransRecSub::find($request->docId);
+        
+        $date = date_create($request->FreezingDate);
+        $docfiles->FreezingDate= $date->format('Y-m-d');
+
+        $docfiles->FreezingTime = $request->FreezingTime;
+        $docfiles->FreezingLocation = $request->FreezingLocation;
+        $docfiles->FreezingEmbStaffId = $request->FreezingEmbStaffId;
+
+        $date = date_create($request->ThawingDate);
+        $docfiles->ThawingDate= $date->format('Y-m-d');
+
+        $docfiles->ThawingTime = $request->ThawingTime;
+        $docfiles->ThawingLocation = $request->ThawingLocation;
+        $docfiles->ThawingEmbStaffId = $request->ThawingEmbStaffId;
+        
+        $docfiles->save();
+        $doclab_id = $docfiles->id;
+
+        $StrawNo=$request->StrawNo;
+        $OoctyeNo=$request->OoctyeNo;
+        $Maturation=$request->Maturation;
+        $StageGrade=$request->StageGrade;
+        $IsThawYes=$request->IsThawYes;
+        $IsThawNo=$request->IsThawNo;
+
+        $N = count($StrawNo);
+        $sub = DB::table('OOctyeFreezeThawTransRecSubDetails')->where('OOcFTTRSubId', $request->docId)->delete();
+
+        for($i=0; $i < $N; $i++)
+        {
+            $pricelistsub = new OOctyeFreezeThawTransRecSubDetails;
+            $pricelistsub->OOcFTTRSubId = $doclab_id; 
             $pricelistsub->StrawNo= $StrawNo[$i]; 
             $pricelistsub->OoctyeNo= $OoctyeNo[$i]; 
             $pricelistsub->Maturation= $Maturation[$i]; 
@@ -162,33 +290,62 @@ class OOctyeFreezeThawTransRecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($docId)
+    public function show($PatientId,$docId)
     {
+        //
         $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
                     INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
                     INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
                     inner join nationalities as hn on hn.id = p.HusbandNationalityId
-                    inner join OOcyteFreezeThawTransRecs as li on li.patientid = p.id
-                    WHERE li.id =".$docId;
+                    WHERE p.id =".$PatientId;
         $patients = DB::select($strsql);
 
-        $strsql ="select OOcyteFreezeThawTransRecs.*,p.name FreezingEmbStaffName,p1.name ThawingEmbStaffName,p2.name PhysicianStaffName,p3.name EmbryologistStaffName,p4.name NurseStaffName from OOcyteFreezeThawTransRecs 
-                    left join staff as p on p.id = OOcyteFreezeThawTransRecs.FreezingEmbStaffId
-                    left join staff as p1 on p1.id = OOcyteFreezeThawTransRecs.ThawingEmbStaffId
+        $strsql ="select OOcyteFreezeThawTransRecs.*,p2.name PhysicianStaffName,p3.name EmbryologistStaffName,p4.name NurseStaffName from OOcyteFreezeThawTransRecs 
                     left join staff as p2 on p2.id = OOcyteFreezeThawTransRecs.PhysicianStaffId
                     left join staff as p3 on p3.id = OOcyteFreezeThawTransRecs.EmbryologistStaffId
                     left join staff as p4 on p4.id = OOcyteFreezeThawTransRecs.NurseStaffId
                   where OOcyteFreezeThawTransRecs.id =".$docId;
         $docresults = DB::select($strsql);
 
-        $strsql ="select * from OOcyteFreezeThawTransRecSubs 
-            where OOcytFreThawTransRecsId=".$docId;
+        $strsql ="select OOcyteFreezeThawTransRecSubs.*,p2.name FreezingEmbStaff,p3.name ThawingEmbStaff from OOcyteFreezeThawTransRecSubs 
+                    left join staff as p2 on p2.id = OOcyteFreezeThawTransRecSubs.FreezingEmbStaffId
+                    left join staff as p3 on p3.id = OOcyteFreezeThawTransRecSubs.ThawingEmbStaffId
+            where OOcFreThaTraRecId=".$docId;
 
         $OOcyteSubs = DB::select($strsql);
 
         $Staffs = Staff::all();
 
         return view('oofrethatranrec.view',compact('docresults','patients','OOcyteSubs','Staffs','docId'));
+    }
+
+    public function OOctyeFreezeThawTransPrint($PatientId,$docId)
+    {
+        //
+        $strsql ="SELECT p.*,wn.description as WifeNationality,hn.description as HusbandNationality,ls.description LeadSource FROM `patients` as p 
+                    INNER JOIN nationalities as wn on wn.id = p.WifeNationalityId
+                    INNER JOIN lead_sources as ls on ls.id = p.LeadSourceId
+                    inner join nationalities as hn on hn.id = p.HusbandNationalityId
+                    WHERE p.id =".$PatientId;
+        $patients = DB::select($strsql);
+
+        $strsql ="select OOcyteFreezeThawTransRecs.*,p2.name PhysicianStaffName,p3.name EmbryologistStaffName,p4.name NurseStaffName from OOcyteFreezeThawTransRecs 
+                    left join staff as p2 on p2.id = OOcyteFreezeThawTransRecs.PhysicianStaffId
+                    left join staff as p3 on p3.id = OOcyteFreezeThawTransRecs.EmbryologistStaffId
+                    left join staff as p4 on p4.id = OOcyteFreezeThawTransRecs.NurseStaffId
+                  where OOcyteFreezeThawTransRecs.id =".$docId;
+        $docresults = DB::select($strsql);
+
+        $strsql ="select OOcyteFreezeThawTransRecSubs.*,p2.name FreezingEmbStaff,p3.name ThawingEmbStaff from OOcyteFreezeThawTransRecSubs 
+                    left join staff as p2 on p2.id = OOcyteFreezeThawTransRecSubs.FreezingEmbStaffId
+                    left join staff as p3 on p3.id = OOcyteFreezeThawTransRecSubs.ThawingEmbStaffId
+            where OOcFreThaTraRecId=".$docId;
+
+        $OOcyteSubs = DB::select($strsql);
+
+        $Staffs = Staff::all();
+
+        return view('oofrethatranrec.print',compact('docresults','patients','OOcyteSubs','Staffs','docId'));
     }
 
     /**
@@ -271,19 +428,7 @@ class OOctyeFreezeThawTransRecController extends Controller
 
         $docfiles->Notes=$request->Notes;
 
-        $date = date_create($request->FreezingDate);
-        $docfiles->FreezingDate= $date->format('Y-m-d');
-
-        $docfiles->FreezingTime=$request->FreezingTime;
-        $docfiles->FreezingLocation=$request->FreezingLocation;
-        $docfiles->FreezingEmbStaffId=$request->FreezingEmbStaffId;
-
-        $date = date_create($request->ThawingDate);
-        $docfiles->ThawingDate= $date->format('Y-m-d');
-
-        $docfiles->ThawingTime=$request->ThawingTime;
-        $docfiles->ThawingLocation=$request->ThawingLocation;
-        $docfiles->ThawingEmbStaffId=$request->ThawingEmbStaffId;
+       
 
         $docfiles->TransferTime=$request->TransferTime;
         $docfiles->NoOfEmbTrans=$request->NoOfEmbTrans;
@@ -297,31 +442,7 @@ class OOctyeFreezeThawTransRecController extends Controller
         $docfiles->save();
         $doclab_id = $docfiles->id;
 
-        $sub = DB::table('OOcyteFreezeThawTransRecSubs')->where('OOcytFreThawTransRecsId', $request->docId)->delete();
-
-        $StrawNo=$request->StrawNo;
-        $OoctyeNo=$request->OoctyeNo;
-        $Maturation=$request->Maturation;
-        $StageGrade=$request->StageGrade;
-        $IsThawYes=$request->IsThawYes;
-        $IsThawNo=$request->IsThawNo;
-
-        $N = count($StrawNo);
-
-        for($i=0; $i < $N; $i++)
-        {
-            $pricelistsub = new OOctyeFreezeThawTransRecSub;
-            $pricelistsub->OOcytFreThawTransRecsId = $doclab_id; 
-            $pricelistsub->StrawNo= $StrawNo[$i]; 
-            $pricelistsub->OoctyeNo= $OoctyeNo[$i]; 
-            $pricelistsub->Maturation= $Maturation[$i]; 
-            $pricelistsub->StageGrade= $StageGrade[$i]; 
-            $pricelistsub->IsThawYes= $IsThawYes[$i]; 
-            $pricelistsub->IsThawNo= $IsThawNo[$i]; 
-            $pricelistsub->save();
-            
-        }
-
+        
         $translinks = new SystemFunctionController;
 
         $translinks->StoreTransLink($doclab_id,$this->DocTransName);
@@ -354,6 +475,16 @@ class OOctyeFreezeThawTransRecController extends Controller
 
         return redirect()->to('/oofrethatranrec/'.$request->txtpatientId);
     }
+
+    public function destroydetails(Request $request)
+    {
+        
+
+        $leadassessment = OOctyeFreezeThawTransRecSub::destroy($request->del_id);
+
+        return redirect()->to('/oofrethatranrec/ofttr/'.$request->txtpatientId.'/'.$request->docId);
+    }
+
     public function CheckCheckBox($CheckBox)
     {
         //

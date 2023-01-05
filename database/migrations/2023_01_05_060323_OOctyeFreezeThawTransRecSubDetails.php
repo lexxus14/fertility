@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOOctyeFreezeThawTransRecSubTable extends Migration
+class OOctyeFreezeThawTransRecSubDetails extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateOOctyeFreezeThawTransRecSubTable extends Migration
      */
     public function up()
     {
-        Schema::create('OOcyteFreezeThawTransRecSubs', function (Blueprint $table) {
+        Schema::create('OOctyeFreezeThawTransRecSubDetails', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('OOcytFreThawTransRecsId')->unsigned();
-            $table->foreign('OOcytFreThawTransRecsId')->references('id')->on('OOcyteFreezeThawTransRecs')->onDelete('cascade');
+            $table->bigInteger('OOcFTTRSubId')->unsigned();
+            $table->foreign('OOcFTTRSubId')->references('id')->on('OOcyteFreezeThawTransRecSubs')->onDelete('cascade');
             $table->string('StrawNo')->nullable(); 
             $table->string('OoctyeNo')->nullable(); 
             $table->string('Maturation')->nullable(); 
@@ -34,6 +34,6 @@ class CreateOOctyeFreezeThawTransRecSubTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('OOcyteFreezeThawTransRecSubs');
+        Schema::dropIfExists('OOctyeFreezeThawTransRecSubDetails');
     }
 }

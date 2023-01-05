@@ -337,13 +337,26 @@ Route::post('/lavinb/update','LabInvestigationController@update')->name('LabInve
 /*OOcyte Freeze Thaw Tran Rec*/
     // Route::get('/oofrethatranrec','OOctyeFreezeThawTransRecController@index')->name('OOctyeFreezeThawTransIndex');
     Route::get('/oofrethatranrec/{PatientID?}','OOctyeFreezeThawTransRecController@OOctyeFreezeThawTrans')->name('OOctyeFreezeThawTrans');
-    Route::get('/oofrethatranrec/add/{PatientID?}','OOctyeFreezeThawTransRecController@create')->name('OOctyeFreezeThawTransCreate');
-    Route::post('/oofrethatranrec/add','OOctyeFreezeThawTransRecController@store')->name('OOctyeFreezeThawTransStore');
+    // Route::get('/oofrethatranrec/add/{PatientID?}','OOctyeFreezeThawTransRecController@create')->name('OOctyeFreezeThawTransCreate');
+    Route::get('/oofrethatranrec/ofttr/{PatientID?}','OOctyeFreezeThawTransRecController@create')->name('OOctyeFreezeThawTransCreate');
+    Route::get('/oofrethatranrec/ofttr/{PatientID?}/{id?}','OOctyeFreezeThawTransRecController@createExist')->name('ExistOOctyeFreezeThawTrans');
+    
 
     Route::get('/oofrethatranrec/edit/{id?}','OOctyeFreezeThawTransRecController@edit')->name('OOctyeFreezeThawTransEdit');
-    Route::get('/oofrethatranrec/view/{PatientID?}','OOctyeFreezeThawTransRecController@show')->name('OOctyeFreezeThawTransShow');
+    Route::get('/oofrethatranrec/view/{PatientID?}/{id?}','OOctyeFreezeThawTransRecController@show')->name('OOctyeFreezeThawTransShow');
+    Route::get('/oofrethatranrec/print/{PatientID?}/{id?}','OOctyeFreezeThawTransRecController@OOctyeFreezeThawTransPrint')->name('OOctyeFreezeThawTransPrint');
     Route::post('/oofrethatranrec/delete','OOctyeFreezeThawTransRecController@destroy')->name('OOctyeFreezeThawTransDelete');
     Route::post('/oofrethatranrec/update','OOctyeFreezeThawTransRecController@update')->name('OOctyeFreezeThawTransUpdate');
+
+    Route::get('/oofrethatranrec/newfreezthawdetails/{PatientID?}','OOctyeFreezeThawTransRecController@StoreOoFreThaTranRec')->name('NewFreezThawDetails');
+    Route::get('/oofrethatranrec/savefreezthawdetails/{PatientID?}','OOctyeFreezeThawTransRecController@StoreOoFreThaTranRecSave')->name('NewFreezThawDetailsSave');
+
+    Route::get('/oofrethatranrec/newfreezthaw/{PatientID?}/{id?}','OOctyeFreezeThawTransRecController@CreateFreezThaw')->name('CreateFreezThaw');
+    Route::get('/oofrethatranrec/editfreezthaw/{PatientID?}/{id?}','OOctyeFreezeThawTransRecController@EditFreezThaw')->name('EditFreezThaw');
+    Route::post('/oofrethatranrec/add','OOctyeFreezeThawTransRecController@store')->name('OOctyeFreezeThawTransStore');
+    Route::post('/oofrethatranrec/updateDetails','OOctyeFreezeThawTransRecController@updateDetails')->name('OOctyeFreezeThawTransUpdateDetails');
+
+    Route::post('/oofrethatranrec/deletedetails','OOctyeFreezeThawTransRecController@destroydetails')->name('OOctyeFreezeThawTransDeleteDetails');
 /*OOcyte Freeze Thaw Tran Rec*/
 
 /*IUI*/

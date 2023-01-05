@@ -162,9 +162,10 @@
     <!-- /.content -->
 
   <section class="content">
-   <form action="{{route('OOctyeFreezeThawTransUpdate')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
+   <form action="{{route('OOctyeFreezeThawTransStore')}}" method="POST" enctype="multipart/form-data" class="needs-validation add-product-form" novalidate="">
         {{ csrf_field() }}
       <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
+      <input type="hidden" name="OOcFreThaTraRecId" value="{{$docId}}">
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
@@ -186,16 +187,14 @@
                 </button>
               </div>
             </div>
-            <div class="card-body"> 
-              @if(isset($docId))
-              <?php $tableNo =1; ?>
-              @foreach($OOcyteSubs as $OOcyteSub)
-                <?php 
-                  $strsql ="select * from OOctyeFreezeThawTransRecSubDetails 
-                      where OOcFTTRSubId=".$OOcyteSub->id;
-
-                  $OOcyteSubDetails = DB::select($strsql);
-                ?>
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group">
+                <div class="col-12">
+                  <input type="button" value="Add Freezing/Thawing" class="btn btn-success float-right" id="AddProcessedSperm">
+                </div>
+                </div>
+              </div>   
               <div class="row">
                 <div class="col-12">
                 <!-- /.card-header -->
@@ -203,103 +202,53 @@
                     <table  class="table table-bordered table-striped">
                       <thead>                  
                       <tr>
-                        <th colspan="1" class="text-center">
-                          <button type="button" class="btn btn-warning float-left">Table No: {{$tableNo}}</button>        
-                        </th>
-                        <th colspan="2" class="text-center">OOCyte Freezing</th>
-                        <th colspan="2" class="text-center">OOCyte Thawing</th>      
+                        <th colspan="3" class="text-center">OOCyte Freezing</th>
+                        <th colspan="2" class="text-center">OOCyte Thawing</th>                       
+                        <th></th>
                       </tr>  
                       <tr>
                         <th>Straw No</th>
                         <th>OOCyte No</th>
                         <th>Maturation</th>
                         <th>Stage/Grade</th>
-                        <th>Thaw (Y/N)</th>                  
+                        <th>Thaw (Y/N)</th>    
+                        <th></th>                    
                       </tr>                
                       </thead>
                       <tbody id="tbody">
-                        <?php $rowIdx=1; ?>
-                       @foreach($OOcyteSubDetails as $OOcyteSubDetail)
-                        <tr id="R{{$rowIdx}}">
-                          <td class="row-index text-center">                
-                            <input type="text" class="form-control" name="StrawNo[]" value="{{$OOcyteSubDetail->StrawNo}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="OoctyeNo[]" value="{{$OOcyteSubDetail->OoctyeNo}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="Maturation[]" value="{{$OOcyteSubDetail->Maturation}}">
-                          </td>
-                          <td class="text-center">
-                            <input type="text" class="form-control" name="StageGrade[]" value="{{$OOcyteSubDetail->StageGrade}}">
-                          </td>
-                          <td class="text-left">
-                              <div class="form-group">
-                              <input type="hidden" value="{{$OOcyteSubDetail->IsThawYes}}" name="IsThawYes[]"  id="IsThawYes{{$rowIdx}}">
-                                <div class="icheck-success d-inline">               
-                                @if($OOcyteSubDetail->IsThawYes==1)   
-                                  <input type="checkbox" id="F{{$rowIdx}}" checked="" class="IsThawYes">
-                                @else
-                                  <input type="checkbox" id="F{{$rowIdx}}" class="IsThawYes">
-                                @endif
-                                  <label for="F{{$rowIdx}}">
-                                    Yes
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                              <input type="hidden" value="{{$OOcyteSubDetail->IsThawNo}}" name="IsThawNo[]"  id="IsThawNo{{$rowIdx}}">
-                                <div class="icheck-success d-inline">
-                                  @if($OOcyteSubDetail->IsThawNo==1)   
-                                  <input type="checkbox" checked=""  id="T{{$rowIdx}}" class="IsThawNo">
-                                  @else
-                                  <input type="checkbox"  id="T{{$rowIdx}}" class="IsThawNo">
-                                  @endif
-                                  <label for="T{{$rowIdx}}">
-                                    No
-                                  </label>
-                                </div>
-                              </div>                  
-                          </td>
-                          </tr>
-                          <?php $rowIdx++; ?>
-                       @endforeach                    
-                      </tbody> 
+                                           
+                      </tbody>  
                       <tfoot>
                         <tr>
                           <td>Date/Time</td>
-                          <td colspan="2"> 
-                            <input type="date" name="FreezingDate" class="form-control" value="{{$OOcyteSub->FreezingDate}}">
-                            <input type="time" name="FreezingTime" class="form-control" value="{{$OOcyteSub->FreezingTime}}"> 
-                          </td>
-                          <td colspan="2"> 
-                            <input type="date" name="ThawingDate" class="form-control" value="{{$OOcyteSub->ThawingDate}}">
-                            <input type="time" name="ThawingTime" class="form-control" value="{{$OOcyteSub->ThawingTime}}"> 
-                          </td>
+                          <td colspan="2"> <input type="date" name="FreezingDate" class="form-control" ><input type="time" name="FreezingTime" class="form-control" > </td>
+                          <td colspan="2"> <input type="date" name="ThawingDate" class="form-control" ><input type="time" name="ThawingTime" class="form-control" > </td>
                         </tr>
                         <tr>
                           <td>Location</td>
-                          <td colspan="2"> <input type="text" name="FreezingLocation" class="form-control" value="{{$OOcyteSub->FreezingLocation}}"></td>
-                          <td colspan="2"> <input type="text" name="ThawingLocation" class="form-control" value="{{$OOcyteSub->ThawingLocation}}"></td>
+                          <td colspan="2"> <input type="text" name="FreezingLocation" class="form-control" ></td>
+                          <td colspan="2"> <input type="text" name="ThawingLocation" class="form-control" ></td>
                         </tr>
                         <tr>
                           <td>Embryologist</td>
                           <td colspan="2"> 
                             <div class="input-group">
                               <div class="input-group-prepend">
-                                <input type="button" value="Emb:" class="btn btn-success float-right">
+                                <input type="button" value="Emb:" class="btn btn-success float-right" data-toggle="modal" id="FreezingEmbStaffName" data-target="#open-modal-staff">
                               </div>
                               <!-- /btn-group -->
-                              <input type="text" class="form-control" id="FreezingEmbName" value="{{$OOcyteSub->FreezingEmbStaff}}">
+                              <input type="hidden" class="form-control" name="FreezingEmbStaffId" id="FreezingEmbStaffId" value="0">
+                              <input type="text" class="form-control" id="FreezingEmbName">
                             </div>  
                           </td>
                           <td colspan="2"> 
                             <div class="input-group">
                               <div class="input-group-prepend">
-                                <input type="button" value="Emb:" class="btn btn-success float-right">
+                                <input type="button" value="Emb:" class="btn btn-success float-right" data-toggle="modal" id="ThawingEmbStaffName" data-target="#open-modal-staff">
                               </div>
                               <!-- /btn-group -->
-                              <input type="text" class="form-control" id="ThawingEmbName" value="{{$OOcyteSub->ThawingEmbStaff}}">
+                              <input type="hidden" class="form-control" name="ThawingEmbStaffId" id="ThawingEmbStaffId" value="0">
+                              <input type="text" class="form-control" id="ThawingEmbName">
                             </div>
                           </td>
                         </tr>
@@ -308,210 +257,11 @@
                 <!-- /.card-body -->
                   
                 </div>
-              </div>
-              <?php $tableNo++; ?>
-              @endforeach 
-              @endif
-              <hr> 
-              @if(!isset($docresults))   
-              <div class="form-group row">
-                <div class="col-md-3">
-                  <label for="docdate" class="col-form-label">Transfer Date</label>
-                  <input type="date" class="form-control" id="docdate" name="docdate"/>
-                </div>
-                <div class="col-md-3">
-                  <label for="TransferTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="TransferTime" name="TransferTime"/>
-                </div>
-                <div class="col-md-3">
-                  <label for="NoOfEmbTrans" class="col-form-label">No Of Embryo Trans</label>
-                  <input type="text" class="form-control" id="NoOfEmbTrans" name="NoOfEmbTrans"/>
-                </div>
-                <div class="col-md-3">
-                  <label for="NoOfAttempts" class="col-form-label">No Of Attempts</label>
-                  <input type="text" class="form-control" id="NoOfAttempts" name="NoOfAttempts"/>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-4">
-                    <label>AH: &nbsp</label>
-                    <div class="icheck-success d-inline">                  
-                      <input type="checkbox" id="IsAHYes" class="IsAHYes" name="IsAHYes">
-                      <label for="IsAHYes">
-                        Yes
-                      </label>
-                    </div>
-                    <div class="icheck-success d-inline">                  
-                      <input type="checkbox" id="IsAHNo" class="IsAHNo" name="IsAHNo">
-                      <label for="IsAHNo">
-                        No
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md-8">
-                    <label for="CathLoading" class="col-form-label">Catheter Loading</label>                 
-                      <input type="text" id="IsCathLoadingAHYes" class="form-control" name="CathLoading">                      
-                  </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Physician:" class="btn btn-success float-right" data-toggle="modal" id="PhysicianStaffName" data-target="#open-modal-staff">
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="PhysicianStaffId" id="PhysicianStaffId" value="0">
-                    <input type="text" class="form-control" id="PhysicianName">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Embryologist:" class="btn btn-success float-right" data-toggle="modal" id="EmbryologistStaffName" data-target="#open-modal-staff">
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="EmbryologistStaffId" id="EmbryologistStaffId" value="0">
-                    <input type="text" class="form-control" id="EmbryologistName">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Nurse:" class="btn btn-success float-right" data-toggle="modal" id="NurseStaffName" data-target="#open-modal-staff">
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="NurseStaffId" id="NurseStaffId" value="0">
-                    <input type="text" class="form-control" id="NurseName">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <label for="Notes">
-                    Notes
-                  </label>
-                  <textarea class="form-control" name="Notes" rows="4"></textarea>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label for="exampleInputFile">File</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="inputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-              @else
-              @foreach($docresults as $docresult)
-              <div class="form-group row">
-                <div class="col-md-3">
-                  <label for="docdate" class="col-form-label">Transfer Date</label>
-                  <input type="date" class="form-control" id="docdate" name="docdate" value="{{$docresult->docdate}}" />
-                </div>
-                <div class="col-md-3">
-                  <label for="TransferTime" class="col-form-label">Time</label>
-                  <input type="time" class="form-control" id="TransferTime" name="TransferTime" value="{{$docresult->TransferTime}}"/>
-                </div>
-                <div class="col-md-3">
-                  <label for="NoOfEmbTrans" class="col-form-label">No Of Embryo Trans</label>
-                  <input type="text" class="form-control" id="NoOfEmbTrans" name="NoOfEmbTrans" value="{{$docresult->NoOfEmbTrans}}"/>
-                </div>
-                <div class="col-md-3">
-                  <label for="NoOfAttempts" class="col-form-label">No Of Attempts</label>
-                  <input type="text" class="form-control" id="NoOfAttempts" name="NoOfAttempts" value="{{$docresult->NoOfAttempts}}"/>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-4">
-                    <label>AH: &nbsp</label>
-                    <div class="icheck-success d-inline">
-                      @if($docresult->IsAHYes==1)                  
-                      <input type="checkbox" checked="" id="IsAHYes" class="IsAHYes" name="IsAHYes">
-                      @else
-                      <input type="checkbox" id="IsAHYes" class="IsAHYes" name="IsAHYes">
-                      @endif
-                      <label for="IsAHYes">
-                        Yes
-                      </label>
-                    </div>
-                    <div class="icheck-success d-inline">  
-                    @if($docresult->IsAHNo==1)                  
-                      <input type="checkbox" checked="" id="IsAHNo" class="IsAHNo" name="IsAHNo">
-                    @else
-                      <input type="checkbox" id="IsAHNo" class="IsAHNo" name="IsAHNo">
-                    @endif
-                      <label for="IsAHNo">
-                        No
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md-8">
-                    <label for="CathLoading" class="col-form-label">Catheter Loading</label>                 
-                      <input type="text" id="IsCathLoadingAHYes" class="form-control" name="CathLoading" value="{{$docresult->CathLoading}}">                      
-                  </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Physician:" class="btn btn-success float-right" data-toggle="modal" id="PhysicianStaffName" data-target="#open-modal-staff">
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="PhysicianStaffId" id="PhysicianStaffId" value="0">
-                    <input type="text" class="form-control" id="PhysicianName" value="{{$docresult->PhysicianStaffName}}">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Embryologist:" class="btn btn-success float-right">
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="EmbryologistStaffId" id="EmbryologistStaffId" value="0">
-                    <input type="text" class="form-control" id="EmbryologistName" value="{{$docresult->EmbryologistStaffName}}">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <input type="button" value="Nurse:" class="btn btn-success float-right" >
-                    </div>
-                    <!-- /btn-group -->
-                    <input type="hidden" class="form-control" name="NurseStaffId" id="NurseStaffId" value="0">
-                    <input type="text" class="form-control" id="NurseName" value="{{$docresult->NurseStaffName}}">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <label for="Notes">
-                    Notes
-                  </label>
-                  <textarea class="form-control" name="Notes" rows="4">{{$docresult->Notes}}</textarea>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label for="exampleInputFile">File</label>
-                    @if(is_file(public_path($docresult->filelink)))
-                    <a href="{{asset($docresult->filelink)}}" target="_blank">Existing File...</a>
-                    @endif
-                  </div>
-                </div>
-              </div>
-              @endforeach
-              @endif
+              </div>                   
               <div class="row">
                 <div class="col-12">
                   <a href="{{route('OOctyeFreezeThawTrans')}}/{{$intPatientId}}" class="btn btn-secondary">Cancel</a>
-                  <a href="{{route('OOctyeFreezeThawTransPrint')}}/{{$intPatientId}}/{{$docId}}" target="_blank" class="btn btn-secondary float-right">Print</a>
+                  <input type="submit" value="Save" class="btn btn-success float-right">
                 </div>
               </div>
             <!-- /.card-body -->
@@ -587,35 +337,6 @@
         <!-- /.modal-dialog -->
       </div>
   <!-- /.modal -->
-  <div class="modal fade" id="modal-delete">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Are you sure you to delete?</p>
-            </div>
-            <form method="POST" action="{{route('OOctyeFreezeThawTransDeleteDetails')}}">
-              {{ csrf_field() }}
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Delete</button>
-              </div>
-              <input type="hidden" id="del_id" name="del_id" value="0">
-              <input type="hidden" name="txtpatientId" value="{{$intPatientId}}">
-              @if(isset($docId))
-              <input type="hidden" name="docId" value="{{$docId}}">
-              @endif
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
 
   <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -675,12 +396,7 @@ $(function () {
     $(document).ready(function(){
 
     
-    var rowIdx = 0;  
-
-    $('.open-modal-delete').click(function(data){
-      var id = $(this).val();
-      $('#del_id').val(id);
-    });                
+    var rowIdx = 0;                 
     
     /* Price List */
 
